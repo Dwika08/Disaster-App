@@ -5,6 +5,8 @@ import {
   Image,
   TouchableOpacity,
   View,
+  BackHandler,
+  DatePickerIOSBase,
 } from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
@@ -23,12 +25,7 @@ const Home = () => {
   const Tentang = () => {
     navigation.navigate('Tentang');
   };
-  const Splash = () => {
-    navigation.navigate('Splash');
-  };
-  const Rekap_Bencana = () => {
-    navigation.navigate('Rekap_Bencana');
-  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>

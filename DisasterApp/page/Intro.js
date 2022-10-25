@@ -30,23 +30,8 @@ const slides = [
 
 export default class App extends React.Component {
   state = {
-    showRealApp: false,
+    showApp: false,
     loading: true,
-  };
-
-  componentDidMount() {
-    AsyncStorage.getItem('first_time').then(value => {
-      this.setState({showRealApp: !!value, loading: false});
-    });
-  }
-
-  _onDone = () => {
-    // After user finished the intro slides. Show real app through
-    // navigation or simply by controlling state
-    AsyncStorage.setItem('first_time', 'true').then(() => {
-      this.setState({showRealApp: true});
-      this.props.navigation.navigate('Home');
-    });
   };
 
   _renderItem = ({item}) => {
@@ -62,7 +47,7 @@ export default class App extends React.Component {
             style={{
               width: '25%',
               marginTop: 10,
-              backgroundColor: '#4D87A1',
+              backgroundColor: '#9EC8E4',
               height: '5%',
               alignItems: 'center',
               borderRadius: 4,
@@ -74,12 +59,16 @@ export default class App extends React.Component {
       </View>
     );
   };
-  _onDone = () => {
-    this.setState({showRealApp: true});
+  _onDone = async () => {
+    this.setState({showApp: true});
+    try {
+      await AsyncStorage.setItem('showApp', '1');
+    } catch (e) {
+      console.log(e);
+    }
   };
   render() {
-    if (this.state.loading) return <ActivityIndicator size="large" />;
-    if (this.state.showRealApp) {
+    if (this.state.showApp) {
       return <Home />;
     } else {
       return (

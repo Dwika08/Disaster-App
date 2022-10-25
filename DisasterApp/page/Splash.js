@@ -1,12 +1,21 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
 import React, {useEffect} from 'react';
-import {StackActions} from '@react-navigation/native';
+import {TabActions, StackActions} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
 
-const Splash = ({navigation}) => {
+const Splash = () => {
+  const navigation = useNavigation();
   useEffect(() => {
-    setTimeout(() => {
-      navigation.dispatch(StackActions.replace('Intro'));
-    }, 4000);
+    setTimeout(async () => {
+      const showApp = await AsyncStorage.getItem('showApp');
+      const userId = await AsyncStorage.getItem('userId');
+      if (showApp != 1) {
+        navigation.navigate('Intro');
+      } else if (userId == null) {
+        navigation.dispatch(TabActions.jumpTo('Home'));
+      }
+    }, 3000);
   });
   return (
     <View style={styles.container}>
@@ -20,6 +29,8 @@ const Splash = ({navigation}) => {
     </View>
   );
 };
+
+const navig = () => {};
 
 export default Splash;
 

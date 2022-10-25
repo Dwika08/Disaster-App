@@ -1,9 +1,34 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
+import {useNavigation, TabActions} from '@react-navigation/native';
+
+const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
 
 const Tentang = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity
+          style={styles.backBtn}
+          onPress={() => {
+            navigation.navigate('Home');
+          }}>
+          <Image source={require('../../img/left.png')} />
+        </TouchableOpacity>
+        <View style={styles.titleContainer}>
+          <Text style={styles.headerText}>Tentang</Text>
+        </View>
+      </View>
+
       <View style={styles.body}>
         <View style={styles.containerbody1}>
           <View style={styles.buttonContainer1}>
@@ -43,7 +68,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: '100%',
     width: '100%',
-    backgroundColor: '#DCEAFF',
+    backgroundColor: '#9EC8E4',
   },
   containerbody: {
     height: '20%',
@@ -83,5 +108,24 @@ const styles = StyleSheet.create({
     color: 'black',
     marginBottom: 3,
     textAlign: 'center',
+  },
+  backBtn: {
+    paddingLeft: 5,
+  },
+  header: {
+    height: height * 0.06,
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 15,
+    borderBottomWidth: 1,
+  },
+  headerText: {
+    fontWeight: 'bold',
+    fontSize: width * 0.046,
+    textAlign: 'center',
+  },
+  titleContainer: {
+    flex: 1,
   },
 });

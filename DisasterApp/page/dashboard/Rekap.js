@@ -3,11 +3,18 @@ import {
   FlatList,
   Text,
   View,
+  Dimensions,
   Button,
   TouchableOpacity,
+  Modal,
+  SafeAreaView,
+  Image,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, TabActions} from '@react-navigation/native';
+
+const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
 
 const Rekap = () => {
   const [dataBencana, setDataBencana] = useState();
@@ -17,8 +24,9 @@ const Rekap = () => {
   }, []);
 
   const navigation = useNavigation();
-  const renderItem = ({item}) => (
+  const renderItem = ({item, index}) => (
     <View
+      key={index}
       style={{
         padding: '2%',
         borderBottomWidth: 1,
@@ -27,10 +35,10 @@ const Rekap = () => {
       <TouchableOpacity
         onPress={() => {
           setId(item.ID);
-          navigation.navigate('Rekap_Bencana', {id});
+          navigation.dispatch(TabActions.jumpTo('Rekap_Bencana', {id}));
         }}
         style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        <View style={{}}>
+        <View>
           <Text style={{fontWeight: 'bold', color: 'black', fontSize: 15}}>
             {item.Desa} , kecamatan {item.Kecamatan}
           </Text>
@@ -38,14 +46,16 @@ const Rekap = () => {
             {item.Bencana}
           </Text>
         </View>
-        <Text style={{fontWeight: 'bold', color: 'black', fontSize: 14}}>
-          {item.Tanggal}
-        </Text>
+        <View>
+          <Text style={{fontWeight: 'bold', color: 'black', fontSize: 12}}>
+            {item.Tanggal}
+          </Text>
+        </View>
       </TouchableOpacity>
     </View>
   );
   const getData = () => {
-    fetch('http://192.168.1.11/aplikasi/restapi.php?op=getDatabencana')
+    fetch('http://192.168.1.13/aplikasi/restapi.php?op=getDatabencana')
       .then(response => response.json())
       .then(json => {
         // console.log(json);
@@ -53,16 +63,27 @@ const Rekap = () => {
         // console.log(dataBencana);
       });
   };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.textTitle}>Data Bencana</Text>
-      <View style={styles.line} />
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity
+          style={styles.backBtn}
+          onPress={() => {
+            navigation.navigate('Home');
+          }}>
+          <Image source={require('../../img/left.png')} />
+        </TouchableOpacity>
+        <View style={styles.titleContainer}>
+          <Text style={styles.headerText}>Rekap</Text>
+        </View>
+      </View>
       <FlatList
         data={dataBencana}
         renderItem={renderItem}
         keyExtractor={item => item.ID}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -70,17 +91,36 @@ export default Rekap;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    marginBottom: 50,
+    flex: 1,
+    // height: height,
+    // width: width,
+    backgroundColor: 'white',
   },
   textTitle: {
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: 24,
     fontWeight: 'bold',
+    paddingTop: 5,
+    paddingBottom: 10,
+    backgroundColor: '#white',
   },
-  line: {
-    height: 2,
-    backgroundColor: 'Black',
-    marginVertical: 10,
+  backBtn: {
+    paddingLeft: 5,
+  },
+  header: {
+    height: height * 0.06,
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 15,
+    borderBottomWidth: 1,
+  },
+  headerText: {
+    fontWeight: 'bold',
+    fontSize: width * 0.046,
+    textAlign: 'center',
+  },
+  titleContainer: {
+    flex: 1,
   },
 });

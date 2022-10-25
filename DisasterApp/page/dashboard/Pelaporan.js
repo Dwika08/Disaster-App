@@ -6,6 +6,8 @@ import {
   Alert,
   TextInput,
   View,
+  Modal,
+  Image,
   TouchableOpacity,
   PermissionsAndroid,
   Dimensions,
@@ -20,27 +22,61 @@ import MapView, {
   MarkerAnimated,
   PROVIDER_GOOGLE,
 } from 'react-native-maps';
+import {useNavigation} from '@react-navigation/native';
+import ImagePicker, {
+  showImagePicker,
+  launchCamera,
+  launchImageLibrary,
+} from 'react-native-image-picker';
+import {PageSlider} from '@pietile-native-kit/page-slider';
 import moment from 'moment';
 
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 
 const Pelaporan = () => {
+  const navigation = useNavigation();
   const [date, setDate] = useState(new Date());
+  const [modalVisible, setModalVisible] = useState(false);
 
+  const [selectedPage, setSelectedPage] = useState(0);
+
+  // slide 1 //
   const [id, setId] = useState();
+  const [bencana, setBencana] = useState();
   const [datePicker, setDatePicker] = useState(false);
   const [dataBencana, setDataBencana] = useState();
-  const [bencana, setBencana] = useState();
   const [tgl, setTgl] = useState();
-  const [lokasi, setLokasi] = useState();
+  const [penyebab, setPenyebab] = useState();
+  const [ringan, setRingan] = useState();
+  const [sedang, setSedang] = useState();
+  const [berat, setBerat] = useState();
+  ///
+  // slide 2 //
+  const [md, setMd] = useState();
+  const [lr, setLr] = useState();
+  const [lb, setLb] = useState();
+  const [jiwa, setJiwa] = useState();
+  const [kk, setKk] = useState();
+  const [pelapor, setPelapor] = useState();
+  const [tlp, setTlp] = useState();
+  const [email, setEmail] = useState();
+  ///
+
   const [kondisi, setKondisi] = useState();
   const [dampak, setDampak] = useState();
-  const [pelapor, setPelapor] = useState();
+
   const [pengungsi, setPengungsi] = useState();
   const [tindakan, setTindakan] = useState();
+
+  const [uri, setUri] = useState();
+  const [type, setType] = useState();
+  const [name, setName] = useState();
+
   const [lat, setLat] = useState('');
   const [long, setLong] = useState('');
+
+  const [useless, setUseless] = React.useState();
 
   const [initialRegion, setinitialRegion] = useState({
     latitude: 0,
@@ -52,6 +88,20 @@ const Pelaporan = () => {
     latitude: 0,
     longitude: 0,
   });
+
+  const onCurrentPageChange = () => {};
+
+  const options = {
+    title: 'Select Image',
+    type: 'library',
+    options: {
+      maxHeight: 200,
+      maxWidth: 200,
+      selectionLimit: 1,
+      mediaType: 'photo',
+      includeBase64: false,
+    },
+  };
 
   const getPosition = async () => {
     const granted = await PermissionsAndroid.request(
@@ -145,6 +195,25 @@ const Pelaporan = () => {
     getPosition();
   }, []);
 
+  const handleLaunchCamera = async () => {
+    const result = await launchCamera(options);
+
+    setUri(result.assets[0].uri);
+    setType(result.assets[0].type);
+    setName(result.assets[0].fileName);
+
+    setModalVisible(!modalVisible);
+  };
+
+  const handleLaunchGallery = async () => {
+    const result = await launchImageLibrary(options);
+
+    setUri(result.assets[0].uri);
+    setType(result.assets[0].type);
+    setName(result.assets[0].fileName);
+    setModalVisible(!modalVisible);
+  };
+
   const Submit = () => {
     const tanggal = moment(tgl).format('YYYY-MM-DD');
 
@@ -198,107 +267,357 @@ const Pelaporan = () => {
   }
 
   return (
-    <ScrollView style={styles.scrollView}>
+    <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.title}>Pelaporan Bencana</Text>
-
-        <View style={styles.picker}>
-          <Picker
-            selectedValue={bencana}
-            onValueChange={(itemValue, itemIndex) => setBencana(itemValue)}>
-            <Picker.Item label="Pilih Bencana" value="" />
-            <Picker.Item label="Banjir" value="1" />
-            <Picker.Item label="Kebakaran" value="2" />
-            <Picker.Item label="Tanah Longsor" value="3" />
-            <Picker.Item label="Angin Kencang" value="4" />
-          </Picker>
-        </View>
-        <View style={styles.picker}>
-          {datePicker && (
-            <DateTimePicker
-              value={date}
-              mode={'date'}
-              display={Platform.OS === 'android' ? 'spinner' : 'default'}
-              is24Hour={true}
-              onChange={onDateSelected}
-              style={StyleSheet.datePicker}
-            />
-          )}
-
-          {!datePicker && (
-            <View>
-              <TouchableOpacity color="green" onPress={showDatePicker}>
-                <Text style={styles.text}>
-                  {moment(date).format('YYYY-MM-DD')}
-                </Text>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <View
+                style={{
+                  backgroundColor: 'black',
+                  width: '20%',
+                  height: width * 0.01,
+                  marginVertical: 15,
+                  borderRadius: 100,
+                }}></View>
+              <Text style={styles.modalText}>Pilih Sumber</Text>
+              <TouchableOpacity
+                style={[styles.button, styles.buttonClose]}
+                onPress={handleLaunchGallery}>
+                <Text style={styles.textStyle}>Galeri</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.button, styles.buttonClose]}
+                onPress={handleLaunchCamera}>
+                <Text style={styles.textStyle}>Kamera</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}>
+                <Text style={styles.textStyle}>Tutup</Text>
               </TouchableOpacity>
             </View>
-          )}
+          </View>
+        </Modal>
+
+        <View style={styles.header}>
+          <TouchableOpacity
+            style={styles.backBtn}
+            onPress={() => {
+              navigation.navigate('Home');
+            }}>
+            <Image source={require('../../img/left.png')} />
+          </TouchableOpacity>
+          <View style={styles.titleContainer}>
+            <Text style={styles.headerText}>Pelaporan</Text>
+          </View>
         </View>
-        <View style={styles.picker}>
-          <Picker
-            selectedValue={id}
-            onValueChange={itemValue => setId(itemValue)}>
-            <Picker.Item label="Lokasi Kejadian" value="null" />
-            {dataBencana &&
-              dataBencana?.map((item, key) => {
-                return (
-                  <Picker.Item
-                    label={item.desa_kec}
-                    value={item.ID}
-                    key={key}
+
+        <View style={styles.content}>
+          <PageSlider
+            style={styles.pageSlider}
+            selectedPage={selectedPage}
+            onSelectedPageChange={setSelectedPage}
+            onCurrentPageChange={onCurrentPageChange}>
+            <View style={styles.formContainer}>
+              <Text style={styles.title}>Jenis Kejadian</Text>
+
+              <View style={styles.input}>
+                <Picker
+                  selectedValue={bencana}
+                  onValueChange={(itemValue, itemIndex) =>
+                    setBencana(itemValue)
+                  }>
+                  <Picker.Item label="Pilih Bencana" value="" />
+                  <Picker.Item label="Banjir" value="1" />
+                  <Picker.Item label="Kebakaran" value="2" />
+                  <Picker.Item label="Tanah Longsor" value="3" />
+                  <Picker.Item label="Angin Kencang" value="4" />
+                </Picker>
+              </View>
+
+              <View style={styles.input}>
+                {datePicker && (
+                  <DateTimePicker
+                    value={date}
+                    mode={'date'}
+                    display={Platform.OS === 'android' ? 'spinner' : 'default'}
+                    is24Hour={true}
+                    onChange={onDateSelected}
+                    style={StyleSheet.datePicker}
                   />
-                );
-              })}
-          </Picker>
-        </View>
+                )}
 
-        <TextInput
-          placeholder="Kondisi Umum / Kronologi"
-          style={styles.inputlarge}
-          onChangeText={setKondisi}
-          value={kondisi}
-        />
+                {!datePicker && (
+                  <View>
+                    <TouchableOpacity color="green" onPress={showDatePicker}>
+                      <Text style={styles.text}>
+                        {moment(date).format('YYYY-MM-DD')}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </View>
+              <View style={styles.input}>
+                <Picker
+                  selectedValue={id}
+                  onValueChange={itemValue => setId(itemValue)}>
+                  <Picker.Item label="Lokasi Kejadian" value="null" />
+                  {dataBencana &&
+                    dataBencana?.map((item, key) => {
+                      return (
+                        <Picker.Item
+                          label={item.desa_kec}
+                          value={item.ID}
+                          key={key}
+                        />
+                      );
+                    })}
+                </Picker>
+              </View>
+              <TextInput
+                multiline
+                placeholderTextColor="black"
+                placeholder="Penyebab Kejadian"
+                style={styles.input2}
+                onChangeText={setPenyebab}
+                value={penyebab}
+                maxLength={500}
+              />
 
-        <TextInput
-          placeholder="Dampak Bencana"
-          style={styles.inputlarge}
-          onChangeText={setDampak}
-          value={dampak}
-        />
+              <Text style={styles.title1}>Dampak Bencana</Text>
+              <TextInput
+                multiline
+                placeholderTextColor="black"
+                placeholder="Rusak Ringan"
+                style={styles.input}
+                onChangeText={setRingan}
+                value={ringan}
+                maxLength={100}
+              />
+              <TextInput
+                multiline
+                placeholderTextColor="black"
+                placeholder="Rusak Sedang"
+                style={styles.input}
+                onChangeText={setSedang}
+                value={sedang}
+                maxLength={100}
+              />
+              <TextInput
+                multiline
+                placeholderTextColor="black"
+                placeholder="Rusak Berat"
+                style={styles.input}
+                onChangeText={setBerat}
+                value={berat}
+                maxLength={100}
+              />
+              <View style={styles.btnContainer}>
+                <TouchableOpacity
+                  style={styles.btn}
+                  onPress={() => {
+                    setSelectedPage('1');
+                  }}>
+                  <Text style={styles.textBtn}>Lanjut</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
 
-        <TextInput
-          placeholder="Pelapor"
-          style={styles.inputlarge}
-          onChangeText={setPelapor}
-          value={pelapor}
-        />
+            <View style={styles.formContainer}>
+              <Text style={styles.title}>Korban Jiwa</Text>
+              <TextInput
+                multiline
+                placeholderTextColor="black"
+                placeholder="Meninggal Dunia"
+                style={styles.input}
+                onChangeText={setMd}
+                value={md}
+                maxLength={100}
+              />
+              <TextInput
+                multiline
+                placeholderTextColor="black"
+                placeholder="Luka Ringan"
+                style={styles.input}
+                onChangeText={setLr}
+                value={lr}
+                maxLength={100}
+              />
+              <TextInput
+                multiline
+                placeholderTextColor="black"
+                placeholder="Luka Berat"
+                style={styles.input}
+                onChangeText={setLb}
+                value={lb}
+                maxLength={400}
+              />
+              <Text style={styles.title1}>Pengunsi Jiwa/KK</Text>
+              <TextInput
+                multiline
+                placeholderTextColor="black"
+                placeholder="Jiwa"
+                style={styles.input}
+                onChangeText={setJiwa}
+                value={jiwa}
+                keyboardType="numeric"
+                maxLength={3}
+              />
+              <TextInput
+                multiline
+                placeholderTextColor="black"
+                placeholder="KK"
+                style={styles.input}
+                onChangeText={setKk}
+                value={kk}
+                keyboardType="numeric"
+                maxLength={3}
+              />
 
-        <TextInput
-          placeholder="Pengungsi Jiwa/KK"
-          style={styles.inputlarge}
-          onChangeText={setPengungsi}
-          value={pengungsi}
-        />
+              <Text style={styles.title1}>Informasi Pelapor/Instansi *</Text>
+              <TextInput
+                multiline
+                placeholderTextColor="black"
+                placeholder="Nama Pelapor"
+                style={styles.input}
+                onChangeText={setPelapor}
+                value={pelapor}
+                maxLength={200}
+              />
+              <TextInput
+                multiline
+                placeholderTextColor="black"
+                placeholder="No. Tlp Darurat"
+                style={styles.input}
+                onChangeText={setTlp}
+                value={tlp}
+                keyboardType="numeric"
+                maxLength={12}
+              />
+              <TextInput
+                multiline
+                placeholderTextColor="black"
+                placeholder="Email"
+                style={styles.input}
+                onChangeText={setEmail}
+                value={email}
+              />
 
-        <TextInput
-          placeholder="Tindakan yang sudah dilakukan"
-          style={styles.inputlarge}
-          onChangeText={setTindakan}
-          value={tindakan}
-        />
-        <View style={styles.mapContainer}>
-          <Map />
-          <Text style={styles.petunjukText}>
-            *tahan dan geser marker untuk menentukan titik
-          </Text>
+              <View style={styles.btnContainer}>
+                <TouchableOpacity
+                  style={styles.btn2}
+                  onPress={() => {
+                    setSelectedPage('0');
+                  }}>
+                  <Text style={styles.textBtn}>Kembali</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.btn}
+                  onPress={() => {
+                    setSelectedPage('2');
+                  }}>
+                  <Text style={styles.textBtn}>Lanjut</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
 
-          <Text style={styles.coordText}>Latitude : {lat}</Text>
-          <Text style={styles.coordText}>Longitude : {long}</Text>
-        </View>
+            <View style={styles.formContainer}>
+              <TextInput
+                placeholderTextColor="black"
+                placeholder="Kondisi Umum / Kronologi"
+                style={styles.inputlarge}
+                onChangeText={setKondisi}
+                value={kondisi}
+                maxLength={1000}
+                multiline
+              />
+              <TextInput
+                placeholderTextColor="black"
+                placeholder="Kegiatan/Assesment/Upaya Penanganan Darurat yang dilakukan"
+                style={styles.inputlarge}
+                onChangeText={setDampak}
+                value={dampak}
+                maxLength={1000}
+                multiline
+              />
 
-        <View style={styles.buttonstyle}>
-          <Button title="Simpan" onPress={Submit} />
+              <TextInput
+                placeholderTextColor="black"
+                placeholder="Kendala/Kebutuhan mendesak/Potensi Bencana Susulan"
+                style={styles.inputlarge}
+                onChangeText={setTindakan}
+                value={tindakan}
+                maxLength={1000}
+                multiline
+              />
+              <Text style={styles.title1}>File Upload Gambar</Text>
+              <TouchableOpacity
+                onPress={() => setModalVisible(true)}
+                style={[styles.input, styles.inputFoto]}>
+                <Text style={styles.buttonText}>Pilih Foto</Text>
+                {name != null && <Text style={styles.buttonText}>✔</Text>}
+              </TouchableOpacity>
+              <View style={styles.btnContainer}>
+                <TouchableOpacity
+                  style={styles.btn2}
+                  onPress={() => {
+                    setSelectedPage('1');
+                  }}>
+                  <Text style={styles.textBtn}>Kembali</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.btn}
+                  onPress={() => {
+                    setSelectedPage('3');
+                  }}>
+                  <Text style={styles.textBtn}>Lanjut</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <View style={styles.formContainer}>
+              <Text
+                style={{
+                  fontSize: 15,
+                  color: 'black',
+                  fontWeight: 'bold',
+                  paddingTop: 15,
+                  marginBottom: 10,
+                  justifyContent: 'center',
+                }}>
+                Map
+              </Text>
+              <View style={styles.mapContainer}>
+                <Map />
+                <Text style={styles.petunjukText}>
+                  *tahan dan geser marker untuk menentukan titik
+                </Text>
+
+                <Text style={styles.coordText}>Latitude : {lat}</Text>
+                <Text style={styles.coordText}>Longitude : {long}</Text>
+              </View>
+
+              <View style={styles.btnContainer}>
+                <TouchableOpacity
+                  style={styles.btn2}
+                  onPress={() => {
+                    setSelectedPage('2');
+                  }}>
+                  <Text style={styles.textBtn}>Kembali</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.btn} onPress={Submit}>
+                  <Text style={styles.textBtn}>Kirim</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </PageSlider>
         </View>
       </View>
     </ScrollView>
@@ -310,66 +629,184 @@ export default Pelaporan;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    height: 800,
+    width: width,
+    backgroundColor: '#9EC8E4',
   },
   mapcontainer: {
     alignItems: 'center',
     height: 150,
     width: 30,
   },
-  scrollView: {
-    backgroundColor: 'white',
-    marginHorizontal: 0,
-  },
   text: {
     fontSize: 16,
     paddingLeft: 15,
   },
   title: {
-    fontSize: 20,
+    fontSize: 15,
     color: 'black',
     fontWeight: 'bold',
-    paddingTop: 20,
-    marginBottom: 10,
-  },
-  inputlarge: {
-    borderRadius: 5,
-    width: '87%',
-    margin: 10,
-    backgroundColor: '#ffffff',
-    borderColor: 'black',
-    height: 100,
-    borderWidth: 1,
-    padding: 10,
-    textAlignVertical: 'top',
-  },
-
-  inputnumber: {
-    borderRadius: 5,
-    width: '80%',
-    margin: 10,
-    backgroundColor: '#ffffff',
-    borderColor: 'black',
-    height: 55,
-    borderWidth: 1,
-    padding: 10,
-    textAlignVertical: 'top',
-  },
-  picker: {
-    borderRadius: 5,
-    backgroundColor: '#ffffff',
-    width: '87%',
-    borderColor: 'black',
-    height: 40,
-    borderWidth: 1,
-    marginBottom: 12,
+    paddingTop: 5,
+    marginBottom: 1,
     justifyContent: 'center',
   },
+  title1: {
+    fontSize: 15,
+    color: 'black',
+    fontWeight: 'bold',
+    paddingTop: 15,
+    marginBottom: 1,
+    justifyContent: 'center',
+  },
+  inputlarge: {
+    backgroundColor: 'white',
+    color: 'black',
+    width: '100%',
+    height: '15%',
+    marginTop: height * 0.02,
+    borderRadius: 6,
+    justifyContent: 'center',
+    textAlignVertical: 'top',
+    borderWidth: 1,
+  },
+  input: {
+    backgroundColor: 'white',
+    color: 'black',
+    width: '100%',
+    height: '5%',
+    marginTop: height * 0.02,
+    borderRadius: 6,
+    justifyContent: 'center',
+    borderWidth: 1,
+  },
+  input2: {
+    backgroundColor: 'white',
+    color: 'black',
+    width: '100%',
+    height: '8%',
+    marginTop: height * 0.02,
+    borderRadius: 6,
+    justifyContent: 'center',
+    borderWidth: 1,
+  },
+  inputFoto: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  header: {
+    height: height * 0.06,
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 15,
+    borderBottomWidth: 1,
+  },
+  content: {
+    height: '100%',
+  },
+  backBtn: {
+    paddingLeft: 5,
+  },
+  titleContainer: {
+    flex: 1,
+  },
+  headerText: {
+    fontWeight: 'bold',
+    fontSize: width * 0.046,
+    textAlign: 'center',
+  },
+  button: {
+    borderRadius: 2,
+    padding: 10,
+    width: '80%',
+    marginTop: 10,
+  },
+  buttonClose: {},
+  textStyle: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+
+  // MODAL //
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 0,
+  },
+  modalView: {
+    backgroundColor: 'white',
+    borderRadius: 5,
+    width: width,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 2,
+    paddingBottom: height * 0.03,
+    borderTopWidth: 0.2,
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  // === //
+
+  btnContainer: {
+    bottom: height * 0.16,
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+  },
+  textBtn: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  btn: {
+    backgroundColor: '#5D5FEF',
+    width: 120,
+    height: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+  btn2: {
+    backgroundColor: '#EF5D5D',
+    width: 120,
+    height: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+
+  // picker: {
+  //   borderRadius: 5,
+  //   backgroundColor: '#ffffff',
+  //   width: '87%',
+  //   borderColor: 'black',
+  //   height: 40,
+  //   borderWidth: 1,
+  //   marginBottom: 12,
+  //   justifyContent: 'center',
+  // },
 
   buttonstyle: {
     width: 200,
     paddingTop: 10,
-    paddingBottom: 30,
+    paddingBottom: 10,
     borderRadius: 10,
   },
 
@@ -387,5 +824,10 @@ const styles = StyleSheet.create({
   map: {
     width: '100%',
     height: '100%',
+  },
+  formContainer: {
+    padding: 15,
+    alignItems: 'center',
+    flex: 1,
   },
 });
