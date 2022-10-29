@@ -7,6 +7,7 @@ import {
   View,
   BackHandler,
   DatePickerIOSBase,
+  ImageBackground,
 } from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
@@ -25,9 +26,14 @@ const Home = () => {
   const Tentang = () => {
     navigation.navigate('Tentang');
   };
+  const Sub_Map = () => {
+    navigation.navigate('Sub_Map');
+  };
 
   return (
-    <View style={styles.container}>
+    <ImageBackground
+      source={require('../img/wallp2.png')}
+      style={styles.container}>
       <View style={styles.header}>
         <View style={styles.logoContainer}>
           <Image style={styles.logo} source={require('../img/wave.png')} />
@@ -46,22 +52,26 @@ const Home = () => {
               width: '100%',
               justifyContent: 'center',
               alignItems: 'center',
+              backgroundColor: 'white',
+              borderRadius: 20,
             }}>
-            <Image source={require('../img/Vector.png')} />
+            <Image source={require('../img/reader.png')} />
             <Text style={styles.textMenu}>Pelaporan</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity
-            onPress={Map}
+            onPress={Sub_Map}
             style={{
               height: '100%',
               width: '100%',
               justifyContent: 'center',
               alignItems: 'center',
+              borderRadius: 20,
+              backgroundColor: 'white',
             }}>
-            <Image source={require('../img/peta.png')} />
+            <Image source={require('../img/map.png')} />
             <Text style={styles.textMenu}>Maps</Text>
           </TouchableOpacity>
         </View>
@@ -76,8 +86,10 @@ const Home = () => {
               width: '100%',
               justifyContent: 'center',
               alignItems: 'center',
+              borderRadius: 20,
+              backgroundColor: 'white',
             }}>
-            <Image source={require('../img/Vector1.png')} />
+            <Image source={require('../img/document-text.png')} />
             <Text style={styles.textMenu}>Rekap</Text>
           </TouchableOpacity>
         </View>
@@ -90,13 +102,15 @@ const Home = () => {
               width: '100%',
               justifyContent: 'center',
               alignItems: 'center',
+              borderRadius: 20,
+              backgroundColor: 'white',
             }}>
-            <Image source={require('../img/pentung.png')} />
+            <Image source={require('../img/information-circle.png')} />
             <Text style={styles.textMenu}>Tentang</Text>
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -105,7 +119,8 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    height: '100%',
+    width: '100%',
   },
   header: {
     marginBottom: '25%',

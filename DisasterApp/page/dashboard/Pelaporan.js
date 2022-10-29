@@ -76,7 +76,8 @@ const Pelaporan = () => {
   const [lat, setLat] = useState('');
   const [long, setLong] = useState('');
 
-  const [useless, setUseless] = React.useState();
+  const [ImageCamera, setImageCamera] = useState(null);
+  const [ImageGalery, setImageGalery] = useState(null);
 
   const [initialRegion, setinitialRegion] = useState({
     latitude: 0,
@@ -90,18 +91,6 @@ const Pelaporan = () => {
   });
 
   const onCurrentPageChange = () => {};
-
-  const options = {
-    title: 'Select Image',
-    type: 'library',
-    options: {
-      maxHeight: 200,
-      maxWidth: 200,
-      selectionLimit: 1,
-      mediaType: 'photo',
-      includeBase64: false,
-    },
-  };
 
   const getPosition = async () => {
     const granted = await PermissionsAndroid.request(
@@ -195,22 +184,80 @@ const Pelaporan = () => {
     getPosition();
   }, []);
 
-  const handleLaunchCamera = async () => {
-    const result = await launchCamera(options);
+  // const options = {
+  //   title: 'Select Image',
+  //   type: 'library',
+  //   options: {
+  //     maxHeight: 200,
+  //     maxWidth: 200,
+  //     selectionLimit: 1,
+  //     mediaType: 'photo',
+  //     includeBase64: false,
+  //   },
+  // };
 
-    setUri(result.assets[0].uri);
-    setType(result.assets[0].type);
-    setName(result.assets[0].fileName);
+  // const handleLaunchCamera = async () => {
+  //   const result = await launchCamera(options);
 
+  //   setUri(result.assets[0].uri);
+  //   setType(result.assets[0].type);
+  //   setName(result.assets[0].fileName);
+
+  //   setModalVisible(!modalVisible);
+  // };
+
+  // const handleLaunchGallery = async () => {
+  //   const result = await launchImageLibrary(options);
+
+  //   setUri(result.assets[0].uri);
+  //   setType(result.assets[0].type);
+  //   setName(result.assets[0].fileName);
+  //   setModalVisible(!modalVisible);
+  // };
+
+  const openCamera = async () => {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.CAMERA,
+    );
+    const option = {
+      mediaType: 'photo',
+      quality: 1,
+    };
+
+    launchCamera(option, res => {
+      if (res.didCancel) {
+        console.log('user cancelled image');
+      } else if (res.errorCode) {
+        console.log(res.errorMessage);
+      } else {
+        const data = res.assets[0];
+        setImageCamera(data);
+        console.log(data);
+      }
+    });
     setModalVisible(!modalVisible);
   };
 
-  const handleLaunchGallery = async () => {
-    const result = await launchImageLibrary(options);
+  const openGalery = async () => {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+    );
+    const option = {
+      mediaType: 'photo',
+      quality: 1,
+    };
+    launchImageLibrary(option, res => {
+      if (res.didCancel) {
+        console.log('user cancelled image');
+      } else if (res.errorCode) {
+        console.log(res.errorMessage);
+      } else {
+        const data = res.assets[0];
+        setImageGalery(data);
+        console.log(data);
+      }
+    });
 
-    setUri(result.assets[0].uri);
-    setType(result.assets[0].type);
-    setName(result.assets[0].fileName);
     setModalVisible(!modalVisible);
   };
 
@@ -246,7 +293,7 @@ const Pelaporan = () => {
   };
 
   const getData = () => {
-    fetch('http://192.168.1.11/aplikasi/restapi.php?op=input')
+    fetch('http://192.168.1.13/aplikasi/restapi.php?op=input')
       .then(response => response.json())
       .then(json => {
         // console.log(json);
@@ -267,45 +314,44 @@ const Pelaporan = () => {
   }
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}>
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <View
-                style={{
-                  backgroundColor: 'black',
-                  width: '20%',
-                  height: width * 0.01,
-                  marginVertical: 15,
-                  borderRadius: 100,
-                }}></View>
-              <Text style={styles.modalText}>Pilih Sumber</Text>
-              <TouchableOpacity
-                style={[styles.button, styles.buttonClose]}
-                onPress={handleLaunchGallery}>
-                <Text style={styles.textStyle}>Galeri</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.button, styles.buttonClose]}
-                onPress={handleLaunchCamera}>
-                <Text style={styles.textStyle}>Kamera</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}>
-                <Text style={styles.textStyle}>Tutup</Text>
-              </TouchableOpacity>
-            </View>
+    <View style={styles.container}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <View
+              style={{
+                backgroundColor: 'black',
+                width: '20%',
+                height: width * 0.01,
+                marginVertical: 15,
+                borderRadius: 100,
+              }}></View>
+            <Text style={styles.modalText}>Pilih Sumber</Text>
+            <TouchableOpacity
+              style={[styles.button, styles.buttonClose]}
+              onPress={openGalery}>
+              <Text style={styles.textStyle}>Galeri</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.button, styles.buttonClose]}
+              onPress={openCamera}>
+              <Text style={styles.textStyle}>Kamera</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <Text style={styles.textStyle}>Tutup</Text>
+            </TouchableOpacity>
           </View>
-        </Modal>
-
+        </View>
+      </Modal>
+      <ScrollView>
         <View style={styles.header}>
           <TouchableOpacity
             style={styles.backBtn}
@@ -333,7 +379,8 @@ const Pelaporan = () => {
                   selectedValue={bencana}
                   onValueChange={(itemValue, itemIndex) =>
                     setBencana(itemValue)
-                  }>
+                  }
+                  style={{color: 'black'}}>
                   <Picker.Item label="Pilih Bencana" value="" />
                   <Picker.Item label="Banjir" value="1" />
                   <Picker.Item label="Kebakaran" value="2" />
@@ -367,7 +414,8 @@ const Pelaporan = () => {
               <View style={styles.input}>
                 <Picker
                   selectedValue={id}
-                  onValueChange={itemValue => setId(itemValue)}>
+                  onValueChange={itemValue => setId(itemValue)}
+                  style={{color: 'black'}}>
                   <Picker.Item label="Lokasi Kejadian" value="null" />
                   {dataBencana &&
                     dataBencana?.map((item, key) => {
@@ -385,7 +433,7 @@ const Pelaporan = () => {
                 multiline
                 placeholderTextColor="black"
                 placeholder="Penyebab Kejadian"
-                style={styles.input2}
+                style={styles.inputlarge}
                 onChangeText={setPenyebab}
                 value={penyebab}
                 maxLength={500}
@@ -557,13 +605,29 @@ const Pelaporan = () => {
                 maxLength={1000}
                 multiline
               />
+
               <Text style={styles.title1}>File Upload Gambar</Text>
+              <View>
+                {ImageCamera != null && (
+                  <Image
+                    source={{uri: ImageCamera.uri}}
+                    style={{height: 100, width: 200}}
+                  />
+                )}
+                {ImageGalery != null && (
+                  <Image
+                    source={{uri: ImageGalery.uri}}
+                    style={{height: 100, width: 200}}
+                  />
+                )}
+              </View>
               <TouchableOpacity
                 onPress={() => setModalVisible(true)}
                 style={[styles.input, styles.inputFoto]}>
                 <Text style={styles.buttonText}>Pilih Foto</Text>
-                {name != null && <Text style={styles.buttonText}>✔</Text>}
+                {/* {name != null && <Text style={styles.buttonText}>✔</Text>} */}
               </TouchableOpacity>
+
               <View style={styles.btnContainer}>
                 <TouchableOpacity
                   style={styles.btn2}
@@ -619,8 +683,8 @@ const Pelaporan = () => {
             </View>
           </PageSlider>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -629,9 +693,8 @@ export default Pelaporan;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: 800,
-    width: width,
-    backgroundColor: '#9EC8E4',
+    height: height,
+    backgroundColor: '#81D4FA',
   },
   mapcontainer: {
     alignItems: 'center',
@@ -641,6 +704,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     paddingLeft: 15,
+    color: 'black',
   },
   title: {
     fontSize: 15,
@@ -713,11 +777,13 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 1,
+    paddingRight: 28,
   },
   headerText: {
     fontWeight: 'bold',
     fontSize: width * 0.046,
     textAlign: 'center',
+    color: 'black',
   },
   button: {
     borderRadius: 2,
@@ -729,6 +795,7 @@ const styles = StyleSheet.create({
   textStyle: {
     fontWeight: 'bold',
     textAlign: 'center',
+    color: 'black',
   },
 
   // MODAL //
@@ -758,6 +825,7 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
+    color: 'black',
   },
   // === //
 
@@ -819,15 +887,18 @@ const styles = StyleSheet.create({
   mapContainer: {
     width: '100%',
     height: '40%',
-    backgroundColor: 'blue',
   },
   map: {
     width: '100%',
     height: '100%',
   },
   formContainer: {
-    padding: 15,
+    padding: 10,
+    paddingBottom: 45,
     alignItems: 'center',
     flex: 1,
+  },
+  buttonText: {
+    color: 'black',
   },
 });

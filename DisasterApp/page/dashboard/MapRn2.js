@@ -1,27 +1,6 @@
-import {
-  Image,
-  Dimensions,
-  Modal,
-  ScrollView,
-  PermissionsAndroid,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import icons from 'react-native-vector-icons/FontAwesome';
-
-import MapView, {
-  Marker,
-  MarkerAnimated,
-  PROVIDER_GOOGLE,
-  Callout,
-} from 'react-native-maps';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-
-// const mar = {latitude: -7.5019468, longitude: 109.3900155};
+import MapView, {Marker, PROVIDER_GOOGLE, Callout} from 'react-native-maps';
 
 const region = {
   latitude: -7.5019468,
@@ -30,14 +9,14 @@ const region = {
   longitudeDelta: 0.1,
 };
 
-const Map = () => {
+const MapRn2 = () => {
   const [dataMarker, setDataMarker] = useState();
   useEffect(() => {
     getData();
   }, []);
 
   const getData = () => {
-    fetch('http://192.168.1.13/aplikasi/restapi.php?op=getMarker21')
+    fetch('http://192.168.1.13/aplikasi/restapi.php?op=getMarker22')
       .then(response => response.json())
       .then(json => {
         // console.log(json);
@@ -94,7 +73,7 @@ const Map = () => {
   );
 };
 
-export default Map;
+export default MapRn2;
 
 const styles = StyleSheet.create({
   container: {

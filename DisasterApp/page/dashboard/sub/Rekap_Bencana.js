@@ -46,29 +46,60 @@ const Rekap_Bencana = () => {
     return (
       <View style={styles.card}>
         <Text style={styles.text}>{item.Desa}</Text>
-        <Text>Kecamatan : {item.Kecamatan}</Text>
-        <Text>Bencana : {item.Bencana}</Text>
-        <Text>Tanggal : {item.Tanggal}</Text>
-        <Text>Penyabab Kejadian : {item.Penyebab_Kejadian}</Text>
-        <Text>Rusak Ringan : {item.Rusak_Ringan}</Text>
-        <Text>Rusak Sedang : {item.Rusak_Sedang}</Text>
-        <Text>Rusak Berat : {item.Rusak_Berat}</Text>
-        <Text>Meninggal Dunia : {item.Meninggal_Dunia}</Text>
-        <Text>Luka Ringan : {item.Luka_Ringan}</Text>
-        <Text>Luka Berat : {item.Luka_Berat}</Text>
-        <Text>Pengungsi Jiwa : {item.Pengungsi_Jiwa}</Text>
-        <Text>Pengungsi KK : {item.Pengungsi_KK}</Text>
-        <Text>Pelapor : {item.Pelapor}</Text>
-        <Text>Tlp Darurat : {item.Tlp_Darurat}</Text>
-        <Text>
-          Kondisi Umum/Kronologi : {'\n'} {item.Kondisi}
+        <Text style={styles.list}>
+          ~ Kecamatan :{'\r\r\r'} {item.Kecamatan}
         </Text>
-        <Text>
-          Kegiatan/Assesment/Upaya Penanganan Darurat yang dilakukan : {'\n'}
+        <Text style={styles.list}>
+          ~ Bencana :{'\r\r\r'} {item.Bencana}
+        </Text>
+        <Text style={styles.list}>
+          ~ Tanggal :{'\r\r\r'} {item.Tanggal}
+        </Text>
+        <Text style={styles.list}>
+          ~ Penyabab Kejadian : {'\r\n'}
+          {item.Penyebab_Kejadian}
+        </Text>
+        <Text style={styles.list}>
+          ~ Rusak Ringan :{'\r\r\r'} {item.Rusak_Ringan}
+        </Text>
+        <Text style={styles.list}>
+          ~ Rusak Sedang : {'\r\r\r'}
+          {item.Rusak_Sedang}
+        </Text>
+        <Text style={styles.list}>
+          ~ Rusak Berat : {'\r\r\r'}
+          {item.Rusak_Berat}
+        </Text>
+        <Text style={styles.list}>
+          ~ Meninggal Dunia :{'\r\r\r'} {item.Meninggal_Dunia}
+        </Text>
+        <Text style={styles.list}>
+          ~ Luka Ringan :{'\r\r\r'} {item.Luka_Ringan}
+        </Text>
+        <Text style={styles.list}>
+          ~ Luka Berat :{'\r\r\r'} {item.Luka_Berat}
+        </Text>
+        <Text style={styles.list}>
+          ~ Pengungsi Jiwa :{'\r\r\r'} {item.Pengungsi_Jiwa}
+        </Text>
+        <Text style={styles.list}>
+          ~ Pengungsi KK :{'\r\r\r'} {item.Pengungsi_KK}
+        </Text>
+        <Text style={styles.list}>
+          ~ Pelapor :{'\r\r\r'} {item.Pelapor}
+        </Text>
+        <Text style={styles.list}>
+          ~ Tlp Darurat :{'\r\r\r'} {item.Tlp_Darurat}
+        </Text>
+        <Text style={styles.list}>
+          ~ Kondisi Umum/Kronologi : {'\n'} {item.Kondisi}
+        </Text>
+        <Text style={styles.list}>
+          ~ Kegiatan/Assesment/Upaya Penanganan Darurat yang dilakukan : {'\n'}
           {item.Tindakan}
         </Text>
-        <Text>
-          Kendala/Kebutuhan mendesak/Potensi Bencana Susulan : {'\n'}
+        <Text style={styles.list}>
+          ~ Kendala/Kebutuhan mendesak/Potensi Bencana Susulan : {'\n'}
           {item.Kendala}
         </Text>
       </View>
@@ -114,9 +145,14 @@ const styles = StyleSheet.create({
   text: {
     fontWeight: 'bold',
     color: 'black',
-    fontSize: 16,
+    fontSize: 24,
     borderBottomColor: 'black',
     borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  list: {
+    color: 'black',
+    fontSize: 16,
+    paddingBottom: 3,
   },
   textTitle: {
     textAlign: 'center',
@@ -124,6 +160,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     fontWeight: 'bold',
     backgroundColor: '#9EC8E4',
+    color: 'black',
   },
   backBtn: {
     paddingLeft: 5,
@@ -139,8 +176,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: width * 0.046,
     textAlign: 'center',
+    color: 'black',
   },
   titleContainer: {
     flex: 1,
+    paddingRight: 50,
   },
 });

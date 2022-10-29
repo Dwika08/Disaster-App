@@ -31,26 +31,20 @@ const Tentang = () => {
 
       <View style={styles.body}>
         <View style={styles.containerbody1}>
-          <View style={styles.buttonContainer1}>
-            <Text style={styles.text1}>
-              Aplikasi ini dibuat untuk membantu masyarakat dalam memberikan
-              informasi tentang pemetaan bencana alam di Kabupaten Banjarnegara,
-              serta melaporkan kejadian bencana alam yang telah terjadi di
-              wilayahnya.
-            </Text>
-          </View>
+          <Text style={styles.text1}>
+            Aplikasi ini dibuat untuk membantu masyarakat dalam memberikan
+            informasi tentang pemetaan bencana alam di Kabupaten Banjarnegara
+          </Text>
+
+          <Text style={styles.text2}>Dwika Julian Azhar</Text>
+          <Text style={styles.text2}>1803040009</Text>
+          <Text style={styles.text2}>Fakultas Teknik & Sains</Text>
+          <Text style={styles.text2}>Universitas Muhammadiyah Purwokerto</Text>
+          <Text style={styles.text2}>Copyright @ 2022 DwikaJA</Text>
         </View>
-        <View style={styles.containerbody}>
-          <View style={styles.buttonContainer}>
-            <Text style={styles.text2}>Dwika Julian Azhar</Text>
-            <Text style={styles.text2}>1803040009</Text>
-            <Text style={styles.text2}>Fakultas Teknik & Sains</Text>
-            <Text style={styles.text2}>
-              Universitas Muhammadiyah Purwokerto
-            </Text>
-            <Text style={styles.text2}>Copyright @ 2022 DwikaJA</Text>
-          </View>
-        </View>
+        {/* <View style={styles.containerbody}>
+          <View style={styles.buttonContainer}></View>
+        </View> */}
       </View>
     </View>
   );
@@ -61,38 +55,38 @@ export default Tentang;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#81D4FA',
   },
   body: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',
     width: '100%',
-    backgroundColor: '#9EC8E4',
   },
   containerbody: {
-    height: '20%',
+    height: '50%',
     width: '92%',
     backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: 100,
   },
   containerbody1: {
-    height: '30%',
+    height: '50%',
     width: '92%',
     backgroundColor: 'white',
     alignItems: 'center',
   },
   buttonContainer1: {
     width: '80%',
-    height: '70%',
+    height: 360,
     justifyContent: 'center',
     backgroundColor: 'white',
     alignItems: 'center',
   },
   buttonContainer: {
     width: '80%',
-    height: '80%',
+    height: '40%',
     justifyContent: 'center',
     backgroundColor: 'white',
     alignItems: 'center',
@@ -100,13 +94,14 @@ const styles = StyleSheet.create({
   text1: {
     fontSize: 14,
     color: 'black',
-    marginTop: 1,
+    marginTop: 50,
+    height: 200,
+    width: 300,
     textAlign: 'center',
   },
   text2: {
     fontSize: 14,
     color: 'black',
-    marginBottom: 3,
     textAlign: 'center',
   },
   backBtn: {
@@ -124,8 +119,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: width * 0.046,
     textAlign: 'center',
+    color: 'black',
   },
   titleContainer: {
     flex: 1,
+    paddingRight: 28,
   },
 });

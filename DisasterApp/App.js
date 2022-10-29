@@ -14,6 +14,8 @@ import Pelaporan from './page/dashboard/Pelaporan';
 import Rekap from './page/dashboard/Rekap';
 import Tentang from './page/dashboard/Tentang';
 import Rekap_Bencana from './page/dashboard/sub/Rekap_Bencana';
+import Sub_Map from './page/dashboard/sub/Sub_Map';
+import MapRn2 from './page/dashboard/MapRn2';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Stack = createNativeStackNavigator();
@@ -111,7 +113,7 @@ const App = () => {
               iconName = focused ? 'alert-circle' : 'alert-circle';
             } else if (route.name === 'Rekap') {
               iconName = focused ? 'reader' : 'reader';
-            } else if (route.name === 'Map') {
+            } else if (route.name === 'Sub_Map') {
               iconName = focused ? 'map' : 'map';
             } else if (route.name === 'Pelaporan') {
               iconName = focused ? 'document-text' : 'document-text';
@@ -121,7 +123,8 @@ const App = () => {
           },
           tabBarActiveTintColor: 'black',
           tabBarInactiveTintColor: '#9EC8E4',
-          tabBarStyle: [styles.tabBarStyle],
+          tabBarStyle: [styles.tabbarStyle],
+          tabBarHideOnKeyboard: true,
         })}>
         <Tab.Screen
           options={{
@@ -147,18 +150,30 @@ const App = () => {
           component={Home}
         />
         <Tab.Screen
-          options={{headerShown: false}}
+          options={{
+            headerShown: false,
+          }}
           name="Rekap"
           component={Rekap}
         />
-        <Tab.Screen options={{headerShown: false}} name="Map" component={Map} />
         <Tab.Screen
-          options={{headerShown: false}}
+          options={{
+            headerShown: false,
+            tabBarButton: () => null,
+          }}
+          name="Map"
+          component={Map}
+        />
+        <Tab.Screen
+          options={{headerShown: false, tabBarButton: () => null}}
           name="Pelaporan"
           component={Pelaporan}
         />
         <Tab.Screen
-          options={{headerShown: false}}
+          options={{
+            headerShown: false,
+            tabBarButton: () => null,
+          }}
           name="Tentang"
           component={Tentang}
         />
@@ -171,6 +186,16 @@ const App = () => {
           name="Rekap_Bencana"
           component={Rekap_Bencana}
         />
+        <Tab.Screen
+          options={{headerShown: false, title: 'Map'}}
+          name="Sub_Map"
+          component={Sub_Map}
+        />
+        <Tab.Screen
+          options={{headerShown: false, tabBarButton: () => null}}
+          name="MapRn2"
+          component={MapRn2}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
@@ -179,10 +204,8 @@ const App = () => {
 export default App;
 
 const styles = StyleSheet.create({
-  tabBarStyle: {
-    borderTopEndRadius: 14,
-    borderTopStartRadius: 14,
-    position: 'absolute',
+  tabbarStyle: {
+    // position: 'absolute',
     height: 50,
     borderTopWidth: 1,
     borderLeftWidth: 1,
