@@ -17,6 +17,7 @@ import Rekap_Bencana from './page/dashboard/sub/Rekap_Bencana';
 import Sub_Map from './page/dashboard/sub/Sub_Map';
 import MapRn2 from './page/dashboard/MapRn2';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import No_Connection from './page/dashboard/sub/No_Connection';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -134,6 +135,15 @@ const App = () => {
           }}
           name="Splash"
           component={Splash}
+        />
+        <Tab.Screen
+          options={{
+            headerShown: false,
+            tabBarButton: () => null,
+            tabBarStyle: {display: 'none'},
+          }}
+          name="No_Connection"
+          component={No_Connection}
         />
         <Tab.Screen
           options={{

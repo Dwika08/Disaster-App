@@ -40,45 +40,37 @@ const Pelaporan = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const [selectedPage, setSelectedPage] = useState(0);
-
-  // slide 1 //
-  const [id, setId] = useState();
-  const [bencana, setBencana] = useState();
-  const [datePicker, setDatePicker] = useState(false);
   const [dataBencana, setDataBencana] = useState();
-  const [tgl, setTgl] = useState();
-  const [penyebab, setPenyebab] = useState();
-  const [ringan, setRingan] = useState();
-  const [sedang, setSedang] = useState();
-  const [berat, setBerat] = useState();
-  ///
-  // slide 2 //
+  const [dtBencana, setdtBencana] = useState();
+  const [datePicker, setDatePicker] = useState(false);
+  
+  // slide 1 //
+  const [id_bencana_detail, setId_bencana_detail] = useState();
+  const [tgl_Bencana, setTgl_bencana] = useState();
+  const [id_desa_detail, setId_desa_detail] = useState();
+  const [penyebab_kejadian, setPenyebab_kejadian] = useState();
+  const [rusak_ringan, setRusak_ringan] = useState();
+  const [rusak_sedang, setRusak_sedang] = useState();
+  const [rusak_berat, setRusak_berat] = useState();
   const [md, setMd] = useState();
   const [lr, setLr] = useState();
   const [lb, setLb] = useState();
-  const [jiwa, setJiwa] = useState();
-  const [kk, setKk] = useState();
-  const [pelapor, setPelapor] = useState();
-  const [tlp, setTlp] = useState();
-  const [email, setEmail] = useState();
-  ///
-
-  const [kondisi, setKondisi] = useState();
-  const [dampak, setDampak] = useState();
-
-  const [pengungsi, setPengungsi] = useState();
+  const [pengungsi_jiwa, setPengungsi_jiwa] = useState();
+  const [pengungsi_kk, setPengungsi_kk] = useState();
+  const [nama_pelapor, setNama_pelapor] = useState();
+  const [tlp_darurat, setTlp_darurat] = useState();
+  const [kondisi_umum, setKondisi_umum] = useState();
   const [tindakan, setTindakan] = useState();
+  const [kendala, setKendala] = useState();
+  const [lat, setLat] = useState();
+  const [lng, setLng] = useState();
 
-  const [uri, setUri] = useState();
-  const [type, setType] = useState();
+  ///
   const [name, setName] = useState();
+  const [type, setType] = useState();
+  const [uri, setUri] = useState();
 
-  const [lat, setLat] = useState('');
-  const [long, setLong] = useState('');
-
-  const [ImageCamera, setImageCamera] = useState(null);
-  const [ImageGalery, setImageGalery] = useState(null);
-
+///
   const [initialRegion, setinitialRegion] = useState({
     latitude: 0,
     longitude: 0,
@@ -169,7 +161,7 @@ const Pelaporan = () => {
               longitude: a.nativeEvent.coordinate.longitude,
             });
             setLat(a.nativeEvent.coordinate.latitude);
-            setLong(a.nativeEvent.coordinate.longitude);
+            setLng(a.nativeEvent.coordinate.longitude);
           }}
         />
       </MapView>
@@ -177,128 +169,113 @@ const Pelaporan = () => {
   };
 
   useEffect(() => {
-    // const callApi = async () => {
-    //   await getData();
-    // };
-    // callApi();
+    const callApi = async () => {
+      await getData();
+      await getBencana();
+    };
+    callApi();
     getPosition();
   }, []);
 
-  // const options = {
-  //   title: 'Select Image',
-  //   type: 'library',
-  //   options: {
-  //     maxHeight: 200,
-  //     maxWidth: 200,
-  //     selectionLimit: 1,
-  //     mediaType: 'photo',
-  //     includeBase64: false,
-  //   },
-  // };
+  const options = {
+    title: 'Select Image',
+    type: 'library',
+    options: {
+      maxHeight: 200,
+      maxWidth: 200,
+      selectionLimit: 1,
+      mediaType: 'photo',
+      includeBase64: false,
+    },
+  };
 
-  // const handleLaunchCamera = async () => {
-  //   const result = await launchCamera(options);
-
-  //   setUri(result.assets[0].uri);
-  //   setType(result.assets[0].type);
-  //   setName(result.assets[0].fileName);
-
-  //   setModalVisible(!modalVisible);
-  // };
-
-  // const handleLaunchGallery = async () => {
-  //   const result = await launchImageLibrary(options);
-
-  //   setUri(result.assets[0].uri);
-  //   setType(result.assets[0].type);
-  //   setName(result.assets[0].fileName);
-  //   setModalVisible(!modalVisible);
-  // };
-
-  const openCamera = async () => {
+  const handleLaunchCamera = async () => {
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.CAMERA,
     );
-    const option = {
-      mediaType: 'photo',
-      quality: 1,
-    };
+    const result = await launchCamera(options);
 
-    launchCamera(option, res => {
-      if (res.didCancel) {
-        console.log('user cancelled image');
-      } else if (res.errorCode) {
-        console.log(res.errorMessage);
-      } else {
-        const data = res.assets[0];
-        setImageCamera(data);
-        console.log(data);
-      }
-    });
+    setUri(result.assets[0].uri);
+    setType(result.assets[0].type);
+    setName(result.assets[0].fileName);
+
     setModalVisible(!modalVisible);
   };
 
-  const openGalery = async () => {
+  const handleLaunchGallery = async () => {
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
     );
-    const option = {
-      mediaType: 'photo',
-      quality: 1,
-    };
-    launchImageLibrary(option, res => {
-      if (res.didCancel) {
-        console.log('user cancelled image');
-      } else if (res.errorCode) {
-        console.log(res.errorMessage);
-      } else {
-        const data = res.assets[0];
-        setImageGalery(data);
-        console.log(data);
-      }
-    });
+    const result = await launchImageLibrary(options);
 
+    setUri(result.assets[0].uri);
+    setType(result.assets[0].type);
+    setName(result.assets[0].fileName);
     setModalVisible(!modalVisible);
   };
 
   const Submit = () => {
-    const tanggal = moment(tgl).format('YYYY-MM-DD');
-
-    fetch('http://192.168.1.11/aplikasi/restapi.php?op=inputData', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        id_bencana_detail: bencana,
-        tgl_bencana: tanggal,
-        id_desa_detail: id,
-        kondisi_umum: kondisi,
-        dampak_bencana: dampak,
-        pelapor: pelapor,
-        pengungsi_jiwa_kk: pengungsi,
-        tindakan: tindakan,
-      }),
-    })
-      .then(res => res.json())
-      .then(resp => {
-        // console.log(resp.status);
-        if (resp.status == 'ok') {
-          Alert.alert('', 'Pelaporan Berhasil');
-        } else {
-          Alert.alert('', 'Pelaporan Gagal');
-        }
-      });
+    const tgl_bencana = moment(tgl_Bencana).format('YYYY-MM-DD');
+    const formData = new FormData();
+    formData.append('id_bencana_detail', id_bencana_detail);
+    formData.append('tgl_bencana', tgl_bencana);
+    formData.append('id_desa_detail', id_desa_detail);
+    formData.append('penyebab_kejadian', penyebab_kejadian);
+    formData.append('rusak_ringan', rusak_ringan);
+    formData.append('rusak_sedang', rusak_sedang);
+    formData.append('rusak_berat', rusak_berat);
+    formData.append('md', md);
+    formData.append('lr', lr);
+    formData.append('lb', lb);
+    formData.append('pengungsi_jiwa', pengungsi_jiwa);
+    formData.append('pengungsi_kk', pengungsi_kk);
+    formData.append('nama_pelapor', nama_pelapor);
+    formData.append('tlp_darurat', tlp_darurat);
+    formData.append('kondisi_umum', kondisi_umum);
+    formData.append('tindakan', tindakan);
+    formData.append('kendala', kendala);
+    formData.append('lat', lat);
+    formData.append('lng', lng);
+    formData.append('file', {
+      uri: uri,
+      name: name,
+      type: type,
+    });
+      fetch('http://192.168.1.4/aplikasi/restapi.php?op=inputData', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        body: formData
+      })
+        .then(res => res.json())
+        .then(resp => {
+          // console.log(resp);
+          if (resp.status == 'ok') {
+            Alert.alert('', 'Pelaporan Berhasil');
+          } else {
+            Alert.alert('', 'Pelaporan Gagal');
+          }
+        });
   };
 
   const getData = () => {
-    fetch('http://192.168.1.13/aplikasi/restapi.php?op=input')
+    fetch('http://192.168.1.4/aplikasi/restapi.php?op=input')
       .then(response => response.json())
       .then(json => {
         // console.log(json);
         setDataBencana(json);
         // console.log(dataBencana);
+      });
+  };
+
+  const getBencana = () => {
+    fetch('http://192.168.1.4/aplikasi/restapi.php?op=getBencana')
+      .then(response => response.json())
+      .then(json => {
+        // console.log(json);
+        setdtBencana(json);
+        // console.log(dtBencana);
       });
   };
 
@@ -309,8 +286,8 @@ const Pelaporan = () => {
     setDate(value);
     setDatePicker(false);
 
-    const tgll = date.toISOString();
-    setTgl(tgll);
+    const tgl = date.toISOString();
+    setTgl_bencana(tgl);
   }
 
   return (
@@ -335,12 +312,12 @@ const Pelaporan = () => {
             <Text style={styles.modalText}>Pilih Sumber</Text>
             <TouchableOpacity
               style={[styles.button, styles.buttonClose]}
-              onPress={openGalery}>
+              onPress={handleLaunchGallery}>
               <Text style={styles.textStyle}>Galeri</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.button, styles.buttonClose]}
-              onPress={openCamera}>
+              onPress={handleLaunchCamera}>
               <Text style={styles.textStyle}>Kamera</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -376,16 +353,22 @@ const Pelaporan = () => {
 
               <View style={styles.input}>
                 <Picker
-                  selectedValue={bencana}
+                  selectedValue={id_bencana_detail}
                   onValueChange={(itemValue, itemIndex) =>
-                    setBencana(itemValue)
+                    setId_bencana_detail(itemValue)
                   }
                   style={{color: 'black'}}>
                   <Picker.Item label="Pilih Bencana" value="" />
-                  <Picker.Item label="Banjir" value="1" />
-                  <Picker.Item label="Kebakaran" value="2" />
-                  <Picker.Item label="Tanah Longsor" value="3" />
-                  <Picker.Item label="Angin Kencang" value="4" />
+                  {dtBencana &&
+                    dtBencana?.map((item, key) => {
+                      return (
+                        <Picker.Item
+                          label={item.bencana}
+                          value={item.ID}
+                          key={key}
+                        />
+                      );
+                    })}
                 </Picker>
               </View>
 
@@ -413,8 +396,8 @@ const Pelaporan = () => {
               </View>
               <View style={styles.input}>
                 <Picker
-                  selectedValue={id}
-                  onValueChange={itemValue => setId(itemValue)}
+                  selectedValue={id_desa_detail}
+                  onValueChange={itemValue => setId_desa_detail(itemValue)}
                   style={{color: 'black'}}>
                   <Picker.Item label="Lokasi Kejadian" value="null" />
                   {dataBencana &&
@@ -434,8 +417,8 @@ const Pelaporan = () => {
                 placeholderTextColor="black"
                 placeholder="Penyebab Kejadian"
                 style={styles.inputlarge}
-                onChangeText={setPenyebab}
-                value={penyebab}
+                onChangeText={setPenyebab_kejadian}
+                value={penyebab_kejadian}
                 maxLength={500}
               />
 
@@ -445,8 +428,8 @@ const Pelaporan = () => {
                 placeholderTextColor="black"
                 placeholder="Rusak Ringan"
                 style={styles.input}
-                onChangeText={setRingan}
-                value={ringan}
+                onChangeText={setRusak_ringan}
+                value={rusak_ringan}
                 maxLength={100}
               />
               <TextInput
@@ -454,8 +437,8 @@ const Pelaporan = () => {
                 placeholderTextColor="black"
                 placeholder="Rusak Sedang"
                 style={styles.input}
-                onChangeText={setSedang}
-                value={sedang}
+                onChangeText={setRusak_sedang}
+                value={rusak_sedang}
                 maxLength={100}
               />
               <TextInput
@@ -463,8 +446,8 @@ const Pelaporan = () => {
                 placeholderTextColor="black"
                 placeholder="Rusak Berat"
                 style={styles.input}
-                onChangeText={setBerat}
-                value={berat}
+                onChangeText={setRusak_berat}
+                value={rusak_berat}
                 maxLength={100}
               />
               <View style={styles.btnContainer}>
@@ -513,8 +496,8 @@ const Pelaporan = () => {
                 placeholderTextColor="black"
                 placeholder="Jiwa"
                 style={styles.input}
-                onChangeText={setJiwa}
-                value={jiwa}
+                onChangeText={setPengungsi_jiwa}
+                value={pengungsi_jiwa}
                 keyboardType="numeric"
                 maxLength={3}
               />
@@ -523,8 +506,8 @@ const Pelaporan = () => {
                 placeholderTextColor="black"
                 placeholder="KK"
                 style={styles.input}
-                onChangeText={setKk}
-                value={kk}
+                onChangeText={setPengungsi_kk}
+                value={pengungsi_kk}
                 keyboardType="numeric"
                 maxLength={3}
               />
@@ -535,8 +518,8 @@ const Pelaporan = () => {
                 placeholderTextColor="black"
                 placeholder="Nama Pelapor"
                 style={styles.input}
-                onChangeText={setPelapor}
-                value={pelapor}
+                onChangeText={setNama_pelapor}
+                value={nama_pelapor}
                 maxLength={200}
               />
               <TextInput
@@ -544,18 +527,10 @@ const Pelaporan = () => {
                 placeholderTextColor="black"
                 placeholder="No. Tlp Darurat"
                 style={styles.input}
-                onChangeText={setTlp}
-                value={tlp}
+                onChangeText={setTlp_darurat}
+                value={tlp_darurat}
                 keyboardType="numeric"
                 maxLength={12}
-              />
-              <TextInput
-                multiline
-                placeholderTextColor="black"
-                placeholder="Email"
-                style={styles.input}
-                onChangeText={setEmail}
-                value={email}
               />
 
               <View style={styles.btnContainer}>
@@ -581,8 +556,8 @@ const Pelaporan = () => {
                 placeholderTextColor="black"
                 placeholder="Kondisi Umum / Kronologi"
                 style={styles.inputlarge}
-                onChangeText={setKondisi}
-                value={kondisi}
+                onChangeText={setKondisi_umum}
+                value={kondisi_umum}
                 maxLength={1000}
                 multiline
               />
@@ -590,8 +565,8 @@ const Pelaporan = () => {
                 placeholderTextColor="black"
                 placeholder="Kegiatan/Assesment/Upaya Penanganan Darurat yang dilakukan"
                 style={styles.inputlarge}
-                onChangeText={setDampak}
-                value={dampak}
+                onChangeText={setTindakan}
+                value={tindakan}
                 maxLength={1000}
                 multiline
               />
@@ -600,32 +575,18 @@ const Pelaporan = () => {
                 placeholderTextColor="black"
                 placeholder="Kendala/Kebutuhan mendesak/Potensi Bencana Susulan"
                 style={styles.inputlarge}
-                onChangeText={setTindakan}
-                value={tindakan}
+                onChangeText={setKendala}
+                value={kendala}
                 maxLength={1000}
                 multiline
               />
 
               <Text style={styles.title1}>File Upload Gambar</Text>
-              <View>
-                {ImageCamera != null && (
-                  <Image
-                    source={{uri: ImageCamera.uri}}
-                    style={{height: 100, width: 200}}
-                  />
-                )}
-                {ImageGalery != null && (
-                  <Image
-                    source={{uri: ImageGalery.uri}}
-                    style={{height: 100, width: 200}}
-                  />
-                )}
-              </View>
               <TouchableOpacity
                 onPress={() => setModalVisible(true)}
                 style={[styles.input, styles.inputFoto]}>
                 <Text style={styles.buttonText}>Pilih Foto</Text>
-                {/* {name != null && <Text style={styles.buttonText}>✔</Text>} */}
+                {name != null && <Text style={styles.buttonText}>✔</Text>}
               </TouchableOpacity>
 
               <View style={styles.btnContainer}>
@@ -665,7 +626,7 @@ const Pelaporan = () => {
                 </Text>
 
                 <Text style={styles.coordText}>Latitude : {lat}</Text>
-                <Text style={styles.coordText}>Longitude : {long}</Text>
+                <Text style={styles.coordText}>Longitude : {lng}</Text>
               </View>
 
               <View style={styles.btnContainer}>
@@ -694,7 +655,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: height,
-    backgroundColor: '#81D4FA',
+    backgroundColor: '#D5E5FB',
   },
   mapcontainer: {
     alignItems: 'center',
@@ -737,7 +698,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     color: 'black',
     width: '100%',
-    height: '5%',
+    height: '6%',
     marginTop: height * 0.02,
     borderRadius: 6,
     justifyContent: 'center',

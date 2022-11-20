@@ -6,14 +6,16 @@ import {
   Dimensions,
   Image,
 } from 'react-native';
-import React from 'react';
-import {TabActions, useNavigation} from '@react-navigation/native';
+import React, { useState} from 'react';
+import { TabActions, useNavigation } from '@react-navigation/native';
+
 
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 
 const Sub_Map = () => {
   const navigation = useNavigation();
+  
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -45,6 +47,7 @@ const Sub_Map = () => {
           <Text style={styles.textBtn}>2022</Text>
         </TouchableOpacity>
       </View>
+      
     </View>
   );
 };

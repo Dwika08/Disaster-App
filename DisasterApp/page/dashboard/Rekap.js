@@ -14,6 +14,8 @@ import {
 import React, {useEffect, useState} from 'react';
 import {useNavigation, TabActions} from '@react-navigation/native';
 import {TabView, SceneMap} from 'react-native-tab-view';
+import No_Connection from './sub/No_Connection';
+import NetInfo from '@react-native-community/netinfo';
 
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
@@ -33,12 +35,14 @@ const FirstRoute = () => {
         borderColor: 'black',
         marginHorizontal: 10,
         marginVertical: 5,
-        backgroundColor: '#9EC8E4',
+        backgroundColor: '#4FC3F7',
       }}>
       <TouchableOpacity
         onPress={() => {
           setId(item.ID);
-          navigation.dispatch(TabActions.jumpTo('Rekap_Bencana', {id}));
+          navigation.navigate('Rekap_Bencana', {
+            params: item.ID
+            });
         }}
         style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <View style={styles.list}>
@@ -54,6 +58,7 @@ const FirstRoute = () => {
             {item.Tanggal}
           </Text>
         </View>
+        
       </TouchableOpacity>
     </View>
   );
@@ -63,7 +68,7 @@ const FirstRoute = () => {
     getData();
   }, []);
   const getData = () => {
-    fetch('http://192.168.1.13/aplikasi/restapi.php?op=getDatabencana')
+    fetch('http://192.168.1.4/aplikasi/restapi.php?op=getDatabencana')
       .then(response => response.json())
       .then(json => {
         // console.log(json);
@@ -102,7 +107,9 @@ const SecondRoute = () => {
       <TouchableOpacity
         onPress={() => {
           setId(item.ID);
-          navigation.dispatch(TabActions.jumpTo('Rekap_Bencana', {id}));
+          navigation.navigate('Rekap_Bencana', {
+            params: item.ID
+          });
         }}
         style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <View style={styles.list}>
@@ -127,7 +134,7 @@ const SecondRoute = () => {
     getData();
   }, []);
   const getData = () => {
-    fetch('http://192.168.1.13/aplikasi/restapi.php?op=getDatabencana1')
+    fetch('http://192.168.1.4/aplikasi/restapi.php?op=getDatabencana1')
       .then(response => response.json())
       .then(json => {
         // console.log(json);
@@ -152,35 +159,53 @@ const renderScene = SceneMap({
 });
 
 const Rekap = () => {
+  const navigation = useNavigation();
   const layout = useWindowDimensions();
-
+  const [internet, setInternet] = useState(true);
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     {key: 'first', title: '2021'},
     {key: 'second', title: '2022'},
   ]);
-  const navigation = useNavigation();
+  useEffect(() => {
+    setInterval(() => {
+      koneksi();
+    }, 3000);
+  }, []);
+
+  const koneksi = () => {
+    NetInfo.fetch().then(state => {
+      // console.log(state.isConnected);
+      setInternet(state.isConnected);
+    });
+  };
+
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => {
-            navigation.navigate('Home');
-          }}>
-          <Image source={require('../../img/left.png')} />
-        </TouchableOpacity>
-        <View style={styles.titleContainer}>
-          <Text style={styles.headerText}>Rekap</Text>
-        </View>
-      </View>
-      <TabView
-        navigationState={{index, routes}}
-        renderScene={renderScene}
-        onIndexChange={setIndex}
-        initialLayout={{width: layout.width}}
-      />
-    </SafeAreaView>
+    <View style={styles.container}>
+      {internet && (
+        <SafeAreaView style={styles.container}>
+          <View style={styles.header}>
+            <TouchableOpacity
+              style={styles.backBtn}
+              onPress={() => {
+                navigation.navigate('Home');
+              }}>
+              <Image source={require('../../img/left.png')} />
+            </TouchableOpacity>
+            <View style={styles.titleContainer}>
+              <Text style={styles.headerText}>Rekap</Text>
+            </View>
+          </View>
+          <TabView
+            navigationState={{index, routes}}
+            renderScene={renderScene}
+            onIndexChange={setIndex}
+            initialLayout={{width: layout.width}}
+          />
+        </SafeAreaView>
+      )}
+      {!internet && <No_Connection />}
+    </View>
   );
 };
 export default Rekap;

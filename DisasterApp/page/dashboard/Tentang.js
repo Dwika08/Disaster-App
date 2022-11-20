@@ -35,12 +35,7 @@ const Tentang = () => {
             Aplikasi ini dibuat untuk membantu masyarakat dalam memberikan
             informasi tentang pemetaan bencana alam di Kabupaten Banjarnegara
           </Text>
-
-          <Text style={styles.text2}>Dwika Julian Azhar</Text>
-          <Text style={styles.text2}>1803040009</Text>
-          <Text style={styles.text2}>Fakultas Teknik & Sains</Text>
-          <Text style={styles.text2}>Universitas Muhammadiyah Purwokerto</Text>
-          <Text style={styles.text2}>Copyright @ 2022 DwikaJA</Text>
+          
         </View>
         {/* <View style={styles.containerbody}>
           <View style={styles.buttonContainer}></View>
@@ -55,7 +50,7 @@ export default Tentang;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#81D4FA',
+    backgroundColor: '#D5E5FB',
   },
   body: {
     justifyContent: 'center',
@@ -72,7 +67,7 @@ const styles = StyleSheet.create({
     paddingTop: 100,
   },
   containerbody1: {
-    height: '50%',
+    height: '20%',
     width: '92%',
     backgroundColor: 'white',
     alignItems: 'center',

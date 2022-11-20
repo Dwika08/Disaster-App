@@ -6,6 +6,8 @@ import {
   View,
   Image,
   TouchableOpacity,
+  RefreshControl,
+  ScrollView,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useRoute} from '@react-navigation/native';
@@ -17,28 +19,32 @@ const width = Dimensions.get('window').width;
 const Rekap_Bencana = () => {
   const route = useRoute();
   const navigation = useNavigation();
-  const id = route.params.id;
+  const {params} = route.params;
 
   useEffect(() => {
     getData();
-  }, []);
+    console.log(params);
+    }, []);
 
   const [data, setData] = useState();
   const getData = () => {
-    fetch('http://192.168.1.13/aplikasi/restapi.php?op=getBencanaDetail', {
+    fetch('http://192.168.1.4/aplikasi/restapi.php?op=getBencanaDetail', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id: id,
+        id: params,
       }),
     })
       .then(res => res.json())
       .then(resp => {
         setData(resp);
-        // console.log(resp);
+        setRefresh(true);
+        // console.log('');
+        setRefresh(false);
+        
       });
   };
 
@@ -46,65 +52,110 @@ const Rekap_Bencana = () => {
     return (
       <View style={styles.card}>
         <Text style={styles.text}>{item.Desa}</Text>
-        <Text style={styles.list}>
-          ~ Kecamatan :{'\r\r\r'} {item.Kecamatan}
-        </Text>
-        <Text style={styles.list}>
-          ~ Bencana :{'\r\r\r'} {item.Bencana}
-        </Text>
-        <Text style={styles.list}>
-          ~ Tanggal :{'\r\r\r'} {item.Tanggal}
-        </Text>
-        <Text style={styles.list}>
-          ~ Penyabab Kejadian : {'\r\n'}
-          {item.Penyebab_Kejadian}
-        </Text>
-        <Text style={styles.list}>
-          ~ Rusak Ringan :{'\r\r\r'} {item.Rusak_Ringan}
-        </Text>
-        <Text style={styles.list}>
-          ~ Rusak Sedang : {'\r\r\r'}
-          {item.Rusak_Sedang}
-        </Text>
-        <Text style={styles.list}>
-          ~ Rusak Berat : {'\r\r\r'}
-          {item.Rusak_Berat}
-        </Text>
-        <Text style={styles.list}>
-          ~ Meninggal Dunia :{'\r\r\r'} {item.Meninggal_Dunia}
-        </Text>
-        <Text style={styles.list}>
-          ~ Luka Ringan :{'\r\r\r'} {item.Luka_Ringan}
-        </Text>
-        <Text style={styles.list}>
-          ~ Luka Berat :{'\r\r\r'} {item.Luka_Berat}
-        </Text>
-        <Text style={styles.list}>
-          ~ Pengungsi Jiwa :{'\r\r\r'} {item.Pengungsi_Jiwa}
-        </Text>
-        <Text style={styles.list}>
-          ~ Pengungsi KK :{'\r\r\r'} {item.Pengungsi_KK}
-        </Text>
-        <Text style={styles.list}>
-          ~ Pelapor :{'\r\r\r'} {item.Pelapor}
-        </Text>
-        <Text style={styles.list}>
-          ~ Tlp Darurat :{'\r\r\r'} {item.Tlp_Darurat}
-        </Text>
-        <Text style={styles.list}>
-          ~ Kondisi Umum/Kronologi : {'\n'} {item.Kondisi}
-        </Text>
-        <Text style={styles.list}>
-          ~ Kegiatan/Assesment/Upaya Penanganan Darurat yang dilakukan : {'\n'}
-          {item.Tindakan}
-        </Text>
-        <Text style={styles.list}>
-          ~ Kendala/Kebutuhan mendesak/Potensi Bencana Susulan : {'\n'}
-          {item.Kendala}
-        </Text>
+        <View style={styles.list}>
+          
+          <Image
+            source={{
+              uri: 'http://192.168.1.4/aplikasi v2/html/img/img/' + item.Img,
+            }}
+            style={{width: '100%', height: 200}}
+          />
+        </View>
+        <View style={styles.list}>
+          <Text style={{color: 'black'}}>Kecamatan:</Text>
+          <Text style={styles.dataText}>{item.Kecamatan}</Text>
+        </View>
+        <View style={styles.list}>
+          <Text style={{color: 'black'}}>Bencana:</Text>
+          <Text style={styles.dataText}>{item.Bencana}</Text>
+        </View>
+        <View style={styles.list}>
+          <Text style={{color: 'black'}}>Tanggal: </Text>
+          <Text style={styles.dataText}>{item.Tanggal}</Text>
+        </View>
+        <View style={styles.list}>
+          <Text style={{color: 'black'}}>Penyabab Kejadian: </Text>
+          <Text style={styles.dataText}>{item.Penyebab_Kejadian}</Text>
+        </View>
+        <View style={styles.list}>
+          <Text style={{color: 'black'}}>Rusak Ringan: </Text>
+          <Text style={styles.dataText}>{item.Rusak_Ringan}</Text>
+        </View>
+        <View style={styles.list}>
+          <Text style={{color: 'black'}}>Rusak Sedang: </Text>
+          <Text style={styles.dataText}>{item.Rusak_Sedang}</Text>
+        </View>
+        <View style={styles.list}>
+          <Text style={{color: 'black'}}>Rusak Berat: </Text>
+          <Text style={styles.dataText}>{item.Rusak_Berat}</Text>
+        </View>
+        <View style={styles.list}>
+          <Text style={{color: 'black'}}>Meninggal Dunia: </Text>
+          <Text style={styles.dataText}>{item.Meninggal_Dunia}</Text>
+        </View>
+        <View style={styles.list}>
+          <Text style={{color: 'black'}}>Luka Ringan: </Text>
+          <Text style={styles.dataText}>{item.Luka_Ringan}</Text>
+        </View>
+        <View style={styles.list}>
+          <Text style={{color: 'black'}}>Luka Berat: </Text>
+          <Text style={styles.dataText}>{item.Luka_Berat}</Text>
+        </View>
+        <View style={styles.list}>
+          <Text style={{color: 'black'}}>Pengungsi Jiwa: </Text>
+          <Text style={styles.dataText}>{item.Pengungsi_Jiwa}</Text>
+        </View>
+        <View style={styles.list}>
+          <Text style={{color: 'black'}}>Pengungsi KK: </Text>
+          <Text style={styles.dataText}>{item.Pengungsi_KK}</Text>
+        </View>
+        <View style={styles.list}>
+          <Text style={{color: 'black'}}>Pelapor: </Text>
+          <Text style={styles.dataText}>{item.Pelapor}</Text>
+        </View>
+        <View style={styles.list}>
+          <Text style={{color: 'black'}}>Tlp Darurat: </Text>
+          <Text style={styles.dataText}>{item.Tlp_Darurat}</Text>
+        </View>
+        <View style={styles.list}>
+          <Text style={{color: 'black'}}>Kondisi Umum/Kronologi: </Text>
+          <Text style={styles.dataText}> {item.Kondisi}</Text>
+        </View>
+        <View style={styles.list}>
+          <Text style={{color: 'black'}}>
+            Kegiatan/Assesment/Upaya Penanganan Darurat yang dilakukan:{' '}
+          </Text>
+          <Text style={styles.dataText}> {item.Tindakan}</Text>
+        </View>
+        <View style={styles.list}>
+          <Text style={{color: 'black'}}>
+            Kendala/Kebutuhan mendesak/Potensi Bencana Susulan:{' '}
+          </Text>
+          <Text style={styles.dataText}> {item.Kendala}</Text>
+        </View>
+        <View style={styles.list}>
+          <Text style={{color: 'black'}}>Latitude: </Text>
+          <Text style={styles.dataText}>{item.Latitude}</Text>
+        </View>
+        <View style={styles.list}>
+          <Text style={{color: 'black'}}>Longitude: </Text>
+          <Text style={styles.dataText}>{item.Longitude}</Text>
+        </View>
       </View>
     );
   };
+
+  // function ambilData()
+  // {
+  //   let temp = [...data];
+  //   setRefresh(true);
+  //   console.log('')
+  //   setData(temp);
+  //   setRefresh(false)
+  // };
+
+  const [refresh, setRefresh] = useState(false)
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -117,14 +168,19 @@ const Rekap_Bencana = () => {
         </TouchableOpacity>
         <View style={styles.titleContainer}>
           <Text style={styles.headerText}>Detail Bencana</Text>
+            
         </View>
       </View>
       <Text style={styles.textTitle}>Data Bencana Detail</Text>
-      <FlatList
-        data={data}
-        renderItem={render}
-        keyExtractor={item => item.ID}
+      <Text style={{color:'black'}}>Pull to refresh</Text>  
+        <FlatList
+          data={data}
+        onRefresh={() => getData()}
+        refreshing={refresh}
+          renderItem={render}
+          keyExtractor={item => item.ID}
       />
+      
     </View>
   );
 };
@@ -133,14 +189,17 @@ export default Rekap_Bencana;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     height: height,
     width: width,
     backgroundColor: '#9EC8E4',
   },
   card: {
-    backgroundColor: '#9EC8E4',
+    backgroundColor: '#D7D8D6',
     padding: 15,
+    borderRadius: 10,
+    marginHorizontal: 20,
+    marginBottom: 40,
+    marginTop: 20,
   },
   text: {
     fontWeight: 'bold',
@@ -150,9 +209,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   list: {
+    marginVertical: 5,
     color: 'black',
-    fontSize: 16,
-    paddingBottom: 3,
+  },
+  dataText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: 'black',
   },
   textTitle: {
     textAlign: 'center',
