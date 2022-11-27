@@ -24,13 +24,12 @@ const Tentang = () => {
           }}>
           <Image source={require('../../img/left.png')} />
         </TouchableOpacity>
-        <View style={styles.titleContainer}>
-          <Text style={styles.headerText}>Tentang</Text>
-        </View>
       </View>
 
       <View style={styles.body}>
+      <Text style={styles.headerText}>Tentang</Text>
         <View style={styles.containerbody1}>
+        
           <Text style={styles.text1}>
             Aplikasi ini dibuat untuk membantu masyarakat dalam memberikan
             informasi tentang pemetaan bencana alam di Kabupaten Banjarnegara
@@ -50,7 +49,7 @@ export default Tentang;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#D5E5FB',
+    backgroundColor: '#21242A',
   },
   body: {
     justifyContent: 'center',

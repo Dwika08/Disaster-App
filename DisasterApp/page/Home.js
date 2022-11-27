@@ -35,6 +35,12 @@ const Home = () => {
   const Sub_Map = () => {
     navigation.navigate('Sub_Map');
   };
+  const List_Data = () => {
+    navigation.navigate('List_Data');
+  };
+  const Kritik = () => {
+    navigation.navigate('Kritik');
+  };
   useEffect(() => {
     setInterval(() => {
       koneksi();
@@ -50,14 +56,14 @@ const Home = () => {
     <View style={styles.container}>
       {internet && (
         <ImageBackground
-          source={require('../img/wallp2.png')}
+          // source={require('../img/wallp2.png')}
           style={styles.container}>
           <View style={styles.header}>
             <View style={styles.logoContainer}>
-              <Image style={styles.logo} source={require('../img/wave.png')} />
+              <Image style={styles.logo} source={require('../img/logo.png')} />
             </View>
             <View style={styles.titleContainer}>
-              <Text style={styles.title}>Aplikasi Bencana Online</Text>
+              <Text style={styles.title}>SIPENA</Text>
             </View>
           </View>
 
@@ -70,27 +76,27 @@ const Home = () => {
                   width: '100%',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  backgroundColor: 'white',
-                  borderRadius: 20,
+                  backgroundColor: '#21242A',
+                  borderRadius: 7,
                 }}>
-                <Image source={require('../img/reader.png')} />
+                <Image source={require('../img/1.png')} />
                 <Text style={styles.textMenu}>Pelaporan</Text>
               </TouchableOpacity>
             </View>
 
             <View style={styles.buttonContainer}>
               <TouchableOpacity
-                onPress={Sub_Map}
+                onPress={List_Data}
                 style={{
                   height: '100%',
                   width: '100%',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  borderRadius: 20,
-                  backgroundColor: 'white',
+                  borderRadius: 7,
+                  backgroundColor: '#21242A',
                 }}>
-                <Image source={require('../img/map.png')} />
-                <Text style={styles.textMenu}>Maps</Text>
+                <Image source={require('../img/2.png')} />
+                <Text style={styles.textMenu}>Peta</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -104,10 +110,10 @@ const Home = () => {
                   width: '100%',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  borderRadius: 20,
-                  backgroundColor: 'white',
+                  borderRadius: 7,
+                  backgroundColor: '#21242A',
                 }}>
-                <Image source={require('../img/document-text.png')} />
+                <Image source={require('../img/3.png')} />
                 <Text style={styles.textMenu}>Rekap</Text>
               </TouchableOpacity>
             </View>
@@ -120,11 +126,28 @@ const Home = () => {
                   width: '100%',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  borderRadius: 20,
-                  backgroundColor: 'white',
+                  borderRadius: 7,
+                  backgroundColor: '#21242A',
                 }}>
-                <Image source={require('../img/information-circle.png')} />
+                <Image source={require('../img/4.png')} />
                 <Text style={styles.textMenu}>Tentang</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.body}>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                onPress={Kritik}
+                style={{
+                  height: '100%',
+                  width: '100%',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: 7,
+                  backgroundColor: '#21242A',
+                }}>
+                <Image source={require('../img/5.png')} />
+                <Text style={styles.textMenu}>kritik & Saran</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -145,7 +168,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   header: {
-    marginBottom: '25%',
+    marginBottom: '15%',
     flexDirection: 'row',
     padding: 20,
     marginTop: 15,
@@ -165,27 +188,28 @@ const styles = StyleSheet.create({
     width: '20%',
   },
   logo: {
-    width: 57,
-    height: 53,
+    width: 50,
+    height: 50,
   },
   body: {
     paddingHorizontal: '5%',
-    height: '20%',
+    height: '18%',
     flexDirection: 'row',
-    marginTop: 10,
-    justifyContent: 'space-between',
+    marginTop: 15,
+    justifyContent: 'space-evenly',
+    width: 430,
   },
   buttonContainer: {
-    width: '48%',
+    width: '40%',
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
-    borderRadius: 20,
+    borderRadius: 7,
     borderColor: '#EBEBEB',
   },
   textMenu: {
-    color: 'black',
+    color: 'white',
     fontSize: 18,
     marginTop: 3,
     fontWeight: 'bold',

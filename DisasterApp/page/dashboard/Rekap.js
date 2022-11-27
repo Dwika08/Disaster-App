@@ -22,11 +22,12 @@ const width = Dimensions.get('window').width;
 
 const FirstRoute = () => {
   const navigation = useNavigation();
+
   const renderItem = ({item, index}) => (
     <View
       key={index}
       style={{
-        padding: '5%',
+        padding: '3%',
         borderRadius: 10,
         borderLeftWidth: 1,
         borderRightWidth: 1,
@@ -35,40 +36,49 @@ const FirstRoute = () => {
         borderColor: 'black',
         marginHorizontal: 10,
         marginVertical: 5,
-        backgroundColor: '#4FC3F7',
+        backgroundColor: '#21242A',
       }}>
       <TouchableOpacity
         onPress={() => {
           setId(item.ID);
           navigation.navigate('Rekap_Bencana', {
-            params: item.ID
-            });
+            params: item.ID,
+          });
         }}
         style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <View style={styles.list}>
-          <Text style={{fontWeight: 'bold', color: 'black', fontSize: 15}}>
+          <Text style={{fontWeight: 'bold', color: 'white', fontSize: 15}}>
             {item.Desa} , kecamatan {item.Kecamatan}
           </Text>
-          <Text style={{fontWeight: 'bold', color: 'black', fontSize: 12}}>
+          <Text style={{fontWeight: 'bold', color: 'white', fontSize: 12}}>
             {item.Bencana}
           </Text>
         </View>
         <View>
-          <Text style={{fontWeight: 'bold', color: 'black', fontSize: 12}}>
+          <Text style={{fontWeight: 'bold', color: 'white', fontSize: 12}}>
             {item.Tanggal}
           </Text>
         </View>
-        
       </TouchableOpacity>
     </View>
   );
+  const ListEmptyView = () => {
+    return (
+      <View style={styles.headertext}>
+        <Text style={{color: 'black',textAlign: 'center', fontSize: 20, fontWeight: 'bold'}}>
+          {' '}
+          No Data Available...
+        </Text>
+      </View>
+    );
+  };
   const [dataBencana, setDataBencana] = useState();
   const [id, setId] = useState();
   useEffect(() => {
     getData();
   }, []);
   const getData = () => {
-    fetch('http://192.168.1.4/aplikasi/restapi.php?op=getDatabencana')
+    fetch('http://192.168.1.2/aplikasi/restapi.php?op=getDatabencana')
       .then(response => response.json())
       .then(json => {
         // console.log(json);
@@ -76,12 +86,14 @@ const FirstRoute = () => {
         // console.log(dataBencana);
       });
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
         data={dataBencana}
         renderItem={renderItem}
         keyExtractor={item => item.ID}
+        ListEmptyComponent={ListEmptyView}
       />
     </SafeAreaView>
   );
@@ -93,8 +105,8 @@ const SecondRoute = () => {
     <View
       key={index}
       style={{
-        padding: '5%',
-        borderRadius: 10,
+        padding: '3%',
+        borderRadius: 15,
         borderLeftWidth: 1,
         borderRightWidth: 1,
         borderBottomWidth: 1,
@@ -102,39 +114,56 @@ const SecondRoute = () => {
         borderColor: 'black',
         marginHorizontal: 10,
         marginVertical: 5,
-        backgroundColor: '#5D5FEF',
+        backgroundColor: '#21242A',
       }}>
       <TouchableOpacity
         onPress={() => {
           setId(item.ID);
           navigation.navigate('Rekap_Bencana', {
-            params: item.ID
+            params: item.ID,
           });
         }}
         style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <View style={styles.list}>
-          <Text style={{fontWeight: 'bold', color: 'black', fontSize: 15}}>
+          <Text style={{fontWeight: 'bold', color: 'white', fontSize: 15}}>
             {item.Desa} , kecamatan {item.Kecamatan}
           </Text>
-          <Text style={{fontWeight: 'bold', color: 'black', fontSize: 12}}>
+          <Text style={{fontWeight: 'bold', color: 'white', fontSize: 12}}>
             {item.Bencana}
           </Text>
         </View>
         <View>
-          <Text style={{fontWeight: 'bold', color: 'black', fontSize: 12}}>
+          <Text style={{fontWeight: 'bold', color: 'white', fontSize: 12}}>
             {item.Tanggal}
           </Text>
         </View>
       </TouchableOpacity>
     </View>
   );
+
+  const ListEmptyView = () => {
+    return (
+      <View style={styles.headertext}>
+        <Text
+          style={{
+            color: 'black',
+            textAlign: 'center',
+            fontSize: 20,
+            fontWeight: 'bold',
+          }}>
+          {' '}
+          No Data Available...
+        </Text>
+      </View>
+    );
+  };
   const [dataBencana, setDataBencana] = useState();
   const [id, setId] = useState();
   useEffect(() => {
     getData();
   }, []);
   const getData = () => {
-    fetch('http://192.168.1.4/aplikasi/restapi.php?op=getDatabencana1')
+    fetch('http://192.168.1.2/aplikasi/restapi.php?op=getDatabencana1')
       .then(response => response.json())
       .then(json => {
         // console.log(json);
@@ -148,10 +177,12 @@ const SecondRoute = () => {
         data={dataBencana}
         renderItem={renderItem}
         keyExtractor={item => item.ID}
+        ListEmptyComponent={ListEmptyView}
       />
     </SafeAreaView>
   );
 };
+
 
 const renderScene = SceneMap({
   first: FirstRoute,
@@ -166,6 +197,7 @@ const Rekap = () => {
   const [routes] = React.useState([
     {key: 'first', title: '2021'},
     {key: 'second', title: '2022'},
+    
   ]);
   useEffect(() => {
     setInterval(() => {
@@ -250,5 +282,10 @@ const styles = StyleSheet.create({
   list: {
     paddingBottom: 5,
     paddingTop: 10,
+  },
+  headertext: {
+    marginTop: width * 0.7  ,
+    height: 40,
+    justifyContent: 'center',
   },
 });

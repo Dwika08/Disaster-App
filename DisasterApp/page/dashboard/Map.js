@@ -37,7 +37,7 @@ const Map = () => {
   }, []);
 
   const getData = () => {
-    fetch('http://192.168.1.11/aplikasi/restapi.php?op=getMarker21')
+    fetch('http://192.168.1.4/aplikasi/restapi.php?op=getMarker21')
       .then(response => response.json())
       .then(json => {
         // console.log(json);
@@ -56,7 +56,7 @@ const Map = () => {
             latitude: parseFloat(item.lat),
             longitude: parseFloat(item.long),
           }}>
-          {item.bencana === 'Tanah Longsor' ? (
+          {/* {item.bencana === 'Tanah Longsor' ? (
             <Image source={require('../../img/hill.png')} size={24} />
           ) : null}
           {item.bencana === 'Banjir' ? (
@@ -67,7 +67,7 @@ const Map = () => {
           ) : null}
           {item.bencana === 'Angin Kencang' ? (
             <Image source={require('../../img/tornado.png')} size={24} />
-          ) : null}
+          ) : null} */}
           <Callout>
             <View style={{width: 210}}>
               <Text style={{color: 'black'}}>Desa {item.desa}</Text>

@@ -16,7 +16,7 @@ const MapRn2 = () => {
   }, []);
 
   const getData = () => {
-    fetch('http://192.168.1.7/aplikasi/restapi.php?op=getMarker22')
+    fetch('http://192.168.1.4/aplikasi/restapi.php?op=getMarker22')
       .then(response => response.json())
       .then(json => {
         // console.log(json);

@@ -2,37 +2,17 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
-  ActivityIndicator,
-  TouchableOpacity,
-  Dimensions,
   ImageBackground,
+  Image,
+  TouchableOpacity,
+  ActivityIndicator,
+  RefreshControlBase,
+  
 } from 'react-native';
-import React from 'react';
-import AppIntroSlider from 'react-native-app-intro-slider';
-import Home from './Home';
+import React, { useEffect, useState } from 'react'
+import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const height = Dimensions.get('window').height;
-const width = Dimensions.get('window').width;
-const slides = [
-  {
-    key: 1,
-    text1: 'Selamat Datang',
-    text2: 'Ini Adalah Halaman Pertama Anda',
-    image1: require('../img/wallp.png'),
-    image2: require('../img/slide1.png'),
-    backgroundColor: '#59b2ab',
-  },
-  {
-    key: 2,
-    text1: 'Hati - Hati',
-    text2: 'Tetap Waspada Daerah Sekitar',
-    image1: require('../img/wallp1.png'),
-    image2: require('../img/slide2.png'),
-    backgroundColor: '#febe29',
-  },
-];
+import Home from './Home';
 
 export default class App extends React.Component {
   state = {
@@ -40,36 +20,6 @@ export default class App extends React.Component {
     loading: true,
   };
 
-  _renderItem = ({item}) => {
-    return (
-      // <View style={styles.container}>
-      <ImageBackground
-        source={item.image1}
-        resizeMode="cover"
-        style={styles.background}>
-        <Image source={item.image2} style={styles.logo} />
-        <View style={styles.divider}></View>
-        <Text style={styles.text}>{item.text1}</Text>
-        <Text style={styles.text}>{item.text2}</Text>
-        {item.key == 2 && (
-          <TouchableOpacity
-            onPress={this._onDone}
-            style={{
-              width: '25%',
-              marginTop: 10,
-              backgroundColor: '#9EC8E4',
-              height: '5%',
-              alignItems: 'center',
-              borderRadius: 4,
-              justifyContent: 'center',
-            }}>
-            <Text style={{fontSize: 20, color: 'black'}}>Mulai</Text>
-          </TouchableOpacity>
-        )}
-      </ImageBackground>
-      // </View>
-    );
-  };
   _onDone = async () => {
     this.setState({showApp: true});
     try {
@@ -77,23 +27,44 @@ export default class App extends React.Component {
     } catch (e) {
       console.log(e);
     }
-  };
+  }
   render() {
     if (this.state.showApp) {
       return <Home />;
     } else {
       return (
-        <AppIntroSlider
-          renderItem={this._renderItem}
-          data={slides}
-          onDone={this._onDone}
-          dotStyle={{backgroundColor: 'black'}}
-          activeDotStyle={{backgroundColor: '#4D87A1'}}
-        />
+        <View style={styles.container}>
+          <ImageBackground
+            source={require('../img/wllp.png')}
+            resizeMode="cover"
+            style={styles.background}>
+            <View style={styles.divider}></View>
+            <Text style={styles.text}>Selamat Datang Di SiPENA</Text>
+            <Text style={styles.text}>
+              Hati-Hati & Tetap Waspada Daerah Sekitar
+            </Text>
+            <View style={styles.divider1}></View>
+            <TouchableOpacity
+              onPress={this._onDone}
+              style={{
+                width: '50%',
+                marginTop: 10,
+                backgroundColor: 'white',
+                height: '4%',
+                alignItems: 'center',
+                borderRadius: 4,
+                justifyContent: 'center',
+              }}>
+              <Text style={{ fontSize: 20, color: 'black' }}>Mulai</Text>
+            </TouchableOpacity>
+          </ImageBackground>
+        </View>
       );
     }
   }
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -115,12 +86,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   divider: {
-    margin: 20,
+    margin: 280,
+  },
+  divider1: {
+    margin: 5,
   },
   text: {
     fontWeight: 'bold',
-    fontSize: 16,
-    color: 'black',
+    fontSize: 20,
+    color: 'white',
   },
   dotStyle: {
     backgroundColor: '#000000',

@@ -27,14 +27,14 @@ const Sub_Map = () => {
           <Image source={require('../../../img/left.png')} />
         </TouchableOpacity>
         <View style={styles.titleContainer}>
-          <Text style={styles.headerText}>Map</Text>
+          <Text style={styles.headerText}>Peta</Text>
         </View>
       </View>
       <View style={styles.btnContainer}>
         <TouchableOpacity
           style={styles.btn}
           onPress={() => {
-            navigation.dispatch(TabActions.jumpTo('Map'));
+            navigation.dispatch(TabActions.jumpTo('List_Data'));
           }}>
           <Text style={styles.textBtn}>2021</Text>
         </TouchableOpacity>
@@ -57,6 +57,7 @@ export default Sub_Map;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#21242A',
   },
   backBtn: {
     paddingLeft: 5,
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
     width: '100%',
   },
   btn: {

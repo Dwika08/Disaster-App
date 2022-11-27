@@ -28,7 +28,7 @@ const Rekap_Bencana = () => {
 
   const [data, setData] = useState();
   const getData = () => {
-    fetch('http://192.168.1.4/aplikasi/restapi.php?op=getBencanaDetail', {
+    fetch('http://192.168.1.2/aplikasi/restapi.php?op=getBencanaDetail', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -172,7 +172,7 @@ const Rekap_Bencana = () => {
         </View>
       </View>
       <Text style={styles.textTitle}>Data Bencana Detail</Text>
-      <Text style={{color:'black'}}>Pull to refresh</Text>  
+      <Text style={{color:'white', marginLeft:20}}>Pull to refresh</Text>  
         <FlatList
           data={data}
         onRefresh={() => getData()}
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
   container: {
     height: height,
     width: width,
-    backgroundColor: '#9EC8E4',
+    backgroundColor: '#21242A',
   },
   card: {
     backgroundColor: '#D7D8D6',
@@ -222,8 +222,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingTop: 10,
     fontWeight: 'bold',
-    backgroundColor: '#9EC8E4',
-    color: 'black',
+    backgroundColor: '#21242A',
+    color: 'white',
   },
   backBtn: {
     paddingLeft: 5,

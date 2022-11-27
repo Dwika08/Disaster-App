@@ -18,6 +18,8 @@ import Sub_Map from './page/dashboard/sub/Sub_Map';
 import MapRn2 from './page/dashboard/MapRn2';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import No_Connection from './page/dashboard/sub/No_Connection';
+import List_Data from './page/dashboard/sub/List_Data';
+import Kritik from './page/dashboard/Kritik';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -113,8 +115,8 @@ const App = () => {
             } else if (route.name === 'Tentang') {
               iconName = focused ? 'alert-circle' : 'alert-circle';
             } else if (route.name === 'Rekap') {
-              iconName = focused ? 'reader' : 'reader';
-            } else if (route.name === 'Sub_Map') {
+              iconName = focused ? 'document' : 'document';
+            } else if (route.name === 'List_Data') {
               iconName = focused ? 'map' : 'map';
             } else if (route.name === 'Pelaporan') {
               iconName = focused ? 'document-text' : 'document-text';
@@ -122,8 +124,8 @@ const App = () => {
             // You can return any component that you like here!
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: 'black',
-          tabBarInactiveTintColor: '#9EC8E4',
+          tabBarActiveTintColor: '#21242A',
+          tabBarInactiveTintColor: '#757575',
           tabBarStyle: [styles.tabbarStyle],
           tabBarHideOnKeyboard: true,
         })}>
@@ -197,7 +199,7 @@ const App = () => {
           component={Rekap_Bencana}
         />
         <Tab.Screen
-          options={{headerShown: false, title: 'Map'}}
+          options={{headerShown: false, tabBarButton: () => null}}
           name="Sub_Map"
           component={Sub_Map}
         />
@@ -205,6 +207,16 @@ const App = () => {
           options={{headerShown: false, tabBarButton: () => null}}
           name="MapRn2"
           component={MapRn2}
+        />
+        <Tab.Screen
+          options={{headerShown: false, title: 'Peta'}}
+          name="List_Data"
+          component={List_Data}
+        />
+        <Tab.Screen
+          options={{headerShown: false, tabBarButton: () => null}}
+          name="Kritik"
+          component={Kritik}
         />
       </Tab.Navigator>
     </NavigationContainer>

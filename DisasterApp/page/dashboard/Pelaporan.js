@@ -43,25 +43,23 @@ const Pelaporan = () => {
   const [dataBencana, setDataBencana] = useState();
   const [dtBencana, setdtBencana] = useState();
   const [datePicker, setDatePicker] = useState(false);
-  
+
   // slide 1 //
   const [id_bencana_detail, setId_bencana_detail] = useState();
-  const [tgl_Bencana, setTgl_bencana] = useState();
+  const [tgl_kejadian, setTgl_kejadian] = useState();
+  const [nama_kk, setNama_kk] = useState();
+  const [jumlah_jiwa, setJumlah_jiwa] = useState();
+  const [rt, setRt] = useState();
+  const [rw, setRw] = useState();
   const [id_desa_detail, setId_desa_detail] = useState();
-  const [penyebab_kejadian, setPenyebab_kejadian] = useState();
-  const [rusak_ringan, setRusak_ringan] = useState();
-  const [rusak_sedang, setRusak_sedang] = useState();
   const [rusak_berat, setRusak_berat] = useState();
-  const [md, setMd] = useState();
-  const [lr, setLr] = useState();
-  const [lb, setLb] = useState();
-  const [pengungsi_jiwa, setPengungsi_jiwa] = useState();
-  const [pengungsi_kk, setPengungsi_kk] = useState();
-  const [nama_pelapor, setNama_pelapor] = useState();
-  const [tlp_darurat, setTlp_darurat] = useState();
-  const [kondisi_umum, setKondisi_umum] = useState();
-  const [tindakan, setTindakan] = useState();
-  const [kendala, setKendala] = useState();
+  const [rusak_sedang, setRusak_sedang] = useState();
+  const [rusak_ringan, setRusak_ringan] = useState();
+  const [terancam, setTerancam] = useState();
+  const [meninggal_dunia, setMeninggal_dunia] = useState();
+  const [luka_luka, setLuka_luka] = useState();
+  const [kronologi, setKronologi] = useState();
+  const [kerugian, setKerugian] = useState();
   const [lat, setLat] = useState();
   const [lng, setLng] = useState();
 
@@ -70,7 +68,7 @@ const Pelaporan = () => {
   const [type, setType] = useState();
   const [uri, setUri] = useState();
 
-///
+  ///
   const [initialRegion, setinitialRegion] = useState({
     latitude: 0,
     longitude: 0,
@@ -241,22 +239,22 @@ const Pelaporan = () => {
       name: name,
       type: type,
     });
-      fetch('http://192.168.1.4/aplikasi/restapi.php?op=inputData', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        body: formData
-      })
-        .then(res => res.json())
-        .then(resp => {
-          // console.log(resp);
-          if (resp.status == 'ok') {
-            Alert.alert('', 'Pelaporan Berhasil');
-          } else {
-            Alert.alert('', 'Pelaporan Gagal');
-          }
-        });
+    fetch('http://192.168.1.4/aplikasi/restapi.php?op=inputData', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      body: formData,
+    })
+      .then(res => res.json())
+      .then(resp => {
+        // console.log(resp);
+        if (resp.status == 'ok') {
+          Alert.alert('', 'Pelaporan Berhasil');
+        } else {
+          Alert.alert('', 'Pelaporan Gagal');
+        }
+      });
   };
 
   const getData = () => {
@@ -287,7 +285,7 @@ const Pelaporan = () => {
     setDatePicker(false);
 
     const tgl = date.toISOString();
-    setTgl_bencana(tgl);
+    setTgl_kejadian(tgl);
   }
 
   return (
@@ -328,6 +326,7 @@ const Pelaporan = () => {
           </View>
         </View>
       </Modal>
+
       <ScrollView>
         <View style={styles.header}>
           <TouchableOpacity
@@ -350,8 +349,31 @@ const Pelaporan = () => {
             onCurrentPageChange={onCurrentPageChange}>
             <View style={styles.formContainer}>
               <Text style={styles.title}>Jenis Kejadian</Text>
+              {/* Tanggal Kejadian */}
+              <View style={styles.input2}>
+                {datePicker && (
+                  <DateTimePicker
+                    value={date}
+                    mode={'date'}
+                    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                    is24Hour={true}
+                    onChange={onDateSelected}
+                    style={StyleSheet.datePicker}
+                  />
+                )}
 
-              <View style={styles.input}>
+                {!datePicker && (
+                  <View>
+                    <TouchableOpacity color="green" onPress={showDatePicker}>
+                      <Text style={styles.text}>
+                        {moment(date).format('YYYY-MM-DD')}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </View>
+
+              <View style={styles.input2}>
                 <Picker
                   selectedValue={id_bencana_detail}
                   onValueChange={(itemValue, itemIndex) =>
@@ -372,29 +394,47 @@ const Pelaporan = () => {
                 </Picker>
               </View>
 
-              <View style={styles.input}>
-                {datePicker && (
-                  <DateTimePicker
-                    value={date}
-                    mode={'date'}
-                    display={Platform.OS === 'android' ? 'spinner' : 'default'}
-                    is24Hour={true}
-                    onChange={onDateSelected}
-                    style={StyleSheet.datePicker}
-                  />
-                )}
-
-                {!datePicker && (
-                  <View>
-                    <TouchableOpacity color="green" onPress={showDatePicker}>
-                      <Text style={styles.text}>
-                        {moment(date).format('YYYY-MM-DD')}
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                )}
-              </View>
-              <View style={styles.input}>
+              <Text style={styles.title}>Tempat Kejadian</Text>
+              <TextInput
+                multiline
+                placeholderTextColor="black"
+                placeholder="Nama KK"
+                style={styles.input}
+                onChangeText={setNama_kk}
+                value={nama_kk}
+                maxLength={100}
+              />
+              <TextInput
+                multiline
+                placeholderTextColor="black"
+                placeholder="Jumlah Jiwa"
+                style={styles.input}
+                onChangeText={setJumlah_jiwa}
+                value={jumlah_jiwa}
+                maxLength={3}
+                keyboardType="numeric"
+              />
+              <TextInput
+                multiline
+                placeholderTextColor="black"
+                placeholder="RT"
+                style={styles.input}
+                onChangeText={setRt}
+                value={rt}
+                maxLength={3}
+                keyboardType="numeric"
+              />
+              <TextInput
+                multiline
+                placeholderTextColor="black"
+                placeholder="RW"
+                style={styles.input}
+                onChangeText={setRw}
+                value={rw}
+                maxLength={3}
+                keyboardType="numeric"
+              />
+              <View style={styles.input2}>
                 <Picker
                   selectedValue={id_desa_detail}
                   onValueChange={itemValue => setId_desa_detail(itemValue)}
@@ -412,44 +452,7 @@ const Pelaporan = () => {
                     })}
                 </Picker>
               </View>
-              <TextInput
-                multiline
-                placeholderTextColor="black"
-                placeholder="Penyebab Kejadian"
-                style={styles.inputlarge}
-                onChangeText={setPenyebab_kejadian}
-                value={penyebab_kejadian}
-                maxLength={500}
-              />
 
-              <Text style={styles.title1}>Dampak Bencana</Text>
-              <TextInput
-                multiline
-                placeholderTextColor="black"
-                placeholder="Rusak Ringan"
-                style={styles.input}
-                onChangeText={setRusak_ringan}
-                value={rusak_ringan}
-                maxLength={100}
-              />
-              <TextInput
-                multiline
-                placeholderTextColor="black"
-                placeholder="Rusak Sedang"
-                style={styles.input}
-                onChangeText={setRusak_sedang}
-                value={rusak_sedang}
-                maxLength={100}
-              />
-              <TextInput
-                multiline
-                placeholderTextColor="black"
-                placeholder="Rusak Berat"
-                style={styles.input}
-                onChangeText={setRusak_berat}
-                value={rusak_berat}
-                maxLength={100}
-              />
               <View style={styles.btnContainer}>
                 <TouchableOpacity
                   style={styles.btn}
@@ -462,75 +465,68 @@ const Pelaporan = () => {
             </View>
 
             <View style={styles.formContainer}>
+              <Text style={styles.title}>Kerusakan</Text>
+              <TextInput
+                multiline
+                placeholderTextColor="black"
+                placeholder="Rusak Berat"
+                style={styles.input}
+                onChangeText={setRusak_berat}
+                value={rusak_berat}
+                maxLength={4}
+                keyboardType="numeric"
+              />
+              <TextInput
+                multiline
+                placeholderTextColor="black"
+                placeholder="Rusak Sedang"
+                style={styles.input}
+                onChangeText={setRusak_sedang}
+                value={rusak_sedang}
+                maxLength={4}
+                keyboardType="numeric"
+              />
+              <TextInput
+                multiline
+                placeholderTextColor="black"
+                placeholder="Rusak Ringan"
+                style={styles.input}
+                onChangeText={setRusak_ringan}
+                value={rusak_ringan}
+                maxLength={4}
+                keyboardType="numeric"
+              />
+              <TextInput
+                multiline
+                placeholderTextColor="black"
+                placeholder="Terancam"
+                style={styles.input}
+                onChangeText={setTerancam}
+                value={terancam}
+                maxLength={4}
+                keyboardType="numeric"
+              />
+              {/*  */}
               <Text style={styles.title}>Korban Jiwa</Text>
               <TextInput
                 multiline
                 placeholderTextColor="black"
                 placeholder="Meninggal Dunia"
                 style={styles.input}
-                onChangeText={setMd}
-                value={md}
-                maxLength={100}
-              />
-              <TextInput
-                multiline
-                placeholderTextColor="black"
-                placeholder="Luka Ringan"
-                style={styles.input}
-                onChangeText={setLr}
-                value={lr}
-                maxLength={100}
-              />
-              <TextInput
-                multiline
-                placeholderTextColor="black"
-                placeholder="Luka Berat"
-                style={styles.input}
-                onChangeText={setLb}
-                value={lb}
-                maxLength={400}
-              />
-              <Text style={styles.title1}>Pengunsi Jiwa/KK</Text>
-              <TextInput
-                multiline
-                placeholderTextColor="black"
-                placeholder="Jiwa"
-                style={styles.input}
-                onChangeText={setPengungsi_jiwa}
-                value={pengungsi_jiwa}
+                onChangeText={setMeninggal_dunia}
+                value={meninggal_dunia}
+                maxLength={4}
                 keyboardType="numeric"
-                maxLength={3}
               />
               <TextInput
                 multiline
                 placeholderTextColor="black"
-                placeholder="KK"
+                placeholder="Luka Luka"
                 style={styles.input}
-                onChangeText={setPengungsi_kk}
-                value={pengungsi_kk}
+                onChangeText={setLuka_luka}
+                value={luka_luka}
+                maxLength={4}
                 keyboardType="numeric"
-                maxLength={3}
-              />
-
-              <Text style={styles.title1}>Informasi Pelapor/Instansi *</Text>
-              <TextInput
-                multiline
-                placeholderTextColor="black"
-                placeholder="Nama Pelapor"
-                style={styles.input}
-                onChangeText={setNama_pelapor}
-                value={nama_pelapor}
-                maxLength={200}
-              />
-              <TextInput
-                multiline
-                placeholderTextColor="black"
-                placeholder="No. Tlp Darurat"
-                style={styles.input}
-                onChangeText={setTlp_darurat}
-                value={tlp_darurat}
-                keyboardType="numeric"
-                maxLength={12}
               />
 
               <View style={styles.btnContainer}>
@@ -552,35 +548,26 @@ const Pelaporan = () => {
             </View>
 
             <View style={styles.formContainer}>
+              <Text style={styles.title1}>Kronologi</Text>
               <TextInput
                 placeholderTextColor="black"
-                placeholder="Kondisi Umum / Kronologi"
+                placeholder="Kronologi"
                 style={styles.inputlarge}
-                onChangeText={setKondisi_umum}
-                value={kondisi_umum}
+                onChangeText={setKronologi}
+                value={kronologi}
                 maxLength={1000}
                 multiline
               />
               <TextInput
-                placeholderTextColor="black"
-                placeholder="Kegiatan/Assesment/Upaya Penanganan Darurat yang dilakukan"
-                style={styles.inputlarge}
-                onChangeText={setTindakan}
-                value={tindakan}
-                maxLength={1000}
                 multiline
-              />
-
-              <TextInput
                 placeholderTextColor="black"
-                placeholder="Kendala/Kebutuhan mendesak/Potensi Bencana Susulan"
-                style={styles.inputlarge}
-                onChangeText={setKendala}
-                value={kendala}
-                maxLength={1000}
-                multiline
+                placeholder="Kerugian"
+                style={styles.input}
+                onChangeText={setKerugian}
+                value={kerugian}
+                maxLength={10}
+                keyboardType="numeric"
               />
-
               <Text style={styles.title1}>File Upload Gambar</Text>
               <TouchableOpacity
                 onPress={() => setModalVisible(true)}
@@ -611,7 +598,7 @@ const Pelaporan = () => {
               <Text
                 style={{
                   fontSize: 15,
-                  color: 'black',
+                  color: 'white',
                   fontWeight: 'bold',
                   paddingTop: 15,
                   marginBottom: 10,
@@ -655,7 +642,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: height,
-    backgroundColor: '#D5E5FB',
+    backgroundColor: '#21242A',
   },
   mapcontainer: {
     alignItems: 'center',
@@ -669,15 +656,15 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 15,
-    color: 'black',
+    color: 'white',
     fontWeight: 'bold',
-    paddingTop: 5,
+    paddingTop: 8,
     marginBottom: 1,
     justifyContent: 'center',
   },
   title1: {
     fontSize: 15,
-    color: 'black',
+    color: 'white',
     fontWeight: 'bold',
     paddingTop: 15,
     marginBottom: 1,
@@ -687,7 +674,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     color: 'black',
     width: '100%',
-    height: '15%',
+    height: '20%',
     marginTop: height * 0.02,
     borderRadius: 6,
     justifyContent: 'center',
@@ -700,17 +687,18 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '6%',
     marginTop: height * 0.02,
-    borderRadius: 6,
+    borderRadius: 4,
     justifyContent: 'center',
     borderWidth: 1,
+    paddingLeft: 15,
   },
   input2: {
     backgroundColor: 'white',
     color: 'black',
     width: '100%',
-    height: '8%',
+    height: '6%',
     marginTop: height * 0.02,
-    borderRadius: 6,
+    borderRadius: 4,
     justifyContent: 'center',
     borderWidth: 1,
   },
