@@ -157,7 +157,11 @@ const App = () => {
           component={Intro}
         />
         <Tab.Screen
-          options={{headerShown: false}}
+          options={{
+            headerShown: false,
+            // tabBarButton: () => null,
+            tabBarStyle: {display: 'none'},
+          }}
           name="Home"
           component={Home}
         />

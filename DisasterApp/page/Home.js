@@ -66,7 +66,9 @@ const Home = () => {
               <Text style={styles.title}>SIPENA</Text>
             </View>
           </View>
-
+          <View style={styles.titleMenu}>
+            <Text style={styles.titleMe}>Menu</Text>
+          </View>
           <View style={styles.body}>
             <View style={styles.buttonContainer}>
               <TouchableOpacity
@@ -175,13 +177,22 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   titleContainer: {
-    paddingTop: 15,
+    paddingTop: 10,
     justifyContent: 'flex-start',
     width: '80%',
   },
+  titleMenu: {
+    width: '30%',
+    paddingLeft: 50,
+  },
   title: {
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 25,
+    color: 'black',
+  },
+  titleMe: {
+    fontWeight: 'bold',
+    fontSize: 18,
     color: 'black',
   },
   logoContainer: {
@@ -195,9 +206,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: '5%',
     height: '18%',
     flexDirection: 'row',
-    marginTop: 15,
+    marginTop: 10,
     justifyContent: 'space-evenly',
     width: 430,
+    // backgroundColor: 'red',
   },
   buttonContainer: {
     width: '40%',

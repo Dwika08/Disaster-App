@@ -24,21 +24,37 @@ const Tentang = () => {
           }}>
           <Image source={require('../../img/left.png')} />
         </TouchableOpacity>
+        <View style={styles.titleContainer}>
+          <Text style={styles.headerText}>Tentang</Text>
+        </View>
       </View>
 
       <View style={styles.body}>
-      <Text style={styles.headerText}>Tentang</Text>
-        <View style={styles.containerbody1}>
-        
+        <View style={styles.containerbody}>
+          <View style={styles.image}>
+            <View style={styles.bodyImage}>
+              <Image
+                style={styles.logo}
+                source={require('../../img/logobpbd.png')}
+              />
+            </View>
+            <View style={styles.bodyImage}>
+              <Image
+                style={styles.logo}
+                source={require('../../img/logo.png')}
+              />
+            </View>
+          </View>
+          <Text style={styles.text2}>
+            Jl. Selamanik No.29, Kutabanjarnegara, Kec. Banjarnegara, Kab.
+            Banjarnegara, Jawa Tengah 53415 Telp: (0286) 591812
+          </Text>
           <Text style={styles.text1}>
             Aplikasi ini dibuat untuk membantu masyarakat dalam memberikan
-            informasi tentang pemetaan bencana alam di Kabupaten Banjarnegara
+            informasi tentang pemetaan bencana alam di Kabupaten Banjarnegara,
+            Serta untuk Penelitian Skripsi
           </Text>
-          
         </View>
-        {/* <View style={styles.containerbody}>
-          <View style={styles.buttonContainer}></View>
-        </View> */}
       </View>
     </View>
   );
@@ -51,11 +67,25 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#21242A',
   },
+  image: {
+    flexDirection: 'row',
+  },
+  bodyImage: {
+    flexDirection: 'row',
+    padding: 20,
+    justifyContent: 'space-evenly',
+    
+  },
+  logo: {
+    width: 80,
+    height: 80,
+  },
   body: {
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',
     width: '100%',
+    
   },
   containerbody: {
     height: '50%',
@@ -63,40 +93,24 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 100,
-  },
-  containerbody1: {
-    height: '20%',
-    width: '92%',
-    backgroundColor: 'white',
-    alignItems: 'center',
-  },
-  buttonContainer1: {
-    width: '80%',
-    height: 360,
-    justifyContent: 'center',
-    backgroundColor: 'white',
-    alignItems: 'center',
-  },
-  buttonContainer: {
-    width: '80%',
-    height: '40%',
-    justifyContent: 'center',
-    backgroundColor: 'white',
-    alignItems: 'center',
+    borderRadius: 10,    
   },
   text1: {
     fontSize: 14,
     color: 'black',
-    marginTop: 50,
-    height: 200,
+    marginTop: 20,
+    height: 60,
     width: 300,
     textAlign: 'center',
+    
   },
   text2: {
+    width: 300,
     fontSize: 14,
     color: 'black',
+    marginTop: 10,
     textAlign: 'center',
+    
   },
   backBtn: {
     paddingLeft: 5,

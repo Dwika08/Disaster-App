@@ -14,7 +14,7 @@ const Kritik = () => {
   }, []);
 
   const inputKritik = () => {
-    fetch('http://192.168.18.18/aplikasi/restapi.php?op=kritik', {
+    fetch('http://192.168.0.106/aplikasiV2/restapi.php?op=kritik', {
       method: 'post',
       body: JSON.stringify({
         kritik: kritik,

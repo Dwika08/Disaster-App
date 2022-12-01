@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   Image,
   useWindowDimensions,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useNavigation, TabActions} from '@react-navigation/native';
@@ -65,7 +66,13 @@ const FirstRoute = () => {
   const ListEmptyView = () => {
     return (
       <View style={styles.headertext}>
-        <Text style={{color: 'black',textAlign: 'center', fontSize: 20, fontWeight: 'bold'}}>
+        <Text
+          style={{
+            color: 'black',
+            textAlign: 'center',
+            fontSize: 14,
+            fontWeight: 'bold',
+          }}>
           {' '}
           No Data Available...
         </Text>
@@ -74,27 +81,45 @@ const FirstRoute = () => {
   };
   const [dataBencana, setDataBencana] = useState();
   const [id, setId] = useState();
+  const [refresh, setRefresh] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     getData();
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
   }, []);
   const getData = () => {
-    fetch('http://192.168.1.2/aplikasi/restapi.php?op=getDatabencana')
+    fetch('http://192.168.1.7/aplikasiV2/restapi.php?op=getDatabencana')
       .then(response => response.json())
       .then(json => {
         // console.log(json);
         setDataBencana(json);
+        setRefresh(true);
+        setRefresh(false);
+
         // console.log(dataBencana);
       });
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        data={dataBencana}
-        renderItem={renderItem}
-        keyExtractor={item => item.ID}
-        ListEmptyComponent={ListEmptyView}
-      />
+      {loading ? (
+        <View style={styles.loadContainer}>
+          <ActivityIndicator visible={loading} size="large" color="#00ff00" />
+        </View>
+      ) : (
+        <FlatList
+          data={dataBencana}
+          renderItem={renderItem}
+          keyExtractor={item => item.ID}
+          ListEmptyComponent={ListEmptyView}
+          onRefresh={() => getData()}
+          refreshing={refresh}
+        />
+      )}
     </SafeAreaView>
   );
 };
@@ -105,15 +130,15 @@ const SecondRoute = () => {
     <View
       key={index}
       style={{
-        padding: '3%',
-        borderRadius: 15,
-        borderLeftWidth: 1,
-        borderRightWidth: 1,
+        padding: '5%',
+        // borderRadius: 15,
+        // borderLeftWidth: 1,
+        // borderRightWidth: 1,
         borderBottomWidth: 1,
         borderTopWidth: 1,
-        borderColor: 'black',
-        marginHorizontal: 10,
-        marginVertical: 5,
+        borderColor: 'white',
+        // marginHorizontal: 10,
+        // marginVertical: 5,
         backgroundColor: '#21242A',
       }}>
       <TouchableOpacity
@@ -125,15 +150,15 @@ const SecondRoute = () => {
         }}
         style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <View style={styles.list}>
-          <Text style={{fontWeight: 'bold', color: 'white', fontSize: 15}}>
+          <Text style={{fontWeight: 'bold', color: 'white', fontSize: 20}}>
             {item.Desa} , kecamatan {item.Kecamatan}
           </Text>
-          <Text style={{fontWeight: 'bold', color: 'white', fontSize: 12}}>
+          <Text style={{fontWeight: 'bold', color: 'white', fontSize: 14}}>
             {item.Bencana}
           </Text>
         </View>
         <View>
-          <Text style={{fontWeight: 'bold', color: 'white', fontSize: 12}}>
+          <Text style={{fontWeight: 'bold', color: 'white', fontSize: 13}}>
             {item.Tanggal}
           </Text>
         </View>
@@ -148,7 +173,7 @@ const SecondRoute = () => {
           style={{
             color: 'black',
             textAlign: 'center',
-            fontSize: 20,
+            fontSize: 14,
             fontWeight: 'bold',
           }}>
           {' '}
@@ -159,30 +184,46 @@ const SecondRoute = () => {
   };
   const [dataBencana, setDataBencana] = useState();
   const [id, setId] = useState();
+  const [refresh, setRefresh] = useState(false);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     getData();
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
   }, []);
   const getData = () => {
-    fetch('http://192.168.1.2/aplikasi/restapi.php?op=getDatabencana1')
+    fetch('http://192.168.1.7/aplikasiV2/restapi.php?op=getDatabencana1')
       .then(response => response.json())
       .then(json => {
         // console.log(json);
         setDataBencana(json);
+        setRefresh(true);
+        setRefresh(false);
         // console.log(dataBencana);
       });
   };
+
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        data={dataBencana}
-        renderItem={renderItem}
-        keyExtractor={item => item.ID}
-        ListEmptyComponent={ListEmptyView}
-      />
+      {loading ? (
+        <View style={styles.loadContainer}>
+          <ActivityIndicator visible={loading} size="large" color="#00ff00" />
+        </View>
+      ) : (
+        <FlatList
+          data={dataBencana}
+          renderItem={renderItem}
+          keyExtractor={item => item.ID}
+          ListEmptyComponent={ListEmptyView}
+          onRefresh={() => getData()}
+          refreshing={refresh}
+        />
+      )}
     </SafeAreaView>
   );
 };
-
 
 const renderScene = SceneMap({
   first: FirstRoute,
@@ -197,7 +238,6 @@ const Rekap = () => {
   const [routes] = React.useState([
     {key: 'first', title: '2021'},
     {key: 'second', title: '2022'},
-    
   ]);
   useEffect(() => {
     setInterval(() => {
@@ -233,6 +273,7 @@ const Rekap = () => {
             renderScene={renderScene}
             onIndexChange={setIndex}
             initialLayout={{width: layout.width}}
+            swipeEnabled={false}
           />
         </SafeAreaView>
       )}
@@ -284,8 +325,13 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   headertext: {
-    marginTop: width * 0.7  ,
+    marginTop: width * 0.7,
     height: 40,
+    justifyContent: 'center',
+  },
+  loadContainer: {
+    flex: 1,
+    alignItems: 'center',
     justifyContent: 'center',
   },
 });

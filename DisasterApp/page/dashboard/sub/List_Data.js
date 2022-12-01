@@ -42,7 +42,7 @@ const List_Data = () => {
   }, []);
 
   const getData = () => {
-    fetch('http://192.168.18.18/aplikasi/restapi.php?op=getMarker21')
+    fetch('http://192.168.0.106/aplikasiV2/restapi.php?op=getMarker21')
       .then(response => response.json())
       .then(json => {
         // console.log(json);
@@ -52,7 +52,7 @@ const List_Data = () => {
   };
   const cariData = () => {
     // alert(id_bencana_detail);
-  fetch('http://192.168.1.2/aplikasi/restapi.php?op=cariData', {
+  fetch('http://192.168.1.7/aplikasiV2/restapi.php?op=cariData', {
     method: 'post',
     body: JSON.stringify({
       tahun: tahun,
@@ -67,16 +67,16 @@ const List_Data = () => {
     .then(json => {
       // console.log(json);
       if (json != 'null') {
-        setDataMarker(json);
       } else if (json == 'null') {
         Alert ('Data tidak ada');
       }
+      setDataMarker(json);
       setModalVisible(false);
       // console.log(dataMarker);
     });
 };
   const getBencana = () => {
-    fetch('http://192.168.1.2/aplikasi/restapi.php?op=getBencana')
+    fetch('http://192.168.1.7/aplikasiV2/restapi.php?op=getBencana')
       .then(response => response.json())
       .then(json => {
         // console.log(json);
@@ -178,7 +178,7 @@ const List_Data = () => {
       <MapView
         style={styles.map}
         initialRegion={region}
-        showsUserLocation={true}
+        // showsUserLocation={true}
         provider={PROVIDER_GOOGLE}>
         <Mar />
       </MapView>
