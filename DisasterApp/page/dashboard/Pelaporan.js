@@ -452,7 +452,7 @@ const Pelaporan = () => {
               onChangeText={setRusak_berat}
               value={rusak_berat}
               maxLength={4}
-              keyboardType="numeric"
+              
             />
             <TextInput
               multiline
@@ -462,7 +462,7 @@ const Pelaporan = () => {
               onChangeText={setRusak_sedang}
               value={rusak_sedang}
               maxLength={4}
-              keyboardType="numeric"
+              
             />
             <TextInput
               multiline
@@ -472,7 +472,7 @@ const Pelaporan = () => {
               onChangeText={setRusak_ringan}
               value={rusak_ringan}
               maxLength={4}
-              keyboardType="numeric"
+              
             />
             <TextInput
               multiline
@@ -482,7 +482,7 @@ const Pelaporan = () => {
               onChangeText={setTerancam}
               value={terancam}
               maxLength={4}
-              keyboardType="numeric"
+              
             />
             <Text style={styles.title}>Korban Jiwa</Text>
             <TextInput

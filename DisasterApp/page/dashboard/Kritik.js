@@ -27,11 +27,11 @@ const Kritik = () => {
       .then(response => response.json())
       .then(json => {
         console.log(json.status);
-        if (json.status == 'ok') {
-          Alert.alert('', 'Pelaporan Berhasil');
-        } else {
-          Alert.alert('', 'Pelaporan Gagal');
-        }
+        // if (json.status == 'ok') {
+        //   Alert.alert('', 'Pelaporan Berhasil');
+        // } else {
+        //   Alert.alert('', 'Pelaporan Gagal');
+        // }
         // console.log(dataMarker);
       });
   }

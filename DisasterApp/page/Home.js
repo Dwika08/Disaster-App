@@ -116,7 +116,7 @@ const Home = () => {
                   backgroundColor: '#21242A',
                 }}>
                 <Image source={require('../img/3.png')} />
-                <Text style={styles.textMenu}>Rekap</Text>
+                <Text style={styles.textMenu}>Riwayat</Text>
               </TouchableOpacity>
             </View>
 
