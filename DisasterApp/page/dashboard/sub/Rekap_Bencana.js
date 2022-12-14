@@ -34,7 +34,7 @@ const Rekap_Bencana = () => {
 
   const [data, setData] = useState();
   const getData = () => {
-    fetch('http://192.168.1.9/aplikasiV2/restapi.php?op=getBencanaDetail', {
+    fetch('http://192.168.18.18/aplikasiV2/restapi.php?op=getBencanaDetail', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -60,7 +60,7 @@ const Rekap_Bencana = () => {
         <View style={styles.list}>
           <Image
             source={{
-              uri: 'http://192.168.1.9/aplikasiV2/html/img/img/' + item.Img,
+              uri: 'http://192.168.18.18/aplikasiV2/html/img/img/' + item.Img,
             }}
             style={{width: '100%', height: 200}}
           />
@@ -123,7 +123,7 @@ const Rekap_Bencana = () => {
         </View>
         <View style={styles.list}>
           <Text style={{color: 'black'}}>Kerugian: </Text>
-          <Text style={styles.dataText}>{item.Kerugian}</Text>
+          <Text style={styles.dataText}>Rp. {item.Kerugian}</Text>
         </View>
         <View style={styles.list}>
           <Text style={{color: 'black'}}>Latitude: </Text>

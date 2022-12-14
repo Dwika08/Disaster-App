@@ -202,7 +202,6 @@ const Pelaporan = () => {
     getBencana();
     getData();
     getPosition();
-    
   }, []);
 
   const foto = {
@@ -264,6 +263,27 @@ const Pelaporan = () => {
 
         if (json.status == 'ok') {
           Alert.alert('', 'Pelaporan Berhasil');
+          setTgl_kejadian('');
+          setId_bencana_detail('');
+          setNama_kk('');
+          setJumlah_jiwa('');
+          setRt('');
+          setRw('');
+          setId_desa_detail('');
+          setRusak_berat('');
+          setRusak_sedang('');
+          setRusak_ringan('');
+          setTerancam('');
+          setMeninggal_dunia('');
+          setLuka_luka('');
+          setKronologi('');
+          setKerugian('');
+          setLat('');
+          setLng('');
+          setName('');
+          setType('');
+          setUri('');
+          
         } else {
           Alert.alert('', 'Pelaporan Gagal');
         }
@@ -452,7 +472,6 @@ const Pelaporan = () => {
               onChangeText={setRusak_berat}
               value={rusak_berat}
               maxLength={100}
-              
             />
             <TextInput
               multiline
@@ -462,7 +481,6 @@ const Pelaporan = () => {
               onChangeText={setRusak_sedang}
               value={rusak_sedang}
               maxLength={100}
-              
             />
             <TextInput
               multiline
@@ -472,7 +490,6 @@ const Pelaporan = () => {
               onChangeText={setRusak_ringan}
               value={rusak_ringan}
               maxLength={100}
-              
             />
             <TextInput
               multiline
@@ -482,7 +499,6 @@ const Pelaporan = () => {
               onChangeText={setTerancam}
               value={terancam}
               maxLength={4}
-              
             />
             <Text style={styles.title}>Korban Jiwa</Text>
             <TextInput
@@ -535,22 +551,51 @@ const Pelaporan = () => {
               maxLength={1000}
               multiline
             />
-            <TextInput
-              multiline
-              placeholderTextColor="black"
-              placeholder="Kerugian"
-              style={styles.input}
-              onChangeText={setKerugian}
-              value={kerugian}
-              maxLength={10}
-              keyboardType="numeric"
-            />
+            <View
+              style={{
+                marginTop: height * 0.02,
+                height: '6%',
+                flexDirection: 'row',
+              }}>
+              <TextInput
+                style={{
+                  color: 'black',
+                  width: '10%',
+                  paddingLeft: 10,
+                  borderTopLeftRadius: 4,
+                  borderBottomLeftRadius: 4,
+                  backgroundColor: '#dcdcdc',
+                }}
+                value={'Rp. '}
+                editable={false}
+              />
+              <TextInput
+                placeholderTextColor="black"
+                placeholder="Kerugian"
+                style={{
+                  backgroundColor: 'white',
+                  color: 'black',
+                  width: '90%',
+                  height: '100%',
+                  borderTopRightRadius: 4,
+                  borderBottomRightRadius: 4,
+                  justifyContent: 'center',
+                  paddingLeft: 15,
+                }}
+                onChangeText={setKerugian}
+                value={kerugian}
+                maxLength={10}
+                keyboardType="numeric"
+              />
+            </View>
+
             <Text style={styles.title1}>File Upload Gambar</Text>
             <TouchableOpacity
               onPress={() => setModalVisible(true)}
               style={[styles.input, styles.inputFoto]}>
               <Text style={styles.buttonText}>Pilih Foto</Text>
               {name != null && <Text style={styles.buttonText}>✔</Text>}
+
             </TouchableOpacity>
             <View style={styles.btnContainer}>
               <TouchableOpacity

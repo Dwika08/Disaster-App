@@ -92,7 +92,7 @@ const FirstRoute = () => {
     }, 2000);
   }, []);
   const getData = () => {
-    fetch('http://192.168.1.9/aplikasiV2/restapi.php?op=getDatabencana')
+    fetch('http://192.168.18.18/aplikasiV2/restapi.php?op=getDatabencana')
       .then(response => response.json())
       .then(json => {
         // console.log(json);
@@ -194,7 +194,7 @@ const SecondRoute = () => {
     }, 2000);
   }, []);
   const getData = () => {
-    fetch('http://192.168.1.9/aplikasiV2/restapi.php?op=getDatabencana1')
+    fetch('http://192.168.18.18/aplikasiV2/restapi.php?op=getDatabencana1')
       .then(response => response.json())
       .then(json => {
         // console.log(json);
