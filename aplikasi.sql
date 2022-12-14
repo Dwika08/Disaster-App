@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
- Source Server Type    : MariaDB
- Source Server Version : 100414
+ Source Server         : Local
+ Source Server Type    : MySQL
+ Source Server Version : 100427
  Source Host           : localhost:3306
  Source Schema         : aplikasi
 
- Target Server Type    : MariaDB
- Target Server Version : 100414
+ Target Server Type    : MySQL
+ Target Server Version : 100427
  File Encoding         : 65001
 
- Date: 19/11/2022 14:33:45
+ Date: 01/12/2022 20:35:32
 */
 
 SET NAMES utf8mb4;
@@ -53,6 +53,7 @@ INSERT INTO `bencana_detail` VALUES (1, 'Banjir');
 INSERT INTO `bencana_detail` VALUES (2, 'Kebakaran');
 INSERT INTO `bencana_detail` VALUES (3, 'Tanah Longsor');
 INSERT INTO `bencana_detail` VALUES (4, 'Angin Kencang');
+INSERT INTO `bencana_detail` VALUES (5, 'Gempa');
 
 -- ----------------------------
 -- Table structure for desa_detail
@@ -61,292 +62,293 @@ DROP TABLE IF EXISTS `desa_detail`;
 CREATE TABLE `desa_detail`  (
   `id_desa_detail` int(11) NOT NULL AUTO_INCREMENT,
   `desa` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `kecamatan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `id_kec_detail` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id_desa_detail`) USING BTREE,
-  INDEX `kecamatan`(`kecamatan`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 324 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+  INDEX `des_kec`(`id_kec_detail`) USING BTREE,
+  CONSTRAINT `des_kec` FOREIGN KEY (`id_kec_detail`) REFERENCES `kec_detail` (`id_kec_detail`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 280 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of desa_detail
 -- ----------------------------
-INSERT INTO `desa_detail` VALUES (1, 'Berta', 'Susukan');
-INSERT INTO `desa_detail` VALUES (2, 'Derik', 'Susukan');
-INSERT INTO `desa_detail` VALUES (3, 'Gumelem Wetan', 'Susukan');
-INSERT INTO `desa_detail` VALUES (4, 'Gumelem Kulon', 'Susukan');
-INSERT INTO `desa_detail` VALUES (5, 'Penarusan Wetan', 'Susukan');
-INSERT INTO `desa_detail` VALUES (6, 'Penarusan Kulon', 'Susukan');
-INSERT INTO `desa_detail` VALUES (7, 'Brengkok', 'Susukan');
-INSERT INTO `desa_detail` VALUES (8, 'Pekikiran', 'Susukan');
-INSERT INTO `desa_detail` VALUES (9, 'Piasa Wetan', 'Susukan');
-INSERT INTO `desa_detail` VALUES (10, 'Karangsalam', 'Susukan');
-INSERT INTO `desa_detail` VALUES (11, 'Kemranggon', 'Susukan');
-INSERT INTO `desa_detail` VALUES (12, 'Susukan', 'Susukan');
-INSERT INTO `desa_detail` VALUES (13, 'Dermasari', 'Susukan');
-INSERT INTO `desa_detail` VALUES (14, 'Kedawung', 'Susukan');
-INSERT INTO `desa_detail` VALUES (15, 'Karangjati', 'Susukan');
-INSERT INTO `desa_detail` VALUES (16, 'Pagak', 'Purworeja Klampok');
-INSERT INTO `desa_detail` VALUES (17, 'Kaliwinasuh', 'Purworeja Klampok');
-INSERT INTO `desa_detail` VALUES (18, 'Sirkandi', 'Purworeja Klampok');
-INSERT INTO `desa_detail` VALUES (19, 'Kecitran', 'Purworeja Klampok');
-INSERT INTO `desa_detail` VALUES (20, 'Kalilandak', 'Purworeja Klampok');
-INSERT INTO `desa_detail` VALUES (21, 'Purwareja', 'Purworeja Klampok');
-INSERT INTO `desa_detail` VALUES (22, 'Kalimandi', 'Purworeja Klampok');
-INSERT INTO `desa_detail` VALUES (23, 'Klampok', 'Purworeja Klampok');
-INSERT INTO `desa_detail` VALUES (24, 'Jalatunda', 'Mandiraja');
-INSERT INTO `desa_detail` VALUES (25, 'Somawangi', 'Mandiraja');
-INSERT INTO `desa_detail` VALUES (26, 'Kaliwungu', 'Mandiraja');
-INSERT INTO `desa_detail` VALUES (27, 'Kebanaran', 'Mandiraja');
-INSERT INTO `desa_detail` VALUES (28, 'Glempang', 'Mandiraja');
-INSERT INTO `desa_detail` VALUES (29, 'Salamerta', 'Mandiraja');
-INSERT INTO `desa_detail` VALUES (30, 'Purwasaba', 'Mandiraja');
-INSERT INTO `desa_detail` VALUES (31, 'Blimbing', 'Mandiraja');
-INSERT INTO `desa_detail` VALUES (32, 'Panggisari', 'Mandiraja');
-INSERT INTO `desa_detail` VALUES (33, 'Candiwulan', 'Mandiraja');
-INSERT INTO `desa_detail` VALUES (34, 'Simbang', 'Mandiraja');
-INSERT INTO `desa_detail` VALUES (35, 'Kertayasa', 'Mandiraja');
-INSERT INTO `desa_detail` VALUES (36, 'Banjengan', 'Mandiraja');
-INSERT INTO `desa_detail` VALUES (37, 'Mandiraja Kulon', 'Mandiraja');
-INSERT INTO `desa_detail` VALUES (38, 'Kebakalan', 'Mandiraja');
-INSERT INTO `desa_detail` VALUES (39, 'Mandiraja Wetan', 'Mandiraja');
-INSERT INTO `desa_detail` VALUES (40, 'Kalitengah', 'Purwanegara');
-INSERT INTO `desa_detail` VALUES (41, 'Merden', 'Purwanegara');
-INSERT INTO `desa_detail` VALUES (42, 'Karanganyar', 'Purwanegara');
-INSERT INTO `desa_detail` VALUES (43, 'Kaliajir', 'Purwanegara');
-INSERT INTO `desa_detail` VALUES (44, 'petir', 'Purwanegara');
-INSERT INTO `desa_detail` VALUES (45, 'Pucungbedug', 'Purwanegara');
-INSERT INTO `desa_detail` VALUES (46, 'Parakan', 'Purwanegara');
-INSERT INTO `desa_detail` VALUES (47, 'Mertasari', 'Purwanegara');
-INSERT INTO `desa_detail` VALUES (48, 'Danaraja', 'Purwanegara');
-INSERT INTO `desa_detail` VALUES (49, 'Purwonegoro', 'Purwanegara');
-INSERT INTO `desa_detail` VALUES (50, 'Kalipelus', 'Purwanegara');
-INSERT INTO `desa_detail` VALUES (51, 'Gumiwang', 'Purwanegara');
-INSERT INTO `desa_detail` VALUES (52, 'Kutawuluh', 'Purwanegara');
-INSERT INTO `desa_detail` VALUES (53, 'Wanadri', 'Bawang');
-INSERT INTO `desa_detail` VALUES (54, 'Kebondalem', 'Bawang');
-INSERT INTO `desa_detail` VALUES (55, 'Majalengka', 'Bawang');
-INSERT INTO `desa_detail` VALUES (56, 'Wiramastra', 'Bawang');
-INSERT INTO `desa_detail` VALUES (57, 'Kutayasa', 'Bawang');
-INSERT INTO `desa_detail` VALUES (58, 'Winong', 'Bawang');
-INSERT INTO `desa_detail` VALUES (59, 'Depok', 'Bawang');
-INSERT INTO `desa_detail` VALUES (60, 'Watuurip', 'Bawang');
-INSERT INTO `desa_detail` VALUES (61, 'Masaran', 'Bawang');
-INSERT INTO `desa_detail` VALUES (62, 'Serang', 'Bawang');
-INSERT INTO `desa_detail` VALUES (63, 'Mantrianom', 'Bawang');
-INSERT INTO `desa_detail` VALUES (64, 'Binorong', 'Bawang');
-INSERT INTO `desa_detail` VALUES (65, 'Joho', 'Bawang');
-INSERT INTO `desa_detail` VALUES (66, 'Bawang', 'Bawang');
-INSERT INTO `desa_detail` VALUES (67, 'Bandingan', 'Bawang');
-INSERT INTO `desa_detail` VALUES (68, 'Blambangan', 'Bawang');
-INSERT INTO `desa_detail` VALUES (69, 'Gemuruh', 'Bawang');
-INSERT INTO `desa_detail` VALUES (70, 'Pucang', 'Bawang');
-INSERT INTO `desa_detail` VALUES (71, 'Argasoka', 'Banjarnegara');
-INSERT INTO `desa_detail` VALUES (72, 'Karangtengah', 'Banjarnegara');
-INSERT INTO `desa_detail` VALUES (73, 'Wangon', 'Banjarnegara');
-INSERT INTO `desa_detail` VALUES (74, 'Semampir', 'Banjarnegara');
-INSERT INTO `desa_detail` VALUES (75, 'Sokanandi', 'Banjarnegara');
-INSERT INTO `desa_detail` VALUES (76, 'Parakancanggah', 'Banjarnegara');
-INSERT INTO `desa_detail` VALUES (77, 'Semarang', 'Banjarnegara');
-INSERT INTO `desa_detail` VALUES (78, 'Krandegan', 'Banjarnegara');
-INSERT INTO `desa_detail` VALUES (79, 'Kutabanjarnegara', 'Banjarnegara');
-INSERT INTO `desa_detail` VALUES (80, 'Ampelsari', 'Banjarnegara');
-INSERT INTO `desa_detail` VALUES (81, 'Tlagawera', 'Banjarnegara');
-INSERT INTO `desa_detail` VALUES (82, 'Cendana', 'Banjarnegara');
-INSERT INTO `desa_detail` VALUES (83, 'Sokayasa', 'Banjarnegara');
-INSERT INTO `desa_detail` VALUES (84, 'Kalibenda', 'Sigaluh');
-INSERT INTO `desa_detail` VALUES (85, 'Pringamba', 'Sigaluh');
-INSERT INTO `desa_detail` VALUES (86, 'sawal', 'Sigaluh');
-INSERT INTO `desa_detail` VALUES (87, 'Panawaren', 'Sigaluh');
-INSERT INTO `desa_detail` VALUES (88, 'Tunggara', 'Sigaluh');
-INSERT INTO `desa_detail` VALUES (89, 'Randegan', 'Sigaluh');
-INSERT INTO `desa_detail` VALUES (90, 'Bojanegara', 'Sigaluh');
-INSERT INTO `desa_detail` VALUES (91, 'Bandingan', 'Sigaluh');
-INSERT INTO `desa_detail` VALUES (92, 'Prigi', 'Sigaluh');
-INSERT INTO `desa_detail` VALUES (93, 'Gembongan', 'Sigaluh');
-INSERT INTO `desa_detail` VALUES (94, 'Kemiri', 'Sigaluh');
-INSERT INTO `desa_detail` VALUES (95, 'Karangmangu', 'Sigaluh');
-INSERT INTO `desa_detail` VALUES (96, 'Wanacipta', 'Sigaluh');
-INSERT INTO `desa_detail` VALUES (97, 'Sigaluh', 'Sigaluh');
-INSERT INTO `desa_detail` VALUES (98, 'Singamerta', 'Sigaluh');
-INSERT INTO `desa_detail` VALUES (99, 'Kenteng', 'Madukara');
-INSERT INTO `desa_detail` VALUES (100, 'Rejasa', 'Madukara');
-INSERT INTO `desa_detail` VALUES (101, 'Limbangan', 'Madukara');
-INSERT INTO `desa_detail` VALUES (102, 'Penawangan', 'Madukara');
-INSERT INTO `desa_detail` VALUES (103, 'Talunamba', 'Madukara');
-INSERT INTO `desa_detail` VALUES (104, 'Madukara', 'Madukara');
-INSERT INTO `desa_detail` VALUES (105, 'Kutayasa', 'Madukara');
-INSERT INTO `desa_detail` VALUES (106, 'Pekauman', 'Madukara');
-INSERT INTO `desa_detail` VALUES (107, 'Pagelak', 'Madukara');
-INSERT INTO `desa_detail` VALUES (108, 'Dawuhan', 'Madukara');
-INSERT INTO `desa_detail` VALUES (109, 'Bantarwaru', 'Madukara');
-INSERT INTO `desa_detail` VALUES (110, 'Sered', 'Madukara');
-INSERT INTO `desa_detail` VALUES (111, 'Petambakan', 'Madukara');
-INSERT INTO `desa_detail` VALUES (112, 'Rakitan', 'Madukara');
-INSERT INTO `desa_detail` VALUES (113, 'Blitar', 'Madukara');
-INSERT INTO `desa_detail` VALUES (114, 'Kaliurip', 'Madukara');
-INSERT INTO `desa_detail` VALUES (115, 'Karanganyar', 'Madukara');
-INSERT INTO `desa_detail` VALUES (116, 'Gununggiana', 'Madukara');
-INSERT INTO `desa_detail` VALUES (117, 'Clapar', 'Madukara');
-INSERT INTO `desa_detail` VALUES (118, 'Pakelen', 'Madukara');
-INSERT INTO `desa_detail` VALUES (119, 'Jenggawur', 'Banjarmangu');
-INSERT INTO `desa_detail` VALUES (120, 'Banjarkulon', 'Banjarmangu');
-INSERT INTO `desa_detail` VALUES (121, 'Banjarmangu', 'Banjarmangu');
-INSERT INTO `desa_detail` VALUES (122, 'Rejasari', 'Banjarmangu');
-INSERT INTO `desa_detail` VALUES (123, 'Kesenet', 'Banjarmangu');
-INSERT INTO `desa_detail` VALUES (124, 'Kalilunjar', 'Banjarmangu');
-INSERT INTO `desa_detail` VALUES (125, 'Sijeruk', 'Banjarmangu');
-INSERT INTO `desa_detail` VALUES (126, 'Kendaga', 'Banjarmangu');
-INSERT INTO `desa_detail` VALUES (127, 'Gripit', 'Banjarmangu');
-INSERT INTO `desa_detail` VALUES (128, 'Pekandangan', 'Banjarmangu');
-INSERT INTO `desa_detail` VALUES (129, 'Sigeblog', 'Banjarmangu');
-INSERT INTO `desa_detail` VALUES (130, 'Paseh', 'Banjarmangu');
-INSERT INTO `desa_detail` VALUES (131, 'Sipedang', 'Banjarmangu');
-INSERT INTO `desa_detail` VALUES (132, 'Sijenggung', 'Banjarmangu');
-INSERT INTO `desa_detail` VALUES (133, 'Beji', 'Banjarmangu');
-INSERT INTO `desa_detail` VALUES (134, 'Prendengan', 'Banjarmangu');
-INSERT INTO `desa_detail` VALUES (135, 'Majatengah', 'Banjarmangu');
-INSERT INTO `desa_detail` VALUES (136, 'Kasilib', 'Wanadadi');
-INSERT INTO `desa_detail` VALUES (137, 'Tapen', 'Wanadadi');
-INSERT INTO `desa_detail` VALUES (138, 'Karangjambe', 'Wanadadi');
-INSERT INTO `desa_detail` VALUES (139, 'Wanadadi', 'Wanadadi');
-INSERT INTO `desa_detail` VALUES (140, 'Wanakarsa', 'Wanadadi');
-INSERT INTO `desa_detail` VALUES (141, 'Lemahjaya', 'Wanadadi');
-INSERT INTO `desa_detail` VALUES (142, 'Karangkemiri', 'Wanadadi');
-INSERT INTO `desa_detail` VALUES (143, 'Kandangwangi', 'Wanadadi');
-INSERT INTO `desa_detail` VALUES (144, 'Medayu', 'Wanadadi');
-INSERT INTO `desa_detail` VALUES (145, 'Linggasari', 'Wanadadi');
-INSERT INTO `desa_detail` VALUES (146, 'Gumingsir', 'Wanadadi');
-INSERT INTO `desa_detail` VALUES (147, 'Pingit', 'Rakit');
-INSERT INTO `desa_detail` VALUES (148, 'Situwangi', 'Rakit');
-INSERT INTO `desa_detail` VALUES (149, 'Gelang', 'Rakit');
-INSERT INTO `desa_detail` VALUES (150, 'Rakit', 'Rakit');
-INSERT INTO `desa_detail` VALUES (151, 'Adipasir', 'Rakit');
-INSERT INTO `desa_detail` VALUES (152, 'Bandingan', 'Rakit');
-INSERT INTO `desa_detail` VALUES (153, 'Kincang', 'Rakit');
-INSERT INTO `desa_detail` VALUES (154, 'Badamita', 'Rakit');
-INSERT INTO `desa_detail` VALUES (155, 'Tanjunganom', 'Rakit');
-INSERT INTO `desa_detail` VALUES (156, 'Luwung', 'Rakit');
-INSERT INTO `desa_detail` VALUES (157, 'Lengkong', 'Rakit');
-INSERT INTO `desa_detail` VALUES (158, 'Sambong', 'Punggelan');
-INSERT INTO `desa_detail` VALUES (159, 'Danakerta', 'Punggelan');
-INSERT INTO `desa_detail` VALUES (160, 'Klapa', 'Punggelan');
-INSERT INTO `desa_detail` VALUES (161, 'Kecepit', 'Punggelan');
-INSERT INTO `desa_detail` VALUES (162, 'Karangsari', 'Punggelan');
-INSERT INTO `desa_detail` VALUES (163, 'Tribuana', 'Punggelan');
-INSERT INTO `desa_detail` VALUES (164, 'Sawangan', 'Punggelan');
-INSERT INTO `desa_detail` VALUES (165, 'Sidarata', 'Punggelan');
-INSERT INTO `desa_detail` VALUES (166, 'Badakarya', 'Punggelan');
-INSERT INTO `desa_detail` VALUES (167, 'Punggelan', 'Punggelan');
-INSERT INTO `desa_detail` VALUES (168, 'Jembangan', 'Punggelan');
-INSERT INTO `desa_detail` VALUES (169, 'Purwasana', 'Punggelan');
-INSERT INTO `desa_detail` VALUES (170, 'Petuguran', 'Punggelan');
-INSERT INTO `desa_detail` VALUES (171, 'Bondolharjo', 'Punggelan');
-INSERT INTO `desa_detail` VALUES (172, 'Tanjungtirta', 'Punggelan');
-INSERT INTO `desa_detail` VALUES (173, 'Tlaga', 'Punggelan');
-INSERT INTO `desa_detail` VALUES (174, 'Mlaya', 'Punggelan');
-INSERT INTO `desa_detail` VALUES (175, 'Paweden', 'Karangkobar');
-INSERT INTO `desa_detail` VALUES (176, 'Gumelar', 'Karangkobar');
-INSERT INTO `desa_detail` VALUES (177, 'Purwodadi', 'Karangkobar');
-INSERT INTO `desa_detail` VALUES (178, 'Sampang', 'Karangkobar');
-INSERT INTO `desa_detail` VALUES (179, 'Slatri', 'Karangkobar');
-INSERT INTO `desa_detail` VALUES (180, 'Pagerpelah', 'Karangkobar');
-INSERT INTO `desa_detail` VALUES (181, 'Pasuruhan', 'Karangkobar');
-INSERT INTO `desa_detail` VALUES (182, 'Karanggondang', 'Karangkobar');
-INSERT INTO `desa_detail` VALUES (183, 'Jlegong', 'Karangkobar');
-INSERT INTO `desa_detail` VALUES (184, 'Ambal', 'Karangkobar');
-INSERT INTO `desa_detail` VALUES (185, 'Binangun', 'Karangkobar');
-INSERT INTO `desa_detail` VALUES (186, 'Karangkobar', 'Karangkobar');
-INSERT INTO `desa_detail` VALUES (187, 'Leksana', 'Karangkobar');
-INSERT INTO `desa_detail` VALUES (188, 'Larangan', 'Pagentan');
-INSERT INTO `desa_detail` VALUES (189, 'Karangnangka', 'Pagentan');
-INSERT INTO `desa_detail` VALUES (190, 'Aribaya', 'Pagentan');
-INSERT INTO `desa_detail` VALUES (191, 'Nagasari', 'Pagentan');
-INSERT INTO `desa_detail` VALUES (192, 'Gumingsir', 'Pagentan');
-INSERT INTO `desa_detail` VALUES (193, 'Sokaraja', 'Pagentan');
-INSERT INTO `desa_detail` VALUES (194, 'Kayuares', 'Pagentan');
-INSERT INTO `desa_detail` VALUES (195, 'Metawana', 'Pagentan');
-INSERT INTO `desa_detail` VALUES (196, 'Kalitlaga', 'Pagentan');
-INSERT INTO `desa_detail` VALUES (197, 'Karekan', 'Pagentan');
-INSERT INTO `desa_detail` VALUES (198, 'Plumbungan', 'Pagentan');
-INSERT INTO `desa_detail` VALUES (199, 'Pagentan', 'Pagentan');
-INSERT INTO `desa_detail` VALUES (200, 'Kasmaran', 'Pagentan');
-INSERT INTO `desa_detail` VALUES (201, 'Majasari', 'Pagentan');
-INSERT INTO `desa_detail` VALUES (202, 'Babadan', 'Pagentan');
-INSERT INTO `desa_detail` VALUES (203, 'Tegaljeruk', 'Pagentan');
-INSERT INTO `desa_detail` VALUES (204, 'Kalilunjar', 'Pejawaran');
-INSERT INTO `desa_detail` VALUES (205, 'Karangsari', 'Pejawaran');
-INSERT INTO `desa_detail` VALUES (206, 'Sarwodadi', 'Pejawaran');
-INSERT INTO `desa_detail` VALUES (207, 'Grogol', 'Pejawaran');
-INSERT INTO `desa_detail` VALUES (208, 'Giritirta', 'Pejawaran');
-INSERT INTO `desa_detail` VALUES (209, 'Biting', 'Pejawaran');
-INSERT INTO `desa_detail` VALUES (210, 'Tlahab', 'Pejawaran');
-INSERT INTO `desa_detail` VALUES (211, 'Darmayasa', 'Pejawaran');
-INSERT INTO `desa_detail` VALUES (212, 'Pejawaran', 'Pejawaran');
-INSERT INTO `desa_detail` VALUES (213, 'Penusupan', 'Pejawaran');
-INSERT INTO `desa_detail` VALUES (214, 'Ratamba', 'Pejawaran');
-INSERT INTO `desa_detail` VALUES (215, 'Sidengok', 'Pejawaran');
-INSERT INTO `desa_detail` VALUES (216, 'Pegundungan', 'Pejawaran');
-INSERT INTO `desa_detail` VALUES (217, 'Beji', 'Pejawaran');
-INSERT INTO `desa_detail` VALUES (218, 'Semangkung', 'Pejawaran');
-INSERT INTO `desa_detail` VALUES (219, 'Condongcampur', 'Pejawaran');
-INSERT INTO `desa_detail` VALUES (220, 'Gembol', 'Pejawaran');
-INSERT INTO `desa_detail` VALUES (221, 'Batur', 'Batur');
-INSERT INTO `desa_detail` VALUES (222, 'Sumberejo', 'Batur');
-INSERT INTO `desa_detail` VALUES (223, 'Pasurenan', 'Batur');
-INSERT INTO `desa_detail` VALUES (224, 'Pekasiran', 'Batur');
-INSERT INTO `desa_detail` VALUES (225, 'Kepakisan', 'Batur');
-INSERT INTO `desa_detail` VALUES (226, 'Bakal', 'Batur');
-INSERT INTO `desa_detail` VALUES (227, 'Karangtengah', 'Batur');
-INSERT INTO `desa_detail` VALUES (228, 'Dieng Kulon', 'Batur');
-INSERT INTO `desa_detail` VALUES (229, 'Karangtengah', 'Wanayasa');
-INSERT INTO `desa_detail` VALUES (230, 'Suwidak', 'Wanayasa');
-INSERT INTO `desa_detail` VALUES (231, 'Bantar', 'Wanayasa');
-INSERT INTO `desa_detail` VALUES (232, 'Pandansari', 'Wanayasa');
-INSERT INTO `desa_detail` VALUES (233, 'Pagergunung', 'Wanayasa');
-INSERT INTO `desa_detail` VALUES (234, 'Dawuhan', 'Wanayasa');
-INSERT INTO `desa_detail` VALUES (235, 'Kubang', 'Wanayasa');
-INSERT INTO `desa_detail` VALUES (236, 'Susukan', 'Wanayasa');
-INSERT INTO `desa_detail` VALUES (237, 'Wanayasa', 'Wanayasa');
-INSERT INTO `desa_detail` VALUES (238, 'Pesantren', 'Wanayasa');
-INSERT INTO `desa_detail` VALUES (239, 'Balun', 'Wanayasa');
-INSERT INTO `desa_detail` VALUES (240, 'Tempuran', 'Wanayasa');
-INSERT INTO `desa_detail` VALUES (241, 'Wanaraja', 'Wanayasa');
-INSERT INTO `desa_detail` VALUES (242, 'Jatilawang', 'Wanayasa');
-INSERT INTO `desa_detail` VALUES (243, 'Legoksayem', 'Wanayasa');
-INSERT INTO `desa_detail` VALUES (244, 'Kasimpar', 'Wanayasa');
-INSERT INTO `desa_detail` VALUES (245, 'Penanggungan', 'Wanayasa');
-INSERT INTO `desa_detail` VALUES (246, 'Kalibening', 'Kalibening');
-INSERT INTO `desa_detail` VALUES (247, 'Asinan', 'Kalibening');
-INSERT INTO `desa_detail` VALUES (248, 'Sembawa', 'Kalibening');
-INSERT INTO `desa_detail` VALUES (249, 'Kalibombong', 'Kalibening');
-INSERT INTO `desa_detail` VALUES (250, 'Majatengah', 'Kalibening');
-INSERT INTO `desa_detail` VALUES (251, 'Kalisat Kidul', 'Kalibening');
-INSERT INTO `desa_detail` VALUES (252, 'Sirukem', 'Kalibening');
-INSERT INTO `desa_detail` VALUES (253, 'Kertosari', 'Kalibening');
-INSERT INTO `desa_detail` VALUES (254, 'Sidakangen', 'Kalibening');
-INSERT INTO `desa_detail` VALUES (255, 'Sikumpul', 'Kalibening');
-INSERT INTO `desa_detail` VALUES (256, 'Gununglangit', 'Kalibening');
-INSERT INTO `desa_detail` VALUES (257, 'Bedana', 'Kalibening');
-INSERT INTO `desa_detail` VALUES (258, 'Sirukun', 'Kalibening');
-INSERT INTO `desa_detail` VALUES (259, 'Karanganyar', 'Kalibening');
-INSERT INTO `desa_detail` VALUES (260, 'Plorengan', 'Kalibening');
-INSERT INTO `desa_detail` VALUES (261, 'Kasinoman', 'Kalibening');
-INSERT INTO `desa_detail` VALUES (262, 'Pandanarum', 'Pandanarum');
-INSERT INTO `desa_detail` VALUES (263, 'Sinduaji', 'Pandanarum');
-INSERT INTO `desa_detail` VALUES (264, 'Pasegeran', 'Pandanarum');
-INSERT INTO `desa_detail` VALUES (265, 'Pingit Lor', 'Pandanarum');
-INSERT INTO `desa_detail` VALUES (266, 'Lawen', 'Pandanarum');
-INSERT INTO `desa_detail` VALUES (267, 'Sirongge', 'Pandanarum');
-INSERT INTO `desa_detail` VALUES (268, 'Pringamba', 'Pandanarum');
-INSERT INTO `desa_detail` VALUES (269, 'Beji', 'Pandanarum');
-INSERT INTO `desa_detail` VALUES (270, 'Pagedongan', 'Pagedongan');
-INSERT INTO `desa_detail` VALUES (271, 'Gunungjati', 'Pagedongan');
-INSERT INTO `desa_detail` VALUES (272, 'Twelagiri', 'Pagedongan');
-INSERT INTO `desa_detail` VALUES (273, 'kebutuhduwur', 'Pagedongan');
-INSERT INTO `desa_detail` VALUES (274, 'Kebutuhjurang', 'Pagedongan');
-INSERT INTO `desa_detail` VALUES (275, 'Pesangkalan', 'Pagedongan');
-INSERT INTO `desa_detail` VALUES (276, 'Duren', 'Pagedongan');
-INSERT INTO `desa_detail` VALUES (277, 'Lebakwangi', 'Pagedongan');
-INSERT INTO `desa_detail` VALUES (278, 'Gentansari', 'Pagedongan');
+INSERT INTO `desa_detail` VALUES (1, 'Berta', 17);
+INSERT INTO `desa_detail` VALUES (2, 'Derik', 17);
+INSERT INTO `desa_detail` VALUES (3, 'Gumelem Wetan', 17);
+INSERT INTO `desa_detail` VALUES (4, 'Gumelem Kulon', 17);
+INSERT INTO `desa_detail` VALUES (5, 'Penarusan Wetan', 17);
+INSERT INTO `desa_detail` VALUES (6, 'Penarusan Kulon', 17);
+INSERT INTO `desa_detail` VALUES (7, 'Brengkok', 17);
+INSERT INTO `desa_detail` VALUES (8, 'Pekikiran', 17);
+INSERT INTO `desa_detail` VALUES (9, 'Piasa Wetan', 17);
+INSERT INTO `desa_detail` VALUES (10, 'Karangsalam', 17);
+INSERT INTO `desa_detail` VALUES (11, 'Kemranggon', 17);
+INSERT INTO `desa_detail` VALUES (12, 'Susukan', 17);
+INSERT INTO `desa_detail` VALUES (13, 'Dermasari', 17);
+INSERT INTO `desa_detail` VALUES (14, 'Kedawung', 17);
+INSERT INTO `desa_detail` VALUES (15, 'Karangjati', 17);
+INSERT INTO `desa_detail` VALUES (16, 'Pagak', 1);
+INSERT INTO `desa_detail` VALUES (17, 'Kaliwinasuh', 1);
+INSERT INTO `desa_detail` VALUES (18, 'Sirkandi', 1);
+INSERT INTO `desa_detail` VALUES (19, 'Kecitran', 1);
+INSERT INTO `desa_detail` VALUES (20, 'Kalilandak', 1);
+INSERT INTO `desa_detail` VALUES (21, 'Purwareja', 1);
+INSERT INTO `desa_detail` VALUES (22, 'Kalimandi', 1);
+INSERT INTO `desa_detail` VALUES (23, 'Klampok', 1);
+INSERT INTO `desa_detail` VALUES (24, 'Jalatunda', 2);
+INSERT INTO `desa_detail` VALUES (25, 'Somawangi', 2);
+INSERT INTO `desa_detail` VALUES (26, 'Kaliwungu', 2);
+INSERT INTO `desa_detail` VALUES (27, 'Kebanaran', 2);
+INSERT INTO `desa_detail` VALUES (28, 'Glempang', 2);
+INSERT INTO `desa_detail` VALUES (29, 'Salamerta', 2);
+INSERT INTO `desa_detail` VALUES (30, 'Purwasaba', 2);
+INSERT INTO `desa_detail` VALUES (31, 'Blimbing', 2);
+INSERT INTO `desa_detail` VALUES (32, 'Panggisari', 2);
+INSERT INTO `desa_detail` VALUES (33, 'Candiwulan', 2);
+INSERT INTO `desa_detail` VALUES (34, 'Simbang', 2);
+INSERT INTO `desa_detail` VALUES (35, 'Kertayasa', 2);
+INSERT INTO `desa_detail` VALUES (36, 'Banjengan', 2);
+INSERT INTO `desa_detail` VALUES (37, 'Mandiraja Kulon', 2);
+INSERT INTO `desa_detail` VALUES (38, 'Kebakalan', 2);
+INSERT INTO `desa_detail` VALUES (39, 'Mandiraja Wetan', 2);
+INSERT INTO `desa_detail` VALUES (40, 'Kalitengah', 18);
+INSERT INTO `desa_detail` VALUES (41, 'Merden', 18);
+INSERT INTO `desa_detail` VALUES (42, 'Karanganyar', 18);
+INSERT INTO `desa_detail` VALUES (43, 'Kaliajir', 18);
+INSERT INTO `desa_detail` VALUES (44, 'Petir', 18);
+INSERT INTO `desa_detail` VALUES (45, 'Pucungbedug', 18);
+INSERT INTO `desa_detail` VALUES (46, 'Parakan', 18);
+INSERT INTO `desa_detail` VALUES (47, 'Mertasari', 18);
+INSERT INTO `desa_detail` VALUES (48, 'Danaraja', 18);
+INSERT INTO `desa_detail` VALUES (49, 'Purwonegoro', 18);
+INSERT INTO `desa_detail` VALUES (50, 'Kalipelus', 18);
+INSERT INTO `desa_detail` VALUES (51, 'Gumiwang', 18);
+INSERT INTO `desa_detail` VALUES (52, 'Kutawuluh', 18);
+INSERT INTO `desa_detail` VALUES (53, 'Wanadri', 3);
+INSERT INTO `desa_detail` VALUES (54, 'Kebondalem', 3);
+INSERT INTO `desa_detail` VALUES (55, 'Majalengka', 3);
+INSERT INTO `desa_detail` VALUES (56, 'Wiramastra', 3);
+INSERT INTO `desa_detail` VALUES (57, 'Kutayasa', 3);
+INSERT INTO `desa_detail` VALUES (58, 'Winong', 3);
+INSERT INTO `desa_detail` VALUES (59, 'Depok', 3);
+INSERT INTO `desa_detail` VALUES (60, 'Watuurip', 3);
+INSERT INTO `desa_detail` VALUES (61, 'Masaran', 3);
+INSERT INTO `desa_detail` VALUES (62, 'Serang', 3);
+INSERT INTO `desa_detail` VALUES (63, 'Mantrianom', 3);
+INSERT INTO `desa_detail` VALUES (64, 'Binorong', 3);
+INSERT INTO `desa_detail` VALUES (65, 'Joho', 3);
+INSERT INTO `desa_detail` VALUES (66, 'Bawang', 3);
+INSERT INTO `desa_detail` VALUES (67, 'Bandingan', 3);
+INSERT INTO `desa_detail` VALUES (68, 'Blambangan', 3);
+INSERT INTO `desa_detail` VALUES (69, 'Gemuruh', 3);
+INSERT INTO `desa_detail` VALUES (70, 'Pucang', 3);
+INSERT INTO `desa_detail` VALUES (71, 'Argasoka', 19);
+INSERT INTO `desa_detail` VALUES (72, 'Karangtengah', 19);
+INSERT INTO `desa_detail` VALUES (73, 'Wangon', 19);
+INSERT INTO `desa_detail` VALUES (74, 'Semampir', 19);
+INSERT INTO `desa_detail` VALUES (75, 'Sokanandi', 19);
+INSERT INTO `desa_detail` VALUES (76, 'Parakancanggah', 19);
+INSERT INTO `desa_detail` VALUES (77, 'Semarang', 19);
+INSERT INTO `desa_detail` VALUES (78, 'Krandegan', 19);
+INSERT INTO `desa_detail` VALUES (79, 'Kutabanjarnegara', 19);
+INSERT INTO `desa_detail` VALUES (80, 'Ampelsari', 19);
+INSERT INTO `desa_detail` VALUES (81, 'Tlagawera', 19);
+INSERT INTO `desa_detail` VALUES (82, 'Cendana', 19);
+INSERT INTO `desa_detail` VALUES (83, 'Sokayasa', 19);
+INSERT INTO `desa_detail` VALUES (84, 'Kalibenda', 4);
+INSERT INTO `desa_detail` VALUES (85, 'Pringamba', 4);
+INSERT INTO `desa_detail` VALUES (86, 'Sawal', 4);
+INSERT INTO `desa_detail` VALUES (87, 'Panawaren', 4);
+INSERT INTO `desa_detail` VALUES (88, 'Tunggara', 4);
+INSERT INTO `desa_detail` VALUES (89, 'Randegan', 4);
+INSERT INTO `desa_detail` VALUES (90, 'Bojanegara', 4);
+INSERT INTO `desa_detail` VALUES (91, 'Bandingan', 4);
+INSERT INTO `desa_detail` VALUES (92, 'Prigi', 4);
+INSERT INTO `desa_detail` VALUES (93, 'Gembongan', 4);
+INSERT INTO `desa_detail` VALUES (94, 'Kemiri', 4);
+INSERT INTO `desa_detail` VALUES (95, 'Karangmangu', 4);
+INSERT INTO `desa_detail` VALUES (96, 'Wanacipta', 4);
+INSERT INTO `desa_detail` VALUES (97, 'Sigaluh', 4);
+INSERT INTO `desa_detail` VALUES (98, 'Singamerta', 4);
+INSERT INTO `desa_detail` VALUES (99, 'Kenteng', 5);
+INSERT INTO `desa_detail` VALUES (100, 'Rejasa', 5);
+INSERT INTO `desa_detail` VALUES (101, 'Limbangan', 5);
+INSERT INTO `desa_detail` VALUES (102, 'Penawangan', 5);
+INSERT INTO `desa_detail` VALUES (103, 'Talunamba', 5);
+INSERT INTO `desa_detail` VALUES (104, 'Madukara', 5);
+INSERT INTO `desa_detail` VALUES (105, 'Kutayasa', 5);
+INSERT INTO `desa_detail` VALUES (106, 'Pekauman', 5);
+INSERT INTO `desa_detail` VALUES (107, 'Pagelak', 5);
+INSERT INTO `desa_detail` VALUES (108, 'Dawuhan', 5);
+INSERT INTO `desa_detail` VALUES (109, 'Bantarwaru', 5);
+INSERT INTO `desa_detail` VALUES (110, 'Sered', 5);
+INSERT INTO `desa_detail` VALUES (111, 'Petambakan', 5);
+INSERT INTO `desa_detail` VALUES (112, 'Rakitan', 5);
+INSERT INTO `desa_detail` VALUES (113, 'Blitar', 5);
+INSERT INTO `desa_detail` VALUES (114, 'Kaliurip', 5);
+INSERT INTO `desa_detail` VALUES (115, 'Karanganyar', 5);
+INSERT INTO `desa_detail` VALUES (116, 'Gununggiana', 5);
+INSERT INTO `desa_detail` VALUES (117, 'Clapar', 5);
+INSERT INTO `desa_detail` VALUES (118, 'Pakelen', 5);
+INSERT INTO `desa_detail` VALUES (119, 'Jenggawur', 20);
+INSERT INTO `desa_detail` VALUES (120, 'Banjarkulon', 20);
+INSERT INTO `desa_detail` VALUES (121, 'Banjarmangu', 20);
+INSERT INTO `desa_detail` VALUES (122, 'Rejasari', 20);
+INSERT INTO `desa_detail` VALUES (123, 'Kesenet', 20);
+INSERT INTO `desa_detail` VALUES (124, 'Kalilunjar', 20);
+INSERT INTO `desa_detail` VALUES (125, 'Sijeruk', 20);
+INSERT INTO `desa_detail` VALUES (126, 'Kendaga', 20);
+INSERT INTO `desa_detail` VALUES (127, 'Gripit', 20);
+INSERT INTO `desa_detail` VALUES (128, 'Pekandangan', 20);
+INSERT INTO `desa_detail` VALUES (129, 'Sigeblog', 20);
+INSERT INTO `desa_detail` VALUES (130, 'Paseh', 20);
+INSERT INTO `desa_detail` VALUES (131, 'Sipedang', 20);
+INSERT INTO `desa_detail` VALUES (132, 'Sijenggung', 20);
+INSERT INTO `desa_detail` VALUES (133, 'Beji', 20);
+INSERT INTO `desa_detail` VALUES (134, 'Prendengan', 20);
+INSERT INTO `desa_detail` VALUES (135, 'Majatengah', 20);
+INSERT INTO `desa_detail` VALUES (136, 'Kasilib', 6);
+INSERT INTO `desa_detail` VALUES (137, 'Tapen', 6);
+INSERT INTO `desa_detail` VALUES (138, 'Karangjambe', 6);
+INSERT INTO `desa_detail` VALUES (139, 'Wanadadi', 6);
+INSERT INTO `desa_detail` VALUES (140, 'Wanakarsa', 6);
+INSERT INTO `desa_detail` VALUES (141, 'Lemahjaya', 6);
+INSERT INTO `desa_detail` VALUES (142, 'Karangkemiri', 6);
+INSERT INTO `desa_detail` VALUES (143, 'Kandangwangi', 6);
+INSERT INTO `desa_detail` VALUES (144, 'Medayu', 6);
+INSERT INTO `desa_detail` VALUES (145, 'Linggasari', 6);
+INSERT INTO `desa_detail` VALUES (146, 'Gumingsir', 6);
+INSERT INTO `desa_detail` VALUES (147, 'Pingit', 7);
+INSERT INTO `desa_detail` VALUES (148, 'Situwangi', 7);
+INSERT INTO `desa_detail` VALUES (149, 'Gelang', 7);
+INSERT INTO `desa_detail` VALUES (150, 'Rakit', 7);
+INSERT INTO `desa_detail` VALUES (151, 'Adipasir', 7);
+INSERT INTO `desa_detail` VALUES (152, 'Bandingan', 7);
+INSERT INTO `desa_detail` VALUES (153, 'Kincang', 7);
+INSERT INTO `desa_detail` VALUES (154, 'Badamita', 7);
+INSERT INTO `desa_detail` VALUES (155, 'Tanjunganom', 7);
+INSERT INTO `desa_detail` VALUES (156, 'Luwung', 7);
+INSERT INTO `desa_detail` VALUES (157, 'Lengkong', 7);
+INSERT INTO `desa_detail` VALUES (158, 'Sambong', 8);
+INSERT INTO `desa_detail` VALUES (159, 'Danakerta', 8);
+INSERT INTO `desa_detail` VALUES (160, 'Klapa', 8);
+INSERT INTO `desa_detail` VALUES (161, 'Kecepit', 8);
+INSERT INTO `desa_detail` VALUES (162, 'Karangsari', 8);
+INSERT INTO `desa_detail` VALUES (163, 'Tribuana', 8);
+INSERT INTO `desa_detail` VALUES (164, 'Sawangan', 8);
+INSERT INTO `desa_detail` VALUES (165, 'Sidarata', 8);
+INSERT INTO `desa_detail` VALUES (166, 'Badakarya', 8);
+INSERT INTO `desa_detail` VALUES (167, 'Punggelan', 8);
+INSERT INTO `desa_detail` VALUES (168, 'Jembangan', 8);
+INSERT INTO `desa_detail` VALUES (169, 'Purwasana', 8);
+INSERT INTO `desa_detail` VALUES (170, 'Petuguran', 8);
+INSERT INTO `desa_detail` VALUES (171, 'Bondolharjo', 8);
+INSERT INTO `desa_detail` VALUES (172, 'Tanjungtirta', 8);
+INSERT INTO `desa_detail` VALUES (173, 'Tlaga', 8);
+INSERT INTO `desa_detail` VALUES (174, 'Mlaya', 8);
+INSERT INTO `desa_detail` VALUES (175, 'Paweden', 9);
+INSERT INTO `desa_detail` VALUES (176, 'Gumelar', 9);
+INSERT INTO `desa_detail` VALUES (177, 'Purwodadi', 9);
+INSERT INTO `desa_detail` VALUES (178, 'Sampang', 9);
+INSERT INTO `desa_detail` VALUES (179, 'Slatri', 9);
+INSERT INTO `desa_detail` VALUES (180, 'Pagerpelah', 9);
+INSERT INTO `desa_detail` VALUES (181, 'Pasuruhan', 9);
+INSERT INTO `desa_detail` VALUES (182, 'Karanggondang', 9);
+INSERT INTO `desa_detail` VALUES (183, 'Jlegong', 9);
+INSERT INTO `desa_detail` VALUES (184, 'Ambal', 9);
+INSERT INTO `desa_detail` VALUES (185, 'Binangun', 9);
+INSERT INTO `desa_detail` VALUES (186, 'Karangkobar', 9);
+INSERT INTO `desa_detail` VALUES (187, 'Leksana', 9);
+INSERT INTO `desa_detail` VALUES (188, 'Larangan', 10);
+INSERT INTO `desa_detail` VALUES (189, 'Karangnangka', 10);
+INSERT INTO `desa_detail` VALUES (190, 'Aribaya', 10);
+INSERT INTO `desa_detail` VALUES (191, 'Nagasari', 10);
+INSERT INTO `desa_detail` VALUES (192, 'Gumingsir', 10);
+INSERT INTO `desa_detail` VALUES (193, 'Sokaraja', 10);
+INSERT INTO `desa_detail` VALUES (194, 'Kayuares', 10);
+INSERT INTO `desa_detail` VALUES (195, 'Metawana', 10);
+INSERT INTO `desa_detail` VALUES (196, 'Kalitlaga', 10);
+INSERT INTO `desa_detail` VALUES (197, 'Karekan', 10);
+INSERT INTO `desa_detail` VALUES (198, 'Plumbungan', 10);
+INSERT INTO `desa_detail` VALUES (199, 'Pagentan', 10);
+INSERT INTO `desa_detail` VALUES (200, 'Kasmaran', 10);
+INSERT INTO `desa_detail` VALUES (201, 'Majasari', 10);
+INSERT INTO `desa_detail` VALUES (202, 'Babadan', 10);
+INSERT INTO `desa_detail` VALUES (203, 'Tegaljeruk', 10);
+INSERT INTO `desa_detail` VALUES (204, 'Kalilunjar', 11);
+INSERT INTO `desa_detail` VALUES (205, 'Karangsari', 11);
+INSERT INTO `desa_detail` VALUES (206, 'Sarwodadi', 11);
+INSERT INTO `desa_detail` VALUES (207, 'Grogol', 11);
+INSERT INTO `desa_detail` VALUES (208, 'Giritirta', 11);
+INSERT INTO `desa_detail` VALUES (209, 'Biting', 11);
+INSERT INTO `desa_detail` VALUES (210, 'Tlahab', 11);
+INSERT INTO `desa_detail` VALUES (211, 'Darmayasa', 11);
+INSERT INTO `desa_detail` VALUES (212, 'Pejawaran', 11);
+INSERT INTO `desa_detail` VALUES (213, 'Penusupan', 11);
+INSERT INTO `desa_detail` VALUES (214, 'Ratamba', 11);
+INSERT INTO `desa_detail` VALUES (215, 'Sidengok', 11);
+INSERT INTO `desa_detail` VALUES (216, 'Pegundungan', 11);
+INSERT INTO `desa_detail` VALUES (217, 'Beji', 11);
+INSERT INTO `desa_detail` VALUES (218, 'Semangkung', 11);
+INSERT INTO `desa_detail` VALUES (219, 'Condongcampur', 11);
+INSERT INTO `desa_detail` VALUES (220, 'Gembol', 11);
+INSERT INTO `desa_detail` VALUES (221, 'Batur', 12);
+INSERT INTO `desa_detail` VALUES (222, 'Sumberejo', 12);
+INSERT INTO `desa_detail` VALUES (223, 'Pasurenan', 12);
+INSERT INTO `desa_detail` VALUES (224, 'Pekasiran', 12);
+INSERT INTO `desa_detail` VALUES (225, 'Kepakisan', 12);
+INSERT INTO `desa_detail` VALUES (226, 'Bakal', 12);
+INSERT INTO `desa_detail` VALUES (227, 'Karangtengah', 12);
+INSERT INTO `desa_detail` VALUES (228, 'Dieng Kulon', 12);
+INSERT INTO `desa_detail` VALUES (229, 'Karangtengah', 13);
+INSERT INTO `desa_detail` VALUES (230, 'Suwidak', 13);
+INSERT INTO `desa_detail` VALUES (231, 'Bantar', 13);
+INSERT INTO `desa_detail` VALUES (232, 'Pandansari', 13);
+INSERT INTO `desa_detail` VALUES (233, 'Pagergunung', 13);
+INSERT INTO `desa_detail` VALUES (234, 'Dawuhan', 13);
+INSERT INTO `desa_detail` VALUES (235, 'Kubang', 13);
+INSERT INTO `desa_detail` VALUES (236, 'Susukan', 13);
+INSERT INTO `desa_detail` VALUES (237, 'Wanayasa', 13);
+INSERT INTO `desa_detail` VALUES (238, 'Pesantren', 13);
+INSERT INTO `desa_detail` VALUES (239, 'Balun', 13);
+INSERT INTO `desa_detail` VALUES (240, 'Tempuran', 13);
+INSERT INTO `desa_detail` VALUES (241, 'Wanaraja', 13);
+INSERT INTO `desa_detail` VALUES (242, 'Jatilawang', 13);
+INSERT INTO `desa_detail` VALUES (243, 'Legoksayem', 13);
+INSERT INTO `desa_detail` VALUES (244, 'Kasimpar', 13);
+INSERT INTO `desa_detail` VALUES (245, 'Penanggungan', 13);
+INSERT INTO `desa_detail` VALUES (246, 'Kalibening', 14);
+INSERT INTO `desa_detail` VALUES (247, 'Asinan', 14);
+INSERT INTO `desa_detail` VALUES (248, 'Sembawa', 14);
+INSERT INTO `desa_detail` VALUES (249, 'Kalibombong', 14);
+INSERT INTO `desa_detail` VALUES (250, 'Majatengah', 14);
+INSERT INTO `desa_detail` VALUES (251, 'Kalisat Kidul', 14);
+INSERT INTO `desa_detail` VALUES (252, 'Sirukem', 14);
+INSERT INTO `desa_detail` VALUES (253, 'Kertosari', 14);
+INSERT INTO `desa_detail` VALUES (254, 'Sidakangen', 14);
+INSERT INTO `desa_detail` VALUES (255, 'Sikumpul', 14);
+INSERT INTO `desa_detail` VALUES (256, 'Gununglangit', 14);
+INSERT INTO `desa_detail` VALUES (257, 'Bedana', 14);
+INSERT INTO `desa_detail` VALUES (258, 'Sirukun', 14);
+INSERT INTO `desa_detail` VALUES (259, 'Karanganyar', 14);
+INSERT INTO `desa_detail` VALUES (260, 'Plorengan', 14);
+INSERT INTO `desa_detail` VALUES (261, 'Kasinoman', 14);
+INSERT INTO `desa_detail` VALUES (262, 'Pandanarum', 15);
+INSERT INTO `desa_detail` VALUES (263, 'Sinduaji', 15);
+INSERT INTO `desa_detail` VALUES (264, 'Pasegeran', 15);
+INSERT INTO `desa_detail` VALUES (265, 'Pingit Lor', 15);
+INSERT INTO `desa_detail` VALUES (266, 'Lawen', 15);
+INSERT INTO `desa_detail` VALUES (267, 'Sirongge', 15);
+INSERT INTO `desa_detail` VALUES (268, 'Pringamba', 15);
+INSERT INTO `desa_detail` VALUES (269, 'Beji', 15);
+INSERT INTO `desa_detail` VALUES (270, 'Pagedongan', 16);
+INSERT INTO `desa_detail` VALUES (271, 'Gunungjati', 16);
+INSERT INTO `desa_detail` VALUES (272, 'Twelagiri', 16);
+INSERT INTO `desa_detail` VALUES (273, 'Kebutuhduwur', 16);
+INSERT INTO `desa_detail` VALUES (274, 'Kebutuhjurang', 16);
+INSERT INTO `desa_detail` VALUES (275, 'Pesangkalan', 16);
+INSERT INTO `desa_detail` VALUES (276, 'Duren', 16);
+INSERT INTO `desa_detail` VALUES (277, 'Lebakwangi', 16);
+INSERT INTO `desa_detail` VALUES (278, 'Gentansari', 16);
 
 -- ----------------------------
 -- Table structure for kec_detail
@@ -384,61 +386,87 @@ INSERT INTO `kec_detail` VALUES (6, 'Wanadadi');
 INSERT INTO `kec_detail` VALUES (13, 'Wanayasa');
 
 -- ----------------------------
--- Table structure for tbl_bencana
+-- Table structure for kritik_saran
 -- ----------------------------
-DROP TABLE IF EXISTS `tbl_bencana`;
-CREATE TABLE `tbl_bencana`  (
-  `id_bencana` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `kritik_saran`;
+CREATE TABLE `kritik_saran`  (
+  `id_kritik` int(11) NOT NULL AUTO_INCREMENT,
+  `kritik` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id_kritik`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of kritik_saran
+-- ----------------------------
+INSERT INTO `kritik_saran` VALUES (1, 'adad adada');
+INSERT INTO `kritik_saran` VALUES (2, '');
+INSERT INTO `kritik_saran` VALUES (3, '');
+INSERT INTO `kritik_saran` VALUES (4, 'Dhdgdv');
+
+-- ----------------------------
+-- Table structure for rekap_bencana
+-- ----------------------------
+DROP TABLE IF EXISTS `rekap_bencana`;
+CREATE TABLE `rekap_bencana`  (
+  `id_rekap` int(11) NOT NULL AUTO_INCREMENT,
+  `tgl_kejadian` date NULL DEFAULT NULL,
   `id_bencana_detail` int(11) NULL DEFAULT NULL,
-  `tgl_bencana` date NULL DEFAULT NULL,
+  `nama_kk` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `jumlah_jiwa` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `rt` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `rw` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `id_desa_detail` int(11) NULL DEFAULT NULL,
-  `penyebab_kejadian` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
-  `rusak_ringan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `rusak_sedang` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `rusak_berat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `md` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `lr` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `lb` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `pengungsi_jiwa` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `pengungsi_kk` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `nama_pelapor` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `tlp_darurat` char(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `kondisi_umum` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
-  `tindakan` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
-  `kendala` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `rusak_sedang` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `rusak_ringan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `terancam` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `meninggal_dunia` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `luka_luka` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `kronologi` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `kerugian` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `gambar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `latitude` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `longitude` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `status` int(11) NULL DEFAULT 0,
-  PRIMARY KEY (`id_bencana`) USING BTREE,
-  INDEX `desa`(`id_desa_detail`) USING BTREE,
-  INDEX `bcn_detail`(`id_bencana_detail`) USING BTREE,
-  CONSTRAINT `bcn_detail` FOREIGN KEY (`id_bencana_detail`) REFERENCES `bencana_detail` (`id_bencana_detail`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `desa` FOREIGN KEY (`id_desa_detail`) REFERENCES `desa_detail` (`id_desa_detail`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 219 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+  `status` int(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id_rekap`) USING BTREE,
+  INDEX `bencana_detail`(`id_bencana_detail`) USING BTREE,
+  INDEX `desa_detail`(`id_desa_detail`) USING BTREE,
+  CONSTRAINT `bencana_detail` FOREIGN KEY (`id_bencana_detail`) REFERENCES `bencana_detail` (`id_bencana_detail`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `des_kec_dtl` FOREIGN KEY (`id_desa_detail`) REFERENCES `desa_detail` (`id_desa_detail`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of tbl_bencana
+-- Records of rekap_bencana
 -- ----------------------------
-INSERT INTO `tbl_bencana` VALUES (4, 3, '2021-01-12', 41, 'Hujan intensitas sedang hingga lebat dan berdurasi panjang menjadi salah satu pemicu terjadinya longsor', NULL, '', '', NULL, NULL, NULL, '2', '1', 'Suprihno', NULL, '- Hujan intensitas sedang hingga lebat dan berdurasi panjang menjadi salah satu pemicu terjadinya longsor', 'Tindakan yang sudah dilakukan\r\n- Pelaporan awal\r\n- Tim BPBD melaksanakan Asesment\r\n- Koordinasi dengan Pemerintah Desa dan Destana\r\n\r\nSaran tindak lanjut\r\n- Evakuasi pembersihan material longsor\r\n- Mengalihkan dan mengendalikan aliran air hujan tidak mengarah ke tebing longsor\r\n- Menutup tebing longsor dengan terpal\r\n- Mengeringkan dan menutup Kolam ikan yang berada di atas tebing\r\n- Pemangkasan tebing secara teras iring\r\n- Menghimbau kepada pemilik rumah untuk selalu waspada saat musim hujan dan mengungsi sementara ketika situasi menghawatirkan', '1. Kebutuhan\r\n- Alkon untuk pembersihan material longsor\r\n- Terpal untuk penutup tebing longsor\r\n- Tenaga sukarelawan untuk kerjabhakti\r\n- Logistik permakanan untuk kerjabakti\r\n2. Potensi ancaman\r\nMasih bisa terjadi longsor susulan selama musim penghujan\r\n3. Kebutuhan\r\n- Alkon untuk pembersihan material longsor\r\n- Terpal untuk penutup tebing longsor\r\n- Tenaga sukarelawan untuk kerjabhakti\r\n- Logistik permakanan untuk kerjabakti', '', '-7.4756263', '109.4706236', 0);
-INSERT INTO `tbl_bencana` VALUES (5, 3, '2021-01-12', 44, ' Instensitas hujan dari siang sampai malam sehingga mengakibatkan tebing samping rumah longsor dengan ketinggian tebing sekitar 15 meter.', NULL, '1 Rumah', NULL, NULL, NULL, NULL, '', NULL, 'Bapak Ratun kasi kesra desa petir', '0852-2652-2211', 'Terjadi tanah longsor menimpa sebagian dapur rumah Bpk. Murtajah/Ibu lani di karenakan instensitas hujan dari siang sampai malam sehingga mengakibatkan tebing samping rumah longsor dengan ketinggian tebing sekitar 15 meter.', 'Babinsa Serka Andri berkordinasi bersama BPK Lurah pihak RT/RW. Beserta masyarakat setempat Dan melaporkan ke Komandan Ramil 08/Pwg. Lettu Inf Bahrul Anam.', NULL, '', '-7.4841662', '109.5172662', 0);
-INSERT INTO `tbl_bencana` VALUES (6, 3, '2021-01-12', 270, 'Hujan intensitas sedang hingga lebat ', '1 Rumah', '1 Rumah', '1 Rumah', NULL, NULL, NULL, '7', '2', 'Daryoto', NULL, 'Hujan intensitas sedang hingga lebat terjadi sejak pukul 16.00, WIB mengakibatkan tebing setinggi 8m longsor.', 'Tindakan yang sudah dilakukan\r\n- Pelaporan awal\r\n- Tim BPBD melaksanakan Asesment\r\n- Koordinasi dengan Pemerintah Desa\r\nSARAN TINDAK LANJUT\r\n- Evakuasi pembersihan material longsor\r\n- Menutup tebing longsor dengan terpal\r\n- Menghimbau kepada pemilik rumah untuk selalu waspada saat musim hujan dan mengungsi sementara.', 'KEBUTUHAN\r\n- Tenaga sukarelawan untuk kerja bakti\r\n- Logistik permakanan untuk kerja bakti\r\nPOTENSI ANCAMAN\r\nMasih bisa terjadi longsor susulan', '', '-7.4380619', '109.6746419', 0);
-INSERT INTO `tbl_bencana` VALUES (7, 3, '2021-01-15', 246, 'Hujan Dengan Itensitas Lebat Mengakibatkan\r\nRetakan tanah', NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, 'pak kades kalibening', '081326405042', '- Hujan Dengan Itensitas Lebat Mengakibatkan\r\nRetakan tanah di lahan Ratno RT 02/06 dan pak Sutono RT 01/02 dusun mangunan', '- Assestment Pada Lokasi Kejadian\r\n- pemasanganEWS', 'Saran TL / Kebutuhan\r\n- Kajian geologi terkait lumpur hitam dan mata air baru\r\nPotensi Ancaman\r\nApa bila terjadi hujan lebat masih bisa terjadi pergerakan tanah susulan', '', '-7.2389571', '109.5626442', 0);
-INSERT INTO `tbl_bencana` VALUES (41, 3, '2021-03-02', 247, 'karena adanya pergerakan tanah dan bangunan yang sudah mengalami pelapukan.', '1 Rumah', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Heru Purwoko ( kades )', '081325587322', 'Pada hari selasa ( 2/3/21), pada pukul 09.30 Wib, bangunan rumah atas nama Bp.Tusman ( 52/ 6 jiwa /2 KK), mengalami kerusakan.\r\nKerusakan terjadi pada unit rumah bagian dapur dan kamar mandi dengan luas bangunan rusak 5 x 6 m.\r\nKejadian disebabkan karena adanya pergerakan tanah dan bangunan yang sudah mengalami pelapukan.', 'Tindakan yang sudah dilakukan\r\n- Melakukan asesment\r\n- Distribusi logistik permakanan dan non makanan antara lain :\r\nBeras 5 kg\r\nMie instant 1 dus\r\nPeralatan makan 2 box\r\nKecap 2 botol\r\nGula 2 kg\r\nMinyak goreng 2 ltr\r\n\r\n- Pembersihan material longsor oleh warga.\r\n- Pembangunan talud kembali oleh pemilik rumah secara mandiri\r\n- Himbauan kepada pemilik rumah untuk meningkatkan kewaspadaan mengingat curah hujan masih tinggi', 'Kebutuhan\r\n- Diusulkan Bansos', '', '-7.2664689', '109.5775231', 0);
-INSERT INTO `tbl_bencana` VALUES (43, 3, '2021-03-07', 272, 'Hujan intensitas sedang hingga lebat ', '1 Rumah', NULL, NULL, NULL, NULL, NULL, '', NULL, 'Kades Twelagiri', '+6285327225224', 'Hujan intensitas sedang hingga lebat Yang Terjadi di wilayah Desa Twelagiri kec.pagedongan mengakibatkan talud setinggi -+10meter Lebar -+6 meter longsor menimpa dapur rumah milik Bpk kirno 55th,Serta Mengancam 2 Unit Rumah Milik Bpk Kusen Dan Bpk Admin', '-Pelaporan kejadian ,oleh Pemdes Twelagiri\r\n-Asesmen oleh petugas BPBD\r\n-Himbauan oleh petugas BPBD', 'Kebutuhan\r\n-Koordinasi Dengan Pihak Pemdes\r\n-logistik permakanan dan Peralatan Dapur serta Terpal\r\n-chainsaw\r\n\r\nPotensi Ancaman\r\nCurah hujan masih tinggi serta Saluran/Drainese yang tidak terkondisikan dg baik dapat mengakibatkan terjadinya longsor susulan.', '', '-7.4176915', '109.6108168', 1);
-INSERT INTO `tbl_bencana` VALUES (109, 3, '2021-12-21', 42, 'Hujan intensitas sedang hingga lebat terjadi di wilayah tersebut dengan durasi yang cukup lama.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Mahmudin/ Kades', '085290034100', 'Hujan intensitas sedang hingga lebat terjadi di wilayah kec Purwanegara dengan durasi yang lama.\r\nTerjadi tanah longsor di beberapa titik akses penghubung antar dusun.', 'Warga masyarakat bergotongroyong membuka ases secara manual untuk membuka jalur KR 2.\r\nKerja bakti pembersihan dan penanganan menggunakan alat berat karena akses jalan utama, jika hujan lebat bisa terjadi longsor susulan / putus total karena karena tanah labil dan membentuk tapal kuda\r\n', '', '', '-7.4765314', '109.4875121', 0);
-INSERT INTO `tbl_bencana` VALUES (111, 3, '2021-12-23', 212, 'Hujan intensitas sedang hingga lebat terjadi di wilayah tersebut dengan durasi yang cukup lama.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Suryono', NULL, 'Hujan intensitas sedang hingga lebat terjadi di wilayah Pejawaran, sehingga talud belakang rumah mengalami longsoran setinggi -+3 meter mengalami abrasi dan menyebabkan bagian bangunan tembok bagian belakang rumah dengan kerusakan 15%.', '- Pelaporan kepada instansi terkait.\r\n- Asesmen\r\n- Koordinasi dengan Pemerintah Desa Pejawaran\r\n- Kerja bakti pembuatan talud yang dilakukan oleh masyarakat sekitar\r\n- Pemberian Logistik Bahan Bangunan dan Sembako', NULL, '', '-7.2590162', '109.741678', 0);
-INSERT INTO `tbl_bencana` VALUES (112, 3, '2021-12-28', 251, 'Hujan intensitas sedang hingga lebat terjadi di wilayah tersebut dengan durasi yang cukup lama.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Alam syah tri Putra', NULL, 'Akibat hujan deras yang mengguyur wilayah Kec. Kalibening selama -+3 jam mengakibatkan tebing setinggi 5m longsor menimpa tembok rumah a/n Bpk. Anggit (Kalisat Kidul 01/04) sehingga mengakibatkan tembok rumah retak.', '- Cek lokasi\r\n- Kerja Bakti untuk pembersihanTanah longsor', NULL, '', '-7.2482944', '109.6258821', 0);
-INSERT INTO `tbl_bencana` VALUES (121, 4, '2021-04-03', 208, 'Hujan intensitas sedang hingga lebat disertai angin kencang, sehingga mengakibatkan Pohon Tumbang', NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, 'Sunanto (Pemilik Rumah)', NULL, 'Karena angin kencang yang terjadi sejak tadi pagi mengakibatkan longsor rumpun bambu menimpa rumah milik Bpk.Sunanto dan Bpk.Nikmat (rumah di huni 2KK berjumlah 5jiwa)', '-Melaporkan kepada instansi terkait.\r\n-Assestment\r\n-Pembersihan rumpun bambu oleh warga\r\n-Giat kerja bakti oleh warga sekitar', 'Kebutuhan\r\n- Akan di lakukan kerja bakti besok pada tanggal 04-04-2021\r\n- Logistik permakanan untuk kerja bakti\r\n- Alat dapur, Seng, Kalsibot, Kaso/Reng kayu\r\nPotensi Ancaman\r\n- Masih memungkinkan longsor karena kayu besar di sekitar rumah karena angin kencang.', '', '-7.2519632', '109.7151709', 0);
-INSERT INTO `tbl_bencana` VALUES (122, 4, '2021-04-03', 240, 'Hujan intensitas sedang hingga lebat disertai angin kencang, sehingga mengakibatkan Pohon Tumbang', NULL, '1 Rumah', NULL, NULL, NULL, NULL, '', NULL, 'Sukirno (Perangkat Desa)', NULL, 'Akibat angin kencang yang terjadi dari sekitar pukul 01.00 WIB dini hari sampai saat ini mengakibatkan atap rumah Bp Sutrino (6jiwa) terlepas dari kerangka bangunan.', '- Evakuasi material yang masih bisa di gunakan.\r\n- Evakuasi barang2 perabot\r\n- Perbaikan atap rumah oleh relawan DESTANA dan warga masyarakat\r\n- Distribusi logistik', 'Saran TL / Kebutuhan\r\n- Asesment\r\n- Distribusi lagistik permakanan dan non permakanan', '', '-7.2378349', '109.6761388', 0);
-INSERT INTO `tbl_bencana` VALUES (123, 4, '2021-04-03', 222, 'Hujan intensitas sedang hingga lebat disertai angin kencang, sehingga mengakibatkan Pohon Tumbang', '1 Rumah', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Daryoto', NULL, 'Angin kencang yag terjadi di wilayah kec. Batur mengakibatkan Sebagian atap terlepas dan kaca salah satu pintu pecah.', 'Melaporkan ke instansi terkait\r\n- Cek lokasi', NULL, '', '-7.2064271', '109.7618379', 0);
-INSERT INTO `tbl_bencana` VALUES (124, 4, '2021-04-03', 237, 'Akibat angin kencang', NULL, NULL, '2 kandang ayam', NULL, NULL, NULL, NULL, NULL, 'Icuk', NULL, 'Akibat angin kencang yang terjadi dari sekitar pukul 01.00 WIB dini hari sampai saat ini mengakibatkan bangunan kandang ayam luas 8 mtr x 40 mtr dengan kapasitas 5000 ekor ambruk. ayam2 yang terjebak dibawah bangunan baru berusia 4 hari dan sampai saat ini belum bisa dievakuasi karena bangunan lain masih rawan roboh mengingat angin masih kencang.\r\n', 'Tindakan yang sudah dilakukan\r\n- Assesmen kelokasi kejadian\r\n- Kordinasi dengan pengelola peternakan\r\n- Evakuasi menunggu angin reda.', NULL, '', '-7.2475099', '109.6861505', 0);
-INSERT INTO `tbl_bencana` VALUES (144, 1, '2021-02-12', 256, 'Hujan intensitas sedang hingga tinggi terjadi sejak beberapa pekan terakhir', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Kades gunung langit', '082 329 336 440', 'Hujan dengan intensitas lebat yang menguyur di kecamatan kalibening', 'Melaporkan ke dinas terkait', NULL, '', '-7.2012547', '109.5604694', 1);
-INSERT INTO `tbl_bencana` VALUES (148, 2, '2021-12-23', 270, 'rumah sengaja di bakar oleh Jamingan (ODGJ) pemilik rumah.', NULL, '1 Rumah', NULL, NULL, NULL, NULL, NULL, NULL, 'Wahyu', NULL, 'pada pukul 02.30 rumah sengaja di bakar oleh Jamingan (ODGJ) pemilik rumah', '- Pemadaman titik api yang masih nyala\r\n- Pendinginn Material', NULL, '', '-7.4464546', '109.5968662', 0);
-INSERT INTO `tbl_bencana` VALUES (180, 2, '2022-11-22', 2, 'adada', 'adad', 'adad', 'adad', 'adad', 'adad', 'adad', 'adad', 'adad', 'adada', 'asdada', 'asdasda', 'asdasd', 'adsadad', '', '-7.495001', '109.445563', 1);
-INSERT INTO `tbl_bencana` VALUES (181, 3, '2022-10-29', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '-7.4231092', '109.4829359', 1);
-INSERT INTO `tbl_bencana` VALUES (182, 3, '2022-10-20', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '-7.2724898', '109.6544121', 1);
-INSERT INTO `tbl_bencana` VALUES (214, 1, '2021-07-30', 1, '212', '121', '121', '212', '121', '1212', '1', '12', '212', '211', '212', '1dsqd', 'sdadad', '212', '', '-7.436596887931947', '109.58167136434305', 1);
-INSERT INTO `tbl_bencana` VALUES (218, 1, '2022-11-16', 122, 'asdad', 'asdasd', 'asdad', 'asda', 'asdad', 'dasda', 'asda', 'asdasd', 'dasda', 'asdasd', 'asdad', 'adad', 'asda', 'asdad', '335995.jpg', '-7.434848923812011', '109.51603527336478', 0);
+INSERT INTO `rekap_bencana` VALUES (1, '2022-01-01', 3, 'Nurdiyanto', '4', '5', '3', 190, NULL, NULL, NULL, '1', NULL, NULL, 'Terjadi bencana gerakan tanah jenis debris slide dan pensesaran susulan pada lokasi desa aribaya serta gerakan tanah susulan bebrapa titik lokasi . Pada wilayah pegunungan serayu utara, lokasi tersebut trdapat pada kelompok formasi rambatan merupakan daerah yang mempunyai morfologi perbukitan lereng sedang sampai lereng curam. Tersusun oleh pelapukan batuan breksi vulkanik, pasir tufaan, serpih, batu lempung. Daerah trsb dihuni warga desa yang mayoritas petani salak bercocok tanam disekitar wilayah tersebut', NULL, 'aribaya.png', '-7.3346617', '109.7538133', 1);
+INSERT INTO `rekap_bencana` VALUES (2, '2022-01-06', 2, 'Nimron', '2', '1', '3', 64, NULL, '1', NULL, NULL, NULL, NULL, 'Sumber api kebakaran diduga dari tungku yang ditinggalkan saat memasak nasi. Api menjalar ke dinding rumàh non permanen ukuran 4 x 5 M yang terbuat dari kayu dan membakar seluruh bangunan bagian dapur habis terbakar.', 'Rp. 10.000.000', 'binorong.png', '-7.410847', '109.6075', 1);
+INSERT INTO `rekap_bencana` VALUES (3, '2022-01-10', 3, 'Kamal', '4', '3', '4', 246, NULL, NULL, NULL, '1', NULL, NULL, 'Hujan yang mengakibatkan tanah longsor belakang rumah bpk Kamal dengan tinggi tebing 3m lebar 10m dan tidak ada korban jiwa maupun luka', NULL, 'binangun.png', '-7.217948', '109.635046', 0);
+INSERT INTO `rekap_bencana` VALUES (4, '2022-01-11', 3, 'Misrun', '5', '5', '2', 247, NULL, NULL, '1', NULL, NULL, NULL, 'Hujan deras dengan intensitas tinggi yang mengguyur wilayah Kabupaten Banjarnegara bagian atas pada hari Selasa 11 Januari 2022 Sehingga talud yg semi permanen longsor', 'Rp. 21.000.000', 'asinan.png', '-7.27162', '109.65689', 0);
+INSERT INTO `rekap_bencana` VALUES (5, '2022-01-11', 3, 'Tarmo', '5', '1', '1', 253, NULL, NULL, '1', NULL, NULL, NULL, 'Hujan yang cukup lebat dan pada saat Saksi 2 sedang derada di ruangan depan rumah, selanjutnya saksi 2 mendengar suara gemuruh dari belakang rumah, selanjutnya saksi 2 melihat ke arah belakang rumah di bagian dapur dan sudah terdapat longsoran tanah dari tebing di belakang rumah milik Saksi 1 dengan ukuran tinggi sekira 5 meter dan lebar sekira 7 meter, selajutnya saksi 2 memberitahukan peristiwa tersebut kepada Saksi 1 yang sedang berada di rumah saodaranya yang masih tinggal tidak jauh dari rumah saksi 1.', 'Rp. 7.250.000', 'kertosari.png', '-7.218212', '109.672551', 0);
+INSERT INTO `rekap_bencana` VALUES (6, '2022-01-13', 3, 'Darmanto', '4', '1', '5', 256, NULL, NULL, '1', '', NULL, NULL, 'Hujan deras dengan intensitas tinggi yang mengguyur wilayah Kabupaten Banjarnegara bagian atas', NULL, 'gununglangit.png', '-7.209834', '109.629442', 0);
+INSERT INTO `rekap_bencana` VALUES (7, '2022-01-11', 3, 'Hadi', '4', '1', '1', 250, NULL, NULL, '1', NULL, NULL, NULL, 'Curah hujan tinggi menyebabkan tebing longsor dan menimpa rumah milik Bapak Hadi sehingga tembok dapur jebol.', 'Rp.3.500.000', 'majatengah', '-7.222251', '109.64814', 0);
+INSERT INTO `rekap_bencana` VALUES (8, '2022-01-11', 3, 'Sukiswo', '5', '1', '5', 268, NULL, '1', NULL, NULL, NULL, NULL, 'Intensitas hujan yang tinggi sehingga air sungai sokaraja Desa Pringamba meluap dan terjadi abrasi yang mengakibatkan talud pengaman rumah yang berada ditepian sungai sokaraja, talud berukuran +- P : 15 m dan L : 3 m mengalami ambruk dan mengancam rumah warga.', 'Rp. 30.000.000', 'pringamba.pnh', '-7.243883', '109.601042', 0);
+INSERT INTO `rekap_bencana` VALUES (9, '2022-01-11', 3, 'Mundori', '4', '2', '1', 269, NULL, '1', NULL, NULL, NULL, NULL, 'Intensitas hujan yang tinggi memicu terjadinya talud pengaman rumah berukuran +- P : 15 m T : m ambruk, hal ini juga dipicu kurangnya suling2 pada Talud tersebut dan kurangnya penataan saluran pembuangan air rumah tangga.', 'Rp. 50.000.000', 'beji.png', '-7.252993', '109.603951', 0);
+INSERT INTO `rekap_bencana` VALUES (10, '2022-01-14', 2, 'Priyono', '6', '1', '4', 237, NULL, '1', NULL, NULL, NULL, NULL, 'Pada pukul 11.00 wib pemilik dan beberapa karyawan meninggalkan ruang setelah selesai memproduksi tahu namun saat ditinggal untuk beristirahat bara api ditungku belum mati/padam seluruhnya.\r\nDimungkinkan percikan sisa bara api mengenai tumpukan kayu disamping tungku dan menimbulkan kobaran api yang kemudian menjalar keseluruh ruang produksi tahu.\r\nKobaran api baru diketahui oleh salah satu warga atas nama Ardi (33) yang baru pulang dari luar kota pada pukul 00.30 WIB kemudian saksi mata membangunkan warga untuk melakukan pemadaman dengan menggunakan peralatan seadanya. Pemadaman selesai pada pukul 02.00 WIB', 'Rp. 8.000.000', 'wanayasa.png', '-7.248573', '109.745965', 0);
+INSERT INTO `rekap_bencana` VALUES (11, '2022-02-09', 1, 'danaraja', NULL, '4', '3', 48, NULL, NULL, NULL, '1', NULL, NULL, 'Hujan deras dengan intensitas tinggi dari jam 14:30 -16:00 mengakibatkan sebagian rumah warga di Desa Dieng kulon terendam banjir setinggi 30 - 50cm. Drainase yg kurang memadai menjadi penyebab meluapnya air', NULL, NULL, '-7.445817', '109.538561', 1);
+INSERT INTO `rekap_bencana` VALUES (12, '2022-02-03', 1, 'Jl Prov', NULL, '1', '2', 226, NULL, NULL, NULL, '1', NULL, NULL, 'Hujan deras dengan intensitas tinggi dari jam 11:30 -15:00 mengakibatkan sebagian rumah warga di Desa Bakal terendam banjir setinggi 30 - 50cm. Drainase yg kurang memadai menjadi penyebab meluapnya air dari selokan warga & aliran air dari gunung.', NULL, NULL, '-7.2196788', '109.8788694', 0);
+INSERT INTO `rekap_bencana` VALUES (13, '2022-01-09', 1, 'Jl Desa', NULL, '1', '4', 225, NULL, NULL, NULL, '1', NULL, NULL, 'Hujan deras dengan intensitas tinggi dari jam 14:30 -16:00 mengakibatkan sebagian rumah warga di Desa Kepakisan terendam banjir setinggi 30 - 50cm. Drainase yg kurang memadai menjadi penyebab meluapnya air dari selokan warga & aliran air dari gunung.', NULL, NULL, '-7.1985662', '109.8741785', 1);
+INSERT INTO `rekap_bencana` VALUES (14, '2022-02-09', 5, 'Rumah Warga', NULL, '1', '1', 270, NULL, NULL, NULL, '1', NULL, NULL, NULL, NULL, NULL, '-7.438977', '109.681291', 0);
+INSERT INTO `rekap_bencana` VALUES (15, '2022-01-26', 2, 'Sugianto', '6', '1', '4', 145, NULL, NULL, '1', NULL, NULL, NULL, 'Sekitar pukul 20:20 Wib .warga melihat api di samping rumahnya pak sugianto ,kemudian berteriak,serta melakukan pemadaman dengan menyiram air dari kolam dibantu oleh warga sekitar.', 'Rp. 1.750.000', 'linggasari.png', '-7.374762', '109.658307', 1);
+INSERT INTO `rekap_bencana` VALUES (17, '2022-01-01', 2, '$nama_kk', '$jumlah_jiwa', '$rt', '$rw', 1, '$rusak_berat', '$rusak_sedang', '$rusak_ringan', '$terancam', '$meninggal_dunia', '$luka_luka', '$kronologi', '$kerugian', '$file', '$lat', '$lng', 0);
+INSERT INTO `rekap_bencana` VALUES (18, '2022-11-29', 2, 'Afs', '5', '58', '8', 8, '2', '0', '5', '22', '1', '8', 'Zjfdgv', '805698', 'rn_image_picker_lib_temp_046e5ffc-7a67-4b4b-90cb-aa22399eb73f.jpg', '-7.40494322010039', '109.28081374615431', 0);
+INSERT INTO `rekap_bencana` VALUES (19, '2022-11-29', 2, 'Afs', '5', '58', '8', 8, '2', '0', '5', '22', '1', '8', 'Zjfdgv', '805698', 'rn_image_picker_lib_temp_046e5ffc-7a67-4b4b-90cb-aa22399eb73f.jpg', '-7.40494322010039', '109.28081374615431', 0);
+INSERT INTO `rekap_bencana` VALUES (20, '2022-11-29', 2, 'Afs', '5', '58', '8', 8, '2', '0', '5', '22', '1', '8', 'Zjfdgv', '805698', 'rn_image_picker_lib_temp_046e5ffc-7a67-4b4b-90cb-aa22399eb73f.jpg', '-7.40494322010039', '109.28081374615431', 0);
+INSERT INTO `rekap_bencana` VALUES (21, '2022-11-29', 3, 'ada', '5', '6', '8', 12, '5', '0', '0', '1', '3', '0', 'dadadqd', '225452', 'rn_image_picker_lib_temp_d3c95cab-d097-4150-b535-984b3f0a0027.jpg', '-7.500173762828205', '109.3794583529234', 0);
+INSERT INTO `rekap_bencana` VALUES (22, '2022-11-29', 3, 'ada', '5', '6', '8', 12, '5', '0', '0', '1', '3', '0', 'dadadqd', '225452', 'rn_image_picker_lib_temp_d3c95cab-d097-4150-b535-984b3f0a0027.jpg', '-7.500173762828205', '109.3794583529234', 0);
+INSERT INTO `rekap_bencana` VALUES (23, '2022-11-29', 3, 'ada', '5', '6', '8', 12, '5', '0', '0', '1', '3', '0', 'dadadqd', '225452', 'rn_image_picker_lib_temp_d3c95cab-d097-4150-b535-984b3f0a0027.jpg', '-7.500173762828205', '109.3794583529234', 0);
+INSERT INTO `rekap_bencana` VALUES (24, '2022-11-10', 2, 'ada', '5', '6', '8', 8, '5', '0', '0', '0', '0', '9', 'Agsf', '82000', 'rn_image_picker_lib_temp_9a4ac5ad-eadb-4b3c-afdb-a6a829b313fb.jpg', '-7.501734081588775', '109.3766239285469', 0);
+INSERT INTO `rekap_bencana` VALUES (25, '2022-11-10', 2, 'ada', '5', '6', '8', 8, '5', '0', '0', '0', '0', '9', 'Agsf', '82000', 'rn_image_picker_lib_temp_9a4ac5ad-eadb-4b3c-afdb-a6a829b313fb.jpg', '-7.501734081588775', '109.3766239285469', 0);
+INSERT INTO `rekap_bencana` VALUES (26, '2022-11-10', 2, 'ada', '5', '6', '8', 8, '5', '0', '0', '0', '0', '9', 'Agsf', '82000', 'rn_image_picker_lib_temp_9a4ac5ad-eadb-4b3c-afdb-a6a829b313fb.jpg', '-7.501734081588775', '109.3766239285469', 0);
+INSERT INTO `rekap_bencana` VALUES (27, '2022-11-10', 2, 'ada', '5', '6', '8', 8, '5', '0', '0', '0', '0', '9', 'Agsf', '82000', 'rn_image_picker_lib_temp_9a4ac5ad-eadb-4b3c-afdb-a6a829b313fb.jpg', '-7.501734081588775', '109.3766239285469', 0);
+INSERT INTO `rekap_bencana` VALUES (28, '2022-11-10', 2, 'ada', '5', '6', '8', 8, '5', '0', '0', '0', '0', '9', 'Agsf', '82000', 'rn_image_picker_lib_temp_9a4ac5ad-eadb-4b3c-afdb-a6a829b313fb.jpg', '-7.501734081588775', '109.3766239285469', 0);
+INSERT INTO `rekap_bencana` VALUES (29, '0000-00-00', 2, 'ada', '31', '3', '12', 121, '58', '2', '2', '3', '0', '0', 'adqdasd', '124124', 'rn_image_picker_lib_temp_081dcdca-7c7a-4ad3-9774-82ce6eee6862.jpg', '-7.50033065921563', '109.37683012336493', 0);
+INSERT INTO `rekap_bencana` VALUES (30, '0000-00-00', 2, 'ada', '31', '3', '12', 121, '58', '2', '2', '3', '0', '0', 'adqdasd', '124124', 'rn_image_picker_lib_temp_081dcdca-7c7a-4ad3-9774-82ce6eee6862.jpg', '-7.50033065921563', '109.37683012336493', 0);
+INSERT INTO `rekap_bencana` VALUES (31, '2022-12-01', 2, 'Tf', '8', '6', '0', 124, '6', '5', '6', '3', '5', '2', 'Dgf', '25', 'rn_image_picker_lib_temp_3cdffbfc-c9b9-488d-8fa6-fa268d092005.jpg', '-7.501739400092237', '109.3766138702631', 0);
 
 SET FOREIGN_KEY_CHECKS = 1;
