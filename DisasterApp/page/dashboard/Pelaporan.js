@@ -211,7 +211,7 @@ const Pelaporan = () => {
     name: name,
   };
   const getData = () => {
-    fetch('http://192.168.1.7/aplikasiV2/restapi.php?op=input')
+    fetch('http://192.168.18.18/aplikasiV2/restapi.php?op=input')
       .then(response => response.json())
       .then(json => {
         // console.log(json);
@@ -221,7 +221,7 @@ const Pelaporan = () => {
   };
 
   const getBencana = () => {
-    fetch('http://192.168.1.7/aplikasiV2/restapi.php?op=getBencana')
+    fetch('http://192.168.18.18/aplikasiV2/restapi.php?op=getBencana')
       .then(response => response.json())
       .then(json => {
         // console.log(json);
@@ -250,7 +250,7 @@ const Pelaporan = () => {
     formData.append('kerugian', kerugian);
     formData.append('lat', lat);
     formData.append('lng', lng);
-    fetch('http://192.168.1.7/aplikasiV2/restapi.php?op=inputData', {
+    fetch('http://192.168.18.18/aplikasiV2/restapi.php?op=inputData', {
       method: 'post',
       body: formData,
       headers: {
@@ -451,7 +451,7 @@ const Pelaporan = () => {
               style={styles.input}
               onChangeText={setRusak_berat}
               value={rusak_berat}
-              maxLength={4}
+              maxLength={100}
               
             />
             <TextInput
@@ -461,7 +461,7 @@ const Pelaporan = () => {
               style={styles.input}
               onChangeText={setRusak_sedang}
               value={rusak_sedang}
-              maxLength={4}
+              maxLength={100}
               
             />
             <TextInput
@@ -471,7 +471,7 @@ const Pelaporan = () => {
               style={styles.input}
               onChangeText={setRusak_ringan}
               value={rusak_ringan}
-              maxLength={4}
+              maxLength={100}
               
             />
             <TextInput
